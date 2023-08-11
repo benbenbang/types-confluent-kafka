@@ -2,13 +2,13 @@ from __future__ import annotations
 
 # standard library
 from types import TracebackType
-from typing import Any, Dict, Tuple
+from typing import Any
 
 # Pre-req Types
-ConfigDict = Dict[str, Any]
+ConfigDict = dict[str, Any]
 ClusterMetadata = Any
 KafkaValue = str | bytes
-KeyValueTuple = Tuple[str, KafkaValue]
+KeyValueTuple = tuple[str, KafkaValue]
 
 # Constants
 ACL_OPERATION_ALL: int
@@ -230,7 +230,12 @@ class KafkaError:
         fatal: bool = False,
         retriable: bool = False,
         txn_requires_abort: bool = False,
-    ) -> None: ...
+    ) -> None:
+        """
+        Note:
+            - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#kafkaerror
+        """
+        ...
     def code(self) -> int: ...
     def fatal(self) -> bool: ...
     def name(self) -> str: ...
@@ -240,8 +245,60 @@ class KafkaError:
 
 class KafkaException(Exception):
     # Attributes
-    args: Tuple[str | KafkaError]
+    args: tuple[str | KafkaError]
+
     # Methods
-    def __init__(self, error: KafkaError | None = None, *args, **kwargs) -> None: ...
+    def __init__(self, error: KafkaError | None = None, *args, **kwargs) -> None:
+        """
+        Note:
+            - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#kafkaexception
+            - Kafka exception that wraps the KafkaError class. Use `exception.args[0]` to extract the `KafkaError` object
+        """
+        ...
     def add_note(self, note: str) -> None: ...
     def with_traceback(self, traceback: TracebackType | None) -> Any: ...
+
+class Message:
+    """
+    Note:
+        doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#message
+    """
+
+    # Methods
+    def error(self) -> KafkaError | None: ...
+    def headers(self) -> list[KeyValueTuple] | None: ...
+    def key(self) -> KafkaValue | None: ...
+    def latency(self) -> float | None: ...
+    def leader_epoch(self) -> int | None: ...
+    def offset(self) -> int | None: ...
+    def partition(self) -> int | None: ...
+    def set_headers(self, value: list[KeyValueTuple]) -> None: ...
+    def set_key(self, value: KafkaValue) -> None: ...
+    def set_value(self, value: KafkaValue) -> None: ...
+    def timestamp(self) -> tuple[int, int]: ...
+    def topic(self) -> str | None: ...
+    def value(self) -> KafkaValue | None: ...
+
+class NewTopic:
+    def __init__(
+        self,
+        topic: str,
+        num_partitions: int = -1,
+        replication_factor: int = -1,
+        replica_assignment: list[list[str]] | None = None,
+        config: dict[str, str] | None = None,
+    ) -> None:
+        """
+        Note:
+            - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#newtopic
+            - config reference: http://kafka.apache.org/documentation.html#topicconfigs
+        """
+        ...
+
+class NewPartitions:
+    def __init__(self, topic: str, new_total_count: int, replica_assignment: list[list[str]] | None = None) -> None:
+        """
+        Note:
+            - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#newpartitions
+        """
+        ...
