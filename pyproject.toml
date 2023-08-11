@@ -6,7 +6,10 @@ authors = ["benbenbang <bn@bitbrew.dev>"]
 license = "Apache"
 readme = "README.md"
 packages = [
-  {include = "confluent_kafka_stubs"}
+    { include = "confluent_kafka-stubs" }
+]
+exclude = [
+    "confluent_kafka-stubs/__init__.py"
 ]
 
 [tool.poetry.dependencies]
