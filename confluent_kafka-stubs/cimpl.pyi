@@ -58,6 +58,9 @@ TIMESTAMP_CREATE_TIME: int
 TIMESTAMP_LOG_APPEND_TIME: int
 TIMESTAMP_NOT_AVAILABLE: int
 
+class _AdminClientImpl:
+    pass
+
 class KafkaError:
     # Class Private Vars
     _ALL_BROKERS_DOWN: int
@@ -300,5 +303,20 @@ class NewPartitions:
         """
         Note:
             - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#newpartitions
+        """
+        ...
+
+class TopicPartition:
+    def __init__(
+        self,
+        topic: str,
+        partition: int = -1,
+        offset: int = -1001,
+        metadata: str | None = None,
+        leader_epoch: int | None = None,
+    ) -> None:
+        """
+        Note:
+            - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#topicpartition
         """
         ...
