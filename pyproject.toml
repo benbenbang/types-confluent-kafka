@@ -24,6 +24,10 @@ ruff = "^0.0.284"
 pre-commit = "^3.3.3"
 mypy = "^1.5.0"
 
+
+[tool.poetry.group.publish.dependencies]
+twine = "^4.0.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
