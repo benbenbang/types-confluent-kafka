@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 # standard library
+from types import TracebackType
 from typing import Any, Dict, Tuple
 
 # Pre-req Types
@@ -236,3 +237,11 @@ class KafkaError:
     def retriable(self) -> bool: ...
     def str(self) -> str: ...
     def txn_requires_abort(self) -> bool: ...
+
+class KafkaException(Exception):
+    # Attributes
+    args: Tuple[str | KafkaError]
+    # Methods
+    def __init__(self, error: KafkaError | None = None, *args, **kwargs) -> None: ...
+    def add_note(self, note: str) -> None: ...
+    def with_traceback(self, traceback: TracebackType | None) -> Any: ...
