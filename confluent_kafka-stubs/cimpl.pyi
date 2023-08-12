@@ -4,9 +4,32 @@ from __future__ import annotations
 from types import TracebackType
 from typing import Any, Callable, ClassVar
 
-# To-Do: the following aliases should be found in the c implementation
-ConsumerGroupState = object
-ConsumerGroupTopicPartitions = object
+# pypi/conda library
+from _model import ConsumerGroupState, ConsumerGroupTopicPartitions, Node
+
+__all__ = [
+    "admin",
+    "Consumer",
+    "KafkaError",
+    "KafkaException",
+    "kafkatest",
+    "libversion",
+    "Message",
+    "OFFSET_BEGINNING",
+    "OFFSET_END",
+    "OFFSET_INVALID",
+    "OFFSET_STORED",
+    "Producer",
+    "DeserializingConsumer",
+    "SerializingProducer",
+    "TIMESTAMP_CREATE_TIME",
+    "TIMESTAMP_LOG_APPEND_TIME",
+    "TIMESTAMP_NOT_AVAILABLE",
+    "TopicPartition",
+    "Node",
+    "ConsumerGroupTopicPartitions",
+    "ConsumerGroupState",
+]
 
 def libversion() -> tuple[str, int]: ...
 def version() -> tuple[str, int]: ...
