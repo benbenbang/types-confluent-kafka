@@ -1,19 +1,57 @@
 # types-confluent-kafka
 
-This package only contains type hints for the `confluent-kafka` python package. It may be useful to add type checking for `mypy`, or autocompletion in your *language server*.
+ [![PyPI version](https://badge.fury.io/py/types-confluent-kafka.svg)](https://badge.fury.io/py/types-confluent-kafka)
 
-This package is not endorsed by Confluent.
+`types-confluent-kafka` is a package that provides type hints for the `confluent-kafka` Python package. It's designed to enhance your development experience by enabling type checking with tools like `mypy` and providing auto-completion support in your LSP (language server).
+
+
+
+**Important Note:** Confluent **does not** officially endorse this package.
+
+
 
 ## Installation
 
 The package can be installed from [PyPI](https://pypi.org/project/types-confluent-kafka/)
 
 ```bash
-pip install types-confluent-kafka
+pip install --no-cache-dir types-confluent-kafka
 ```
 
-alternatively
-```
-mypy ./your_codebase
+alternatively,
+```bash
+mypy ./your_confluent_kafka_codebase
 mypy --install-types
 ```
+
+
+
+## Semantic versioning
+
+`types-confluent-kafka` follows [Semantic Versioning 2.0.0](https://semver.org/). This means that we use version numbers like `MAJOR.MINOR.PATCH` to indicate changes in the package:
+
+- `MAJOR` version for incompatible API changes,
+- `MINOR` version for adding new features in a backward-compatible manner,
+- `PATCH` version for backward-compatible bug fixes.
+
+This package will be released as frequently as possible to iterate faster and provide you with the latest features and improvements. Frequent releases also allow us to quickly address and release bug fixes to ensure the stability of the package.
+
+
+
+## Contribution
+
+Contributions to `types-confluent-kafka` are welcome and encouraged! If you want to contribute, please follow these steps:
+
+1. Fork this repository.
+2. Create a new branch for your contribution: `git checkout -b feature/your-feature-name`.
+3. Make your changes and ensure that the tests are passing.
+4. Open a pull request describing your changes and their purpose.
+5. The PR needs to link to an issue.
+
+Please note that this project follows the Contributor Covenant Code of Conduct. By participating, you are expected to uphold this code.
+
+
+
+## License
+
+This project is licensed under the [Apache 2.0 License](https://chat.openai.com/c/LICENSE). You are free to use, modify, and distribute the code according to the terms of this license.
