@@ -1,5 +1,6 @@
 from . import admin, kafkatest
 from ._model import ConsumerGroupState, ConsumerGroupTopicPartitions, Node
+from .cimpl import version  # pyright: ignore # pylint: disable
 from .cimpl import (
     OFFSET_BEGINNING,
     OFFSET_END,
@@ -15,7 +16,6 @@ from .cimpl import (
     Producer,
     TopicPartition,
     libversion,
-    version,
 )
 from .deserializing_consumer import DeserializingConsumer
 from .serializing_producer import SerializingProducer
@@ -44,4 +44,4 @@ __all__ = [
     "ConsumerGroupState",
 ]
 
-__version__: str = version()[0]
+__version__: str
