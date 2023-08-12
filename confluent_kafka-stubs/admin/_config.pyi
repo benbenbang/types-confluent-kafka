@@ -9,7 +9,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import TYPE_CHECKING, Literal
 
-from ._resource import ResourceType as ResourceType
+from ._resource import ResourceType
 
 if TYPE_CHECKING:
     from ..cimpl import KafkaError
