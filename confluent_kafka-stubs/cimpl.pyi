@@ -2,7 +2,7 @@ from __future__ import annotations
 
 # standard library
 from types import TracebackType
-from typing import Any
+from typing import Any, Callable
 
 # Pre-req Types
 ConfigDict = dict[str, Any]
@@ -320,3 +320,61 @@ class TopicPartition:
             - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#topicpartition
         """
         ...
+
+class Producer:
+    """
+    Note:
+        - doc: https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html#producer
+        - Asynchronous Kafka Producer
+    """
+
+    # Methods
+    def __init__(self, config: ConfigDict) -> None: ...
+    def abort_transaction(self, timeout: float | None = None) -> None: ...
+    def begin_transaction(self) -> None: ...
+    def commit_transaction(self, timeout: float | None = None) -> None:
+        """
+        Note:
+            - timeout unit - second
+        """
+        ...
+    def flush(self, timeout: float | None = None) -> int:
+        """
+        Note:
+            - timeout unit - second
+        """
+        ...
+    def init_transactions(self, timeout: float | None = None) -> None:
+        """
+        Note:
+            - timeout unit - second
+        """
+        ...
+    def list_topics(self, topic: str | None = None, timeout: float = -1) -> ClusterMetadata: ...
+    def poll(self, timeout: float | None = None) -> int:
+        """
+        Note:
+            - timeout unit - second
+        """
+        ...
+    def produce(
+        self,
+        topic: str,
+        value: KafkaValue | None = None,
+        key: KafkaValue | None = None,
+        partition: int | None = None,
+        on_delivery: Callable | None = None,
+        timestamp: int = 0,
+        headers: dict[str, KafkaValue] | list[tuple[str, KafkaValue]] | None = None,
+    ) -> None: ...
+    def purge(self, in_queue: bool = True, in_flight: bool = True, blocking: bool = True) -> None: ...
+    def send_offsets_to_transactions(
+        self, positions: list[TopicPartition], group_metadata: object, timeout: float | None = None
+    ) -> None:
+        """
+        Note:
+            - timeout unit - second
+        """
+        ...
+    def set_sasl_credentials(self, username: str, password: str) -> None: ...
+    def __len__(self) -> int: ...
