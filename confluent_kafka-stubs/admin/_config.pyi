@@ -7,7 +7,7 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import TYPE_CHECKING, Literal
+from typing import TYPE_CHECKING, Literal, Type
 
 from ._resource import ResourceType
 
@@ -43,11 +43,9 @@ class ConfigEntry:
     ) -> None: ...
 
 class ConfigResource:
-    Type = ResourceType
-
     def __init__(
         self,
-        restype: "Type",
+        restype: Type[ConfigResource],
         name: str,
         set_config: dict[str, str] | None = None,
         described_configs: dict | None = ...,

@@ -24,7 +24,7 @@ class ClusterMetadata:
 
 class BrokerMetadata:
     id: ClassVar[int] = -1
-    host: ClassVar[str] | None = None
+    host: ClassVar[str | None] = None
     port: ClassVar[int] = -1
     def __init__(self) -> None: ...
 
