@@ -97,5 +97,6 @@ exclude = '''
 (\
   | .venv
   | .cache
+  | confluent-kafka-python
 )/
 '''
