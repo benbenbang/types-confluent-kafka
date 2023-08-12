@@ -31,7 +31,7 @@ class ConfigSource(Enum):
 class ConfigEntry:
     def __init__(
         self,
-        name,
+        name: str,
         value,
         source=Literal["UNKNOWN_CONFIG"],
         is_read_only: bool = False,
