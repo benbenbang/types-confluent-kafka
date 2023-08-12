@@ -2,17 +2,10 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import ClassVar
+from typing import TYPE_CHECKING, ClassVar, Literal
 
-from ..cimpl import (
-    CONSUMER_GROUP_STATE_COMPLETING_REBALANCE,
-    CONSUMER_GROUP_STATE_DEAD,
-    CONSUMER_GROUP_STATE_EMPTY,
-    CONSUMER_GROUP_STATE_PREPARING_REBALANCE,
-    CONSUMER_GROUP_STATE_STABLE,
-    CONSUMER_GROUP_STATE_UNKNOWN,
-    TopicPartition,
-)
+if TYPE_CHECKING:
+    from ..cimpl import TopicPartition
 
 class Node:
     id_string: ClassVar[str]
@@ -20,14 +13,14 @@ class Node:
     def __init__(self, id: int, host: str, port: int, rack: str | None = None) -> None: ...
 
 class ConsumerGroupTopicPartitions:
-    def __init__(self, group_id: str, topic_partitions: list[TopicPartition] | None = None) -> None: ...
+    def __init__(self, group_id: str, topic_partitions: list["TopicPartition"] | None = None) -> None: ...
 
 class ConsumerGroupState(Enum):
-    UNKNOWN = CONSUMER_GROUP_STATE_UNKNOWN
-    UNKOWN = UNKNOWN
-    PREPARING_REBALANCING = CONSUMER_GROUP_STATE_PREPARING_REBALANCE
-    COMPLETING_REBALANCING = CONSUMER_GROUP_STATE_COMPLETING_REBALANCE
-    STABLE = CONSUMER_GROUP_STATE_STABLE
-    DEAD = CONSUMER_GROUP_STATE_DEAD
-    EMPTY = CONSUMER_GROUP_STATE_EMPTY
+    UNKNOWN = Literal["CONSUMER_GROUP_STATE_UNKNOWN"]
+    UNKOWN = Literal["UNKNOWN"]
+    PREPARING_REBALANCING = Literal["CONSUMER_GROUP_STATE_PREPARING_REBALANCE"]
+    COMPLETING_REBALANCING = Literal["CONSUMER_GROUP_STATE_COMPLETING_REBALANCE"]
+    STABLE = Literal["CONSUMER_GROUP_STATE_STABLE"]
+    DEAD = Literal["CONSUMER_GROUP_STATE_DEAD"]
+    EMPTY = Literal["CONSUMER_GROUP_STATE_EMPTY"]
     def __lt__(self, other): ...
