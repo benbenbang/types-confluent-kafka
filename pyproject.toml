@@ -91,6 +91,7 @@ markers = [
 [tool.mypy]
 ignore_missing_imports=true
 warn_unreachable=true
+enable_incomplete_feature="Unpack"
 
 [tool.black]
 exclude = '''
