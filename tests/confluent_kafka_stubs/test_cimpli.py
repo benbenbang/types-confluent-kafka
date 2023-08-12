@@ -1,2 +1,9 @@
 # pypi/conda library
-from confluent_kafka import Consumer, KafkaError, KafkaException, Message, NewPartitions, NewTopic
+from confluent_kafka import (
+    Consumer,
+    ConsumerGroupState,
+    ConsumerGroupTopicPartitions,
+    KafkaError,
+    KafkaException,
+    Message,
+)

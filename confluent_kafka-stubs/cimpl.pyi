@@ -4,10 +4,6 @@ from __future__ import annotations
 from types import TracebackType
 from typing import Any, Callable, ClassVar
 
-# To-Do: the following aliases should be found in the c implementation
-ConsumerGroupState = object
-ConsumerGroupTopicPartitions = object
-
 def libversion() -> tuple[str, int]: ...
 def version() -> tuple[str, int]: ...
 
