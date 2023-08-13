@@ -21,7 +21,7 @@ class ResourceType(Enum):
     TOPIC: Literal["RESOURCE_TOPIC"]
     GROUP: Literal["RESOURCE_GROUP"]
     BROKER: Literal["RESOURCE_BROKER"]
-    def __lt__(self, other) -> bool: ...
+    def __lt__(self, other: "ResourceType") -> bool: ...
 
 class ResourcePatternType(Enum):
     """
@@ -37,4 +37,4 @@ class ResourcePatternType(Enum):
     MATCH: Literal["RESOURCE_PATTERN_MATCH"]
     LITERAL: Literal["RESOURCE_PATTERN_LITERAL"]
     PREFIXED: Literal["RESOURCE_PATTERN_PREFIXED"]
-    def __lt__(self, other) -> bool: ...
+    def __lt__(self, other: "ResourcePatternType") -> bool: ...
