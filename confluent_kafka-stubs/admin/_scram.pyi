@@ -7,9 +7,9 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import Literal, Type
+from typing import Literal
 
-from .. import cimpl
+from .. import cimpl as cimpl
 
 class ScramMechanism(Enum):
     UNKNOWN: Literal["cimpl.SCRAM_MECHANISM_UNKNOWN"]

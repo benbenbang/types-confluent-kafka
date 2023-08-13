@@ -6,9 +6,10 @@ This package is licensed under the Apache 2.0 License.
 from __future__ import annotations
 
 from .._model import ConsumerGroupState as ConsumerGroupState
-from .._model import Node
+from .._model import Node as Node
 from .._util import ConversionUtil as ConversionUtil
-from ..cimpl import KafkaException, TopicPartition
+from ..cimpl import TopicPartition as TopicPartition
+from ..error import KafkaException as KafkaException
 
 class ConsumerGroupListing:
     def __init__(

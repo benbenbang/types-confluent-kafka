@@ -12,42 +12,48 @@ from typing import Any
 from confluent_kafka._model import ConsumerGroupTopicPartitions
 
 from .._model import ConsumerGroupState
-from ..cimpl import (
-    CONFIG_SOURCE_DEFAULT_CONFIG,
-    CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG,
-    CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG,
-    CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG,
-    CONFIG_SOURCE_STATIC_BROKER_CONFIG,
-    CONFIG_SOURCE_UNKNOWN_CONFIG,
-    RESOURCE_ANY,
-    RESOURCE_BROKER,
-    RESOURCE_GROUP,
-    RESOURCE_TOPIC,
-    RESOURCE_UNKNOWN,
-    KafkaException,
-    NewPartitions,
-    NewTopic,
-    _AdminClientImpl,
-)
-from ._acl import AclBinding, AclBindingFilter, AclOperation, AclPermissionType
-from ._config import AlterConfigOpType, ConfigEntry, ConfigResource, ConfigSource
-from ._group import (
-    ConsumerGroupDescription,
-    ConsumerGroupListing,
-    ListConsumerGroupsResult,
-    MemberAssignment,
-    MemberDescription,
-)
-from ._metadata import BrokerMetadata, ClusterMetadata, GroupMember, GroupMetadata, PartitionMetadata, TopicMetadata
-from ._resource import ResourcePatternType, ResourceType
-from ._scram import (
-    ScramCredentialInfo,
-    ScramMechanism,
-    UserScramCredentialAlteration,
-    UserScramCredentialDeletion,
-    UserScramCredentialsDescription,
-    UserScramCredentialUpsertion,
-)
+from ..cimpl import CONFIG_SOURCE_DEFAULT_CONFIG as CONFIG_SOURCE_DEFAULT_CONFIG
+from ..cimpl import CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG
+from ..cimpl import CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG
+from ..cimpl import CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG as CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG
+from ..cimpl import CONFIG_SOURCE_STATIC_BROKER_CONFIG as CONFIG_SOURCE_STATIC_BROKER_CONFIG
+from ..cimpl import CONFIG_SOURCE_UNKNOWN_CONFIG as CONFIG_SOURCE_UNKNOWN_CONFIG
+from ..cimpl import RESOURCE_ANY as RESOURCE_ANY
+from ..cimpl import RESOURCE_BROKER as RESOURCE_BROKER
+from ..cimpl import RESOURCE_GROUP as RESOURCE_GROUP
+from ..cimpl import RESOURCE_TOPIC as RESOURCE_TOPIC
+from ..cimpl import RESOURCE_UNKNOWN as RESOURCE_UNKNOWN
+from ..cimpl import KafkaException as KafkaException
+from ..cimpl import NewPartitions as NewPartitions
+from ..cimpl import NewTopic as NewTopic
+from ..cimpl import _AdminClientImpl as _AdminClientImpl
+from ._acl import AclBinding as AclBinding
+from ._acl import AclBindingFilter as AclBindingFilter
+from ._acl import AclOperation as AclOperation
+from ._acl import AclPermissionType as AclPermissionType
+from ._config import AlterConfigOpType as AlterConfigOpType
+from ._config import ConfigEntry as ConfigEntry
+from ._config import ConfigResource as ConfigResource
+from ._config import ConfigSource as ConfigSource
+from ._group import ConsumerGroupDescription as ConsumerGroupDescription
+from ._group import ConsumerGroupListing as ConsumerGroupListing
+from ._group import ListConsumerGroupsResult as ListConsumerGroupsResult
+from ._group import MemberAssignment as MemberAssignment
+from ._group import MemberDescription as MemberDescription
+from ._metadata import BrokerMetadata as BrokerMetadata
+from ._metadata import ClusterMetadata as ClusterMetadata
+from ._metadata import GroupMember as GroupMember
+from ._metadata import GroupMetadata as GroupMetadata
+from ._metadata import PartitionMetadata as PartitionMetadata
+from ._metadata import TopicMetadata as TopicMetadata
+from ._resource import ResourcePatternType as ResourcePatternType
+from ._resource import ResourceType as ResourceType
+from ._scram import ScramCredentialInfo as ScramCredentialInfo
+from ._scram import ScramMechanism as ScramMechanism
+from ._scram import UserScramCredentialAlteration as UserScramCredentialAlteration
+from ._scram import UserScramCredentialDeletion as UserScramCredentialDeletion
+from ._scram import UserScramCredentialsDescription as UserScramCredentialsDescription
+from ._scram import UserScramCredentialUpsertion as UserScramCredentialUpsertion
 
 try:
     string_type = basestring  # type: ignore

@@ -6,12 +6,10 @@ This package is licensed under the Apache 2.0 License.
 from __future__ import annotations
 
 # standard library
-from typing import TYPE_CHECKING, Any, ClassVar
+from typing import Any, ClassVar
 
-if TYPE_CHECKING:
-    # pypi/conda library
-    from confluent_kafka._model import ConsumerGroupState
-    from confluent_kafka.cimpl import KafkaError
+from .._model import ConsumerGroupState as ConsumerGroupState
+from ..error import KafkaError as KafkaError
 
 class ClusterMetadata:
     cluster_id: ClassVar[str]
