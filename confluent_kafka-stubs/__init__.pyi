@@ -3,7 +3,10 @@ types-confluent-kafka: A package providing type hints for the confluent-kafka Py
 This package is licensed under the Apache 2.0 License.
 """
 
-from . import admin, kafkatest
+# pypi/conda library
+import admin
+import kafkatest
+
 from ._model import ConsumerGroupState, ConsumerGroupTopicPartitions, Node
 from .cimpl import version  # pyright: ignore
 from .cimpl import (

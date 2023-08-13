@@ -1,4 +1,4 @@
-name: mypy-tests
+name: pyright-test
 
 on:
   pull_request:
@@ -9,8 +9,8 @@ on:
       - tests/**/*
 
 jobs:
-  mypy:
-    name: runner / mypy
+  pyright:
+    name: runner / pyright
     strategy:
       fail-fast: false
       matrix:
@@ -34,7 +34,8 @@ jobs:
           poetry show
         env:
           poetry_version: ${{ matrix.poetry-version }}
-      - name: run mypy
+      - name: run pyright
         run: |
-          poetry run mypy --version
-          poetry run mypy confluent_kafka-stubs
+          poetry run pyright # dry run & install
+          poetry run pyright --version
+          poetry run pyright confluent_kafka-stubs

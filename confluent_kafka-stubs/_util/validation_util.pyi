@@ -6,7 +6,7 @@ This package is licensed under the Apache 2.0 License.
 from ..cimpl import KafkaError as KafkaError
 
 try:
-    string_type = basestring  # type: ignore  # pyright: ignore
+    string_type = basestring  # type: ignore
 except NameError:
     string_type = str
 

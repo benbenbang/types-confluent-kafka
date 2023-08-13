@@ -9,7 +9,7 @@ from __future__ import annotations
 from enum import Enum
 from typing import Literal, Type
 
-from .. import cimpl  # pyright: ignore
+from .. import cimpl
 
 class ScramMechanism(Enum):
     UNKNOWN: Literal["cimpl.SCRAM_MECHANISM_UNKNOWN"]
