@@ -14,7 +14,7 @@ from ._resource import ResourcePatternType, ResourceType
 if TYPE_CHECKING: ...
 
 try:
-    string_type = basestring  # pyright: ignore
+    string_type = basestring  # type: ignore  # pyright: ignore
 except NameError:
     string_type = str
 
@@ -89,7 +89,7 @@ class AclBindingFilter(AclBinding):
         permission_type: "AclPermissionType",
     ) -> None: ...
     def _not_none_args(self) -> Literal["restype", "resource_pattern_type", "operation", "permission_type"]: ...
-    def _forbidden_enums(
+    def _forbidden_enums(  # type: ignore[override]
         self,
     ) -> dict[
         str,

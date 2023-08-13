@@ -3,5 +3,5 @@ types-confluent-kafka: A package providing type hints for the confluent-kafka Py
 This package is licensed under the Apache 2.0 License.
 """
 
-from .conversion_util import ConversionUtil
-from .validation_util import ValidationUtil
+from .conversion_util import ConversionUtil as ConversionUtil
+from .validation_util import ValidationUtil as ValidationUtil
