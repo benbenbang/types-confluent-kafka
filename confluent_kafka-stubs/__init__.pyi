@@ -5,7 +5,7 @@ This package is licensed under the Apache 2.0 License.
 
 from . import admin, kafkatest
 from ._model import ConsumerGroupState, ConsumerGroupTopicPartitions, Node
-from .cimpl import version  # pyright: ignore # pylint: disable
+from .cimpl import version  # pyright: ignore
 from .cimpl import (
     OFFSET_BEGINNING,
     OFFSET_END,

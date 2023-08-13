@@ -6,12 +6,10 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import TYPE_CHECKING, Any, Literal
+from typing import Any, Literal
 
 from .._util import ConversionUtil, ValidationUtil
 from ._resource import ResourcePatternType, ResourceType
-
-if TYPE_CHECKING: ...
 
 try:
     string_type = basestring  # type: ignore  # pyright: ignore
