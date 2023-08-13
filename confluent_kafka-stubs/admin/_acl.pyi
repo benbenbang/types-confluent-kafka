@@ -5,11 +5,13 @@ This package is licensed under the Apache 2.0 License.
 from __future__ import annotations
 
 # standard library
-from enum import Enum
+from enum import Enum, EnumMeta
 from typing import Any, Literal
 
-from .._util import ConversionUtil, ValidationUtil
-from ._resource import ResourcePatternType, ResourceType
+from .._util import ConversionUtil as ConversionUtil
+from .._util import ValidationUtil as ValidationUtil
+from ._resource import ResourcePatternType as ResourcePatternType
+from ._resource import ResourceType as ResourceType
 
 try:
     string_type = basestring  # type: ignore
@@ -50,8 +52,8 @@ class AclBinding:
         operation: "AclOperation",
         permission_type: "AclPermissionType",
     ) -> None: ...
-    def _convert_enums(self): ...
-    def _check_forbidden_enums(self, forbidden_enums): ...
+    def _convert_enums(self) -> None: ...
+    def _check_forbidden_enums(self, forbidden_enums: "EnumMeta") -> None: ...
     def _not_none_args(
         self,
     ) -> Literal["restype", "name", "resource_pattern_type", "principal", "host", "operation", "permission_type"]: ...

@@ -3,37 +3,32 @@ types-confluent-kafka: A package providing type hints for the confluent-kafka Py
 This package is licensed under the Apache 2.0 License.
 """
 
-# pypi/conda library
-import admin
-import kafkatest
-
-from ._model import ConsumerGroupState, ConsumerGroupTopicPartitions, Node
-from .cimpl import (
-    OFFSET_BEGINNING,
-    OFFSET_END,
-    OFFSET_INVALID,
-    OFFSET_STORED,
-    TIMESTAMP_CREATE_TIME,
-    TIMESTAMP_LOG_APPEND_TIME,
-    TIMESTAMP_NOT_AVAILABLE,
-    Consumer,
-    KafkaError,
-    KafkaException,
-    Message,
-    Producer,
-    TopicPartition,
-    libversion,
-    version,
-)
-from .deserializing_consumer import DeserializingConsumer
-from .serializing_producer import SerializingProducer
+from ._model import ConsumerGroupState as ConsumerGroupState
+from ._model import ConsumerGroupTopicPartitions as ConsumerGroupTopicPartitions
+from ._model import Node as Node
+from .cimpl import OFFSET_BEGINNING as OFFSET_BEGINNING
+from .cimpl import OFFSET_END as OFFSET_END
+from .cimpl import OFFSET_INVALID as OFFSET_INVALID
+from .cimpl import OFFSET_STORED as OFFSET_STORED
+from .cimpl import TIMESTAMP_CREATE_TIME as TIMESTAMP_CREATE_TIME
+from .cimpl import TIMESTAMP_LOG_APPEND_TIME as TIMESTAMP_LOG_APPEND_TIME
+from .cimpl import TIMESTAMP_NOT_AVAILABLE as TIMESTAMP_NOT_AVAILABLE
+from .cimpl import Consumer as Consumer
+from .cimpl import Message as Message
+from .cimpl import Producer as Producer
+from .cimpl import TopicPartition as TopicPartition
+from .cimpl import libversion as libversion
+from .deserializing_consumer import DeserializingConsumer as DeserializingConsumer
+from .error import KafkaError as KafkaError
+from .error import KafkaException as KafkaException
+from .serializing_producer import SerializingProducer as SerializingProducer
 
 __all__ = [
-    "admin",
+    "admin",  # type: ignore
     "Consumer",
     "KafkaError",
     "KafkaException",
-    "kafkatest",
+    "kafkatest",  # type: ignore
     "libversion",
     "Message",
     "OFFSET_BEGINNING",
@@ -53,3 +48,6 @@ __all__ = [
 ]
 
 __version__: str
+
+class ThrottleEvent:
+    def __init__(self, broker_name: str, broker_id: int, throttle_time: float) -> None: ...

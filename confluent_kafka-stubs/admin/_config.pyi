@@ -7,12 +7,10 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import TYPE_CHECKING, Literal, Type
+from typing import Literal, Type
 
-from ._resource import ResourceType
-
-if TYPE_CHECKING:
-    from ..cimpl import KafkaError
+from ..cimpl import KafkaError as KafkaError
+from ._resource import ResourceType as ResourceType
 
 class AlterConfigOpType(Enum):
     SET: Literal["ALTER_CONFIG_OP_TYPE_SET"]
