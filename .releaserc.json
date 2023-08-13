@@ -1,5 +1,5 @@
 {
-  "branches": "main",
+  "branches": "ci/sementic_release_workflow",
   "parserOpts": {
     "revertPattern": "^revert\\s.(\\w*\\([\\w\\$\\.\\-\\* ]*\\)\\: .*).\\s*This reverts commit (\\w*)?"
   },
@@ -81,17 +81,17 @@
       },
       {
         "hidden": false,
-        "section": ":hotsprings: CI & Dev & Infra",
+        "section": ":hotsprings: CI, Workflows & Configs",
         "type": "ci"
       },
       {
         "hidden": false,
-        "section": ":hotsprings: CI & Dev & Infra",
+        "section": ":hotsprings: CI, Workflows & Configs",
         "type": "ops"
       },
       {
         "hidden": false,
-        "section": ":hotsprings: CI & Dev & Infra",
+        "section": ":hotsprings: CI, Workflows & Configs",
         "type": "chore"
       },
       {
