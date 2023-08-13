@@ -36,6 +36,5 @@ jobs:
           poetry_version: ${{ matrix.poetry-version }}
       - name: run pyright
         run: |
-          poetry run pyright # dry run & install
-          poetry run pyright --version
+          poetry run pyright --version # dry run & install
           poetry run pyright confluent_kafka-stubs

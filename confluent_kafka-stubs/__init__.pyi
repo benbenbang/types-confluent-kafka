@@ -8,7 +8,6 @@ import admin
 import kafkatest
 
 from ._model import ConsumerGroupState, ConsumerGroupTopicPartitions, Node
-from .cimpl import version  # pyright: ignore
 from .cimpl import (
     OFFSET_BEGINNING,
     OFFSET_END,
@@ -24,6 +23,7 @@ from .cimpl import (
     Producer,
     TopicPartition,
     libversion,
+    version,
 )
 from .deserializing_consumer import DeserializingConsumer
 from .serializing_producer import SerializingProducer
