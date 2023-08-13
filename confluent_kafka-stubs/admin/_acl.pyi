@@ -12,7 +12,7 @@ from .._util import ConversionUtil, ValidationUtil
 from ._resource import ResourcePatternType, ResourceType
 
 try:
-    string_type = basestring  # type: ignore  # pyright: ignore
+    string_type = basestring  # type: ignore
 except NameError:
     string_type = str
 

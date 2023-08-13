@@ -50,7 +50,7 @@ from ._scram import (
 )
 
 try:
-    string_type = basestring  # type: ignore # pyright: ignore
+    string_type = basestring  # type: ignore
 except NameError:
     string_type = str
 

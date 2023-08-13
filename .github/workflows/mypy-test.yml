@@ -1,4 +1,4 @@
-name: mypy-tests
+name: mypy-test
 
 on:
   pull_request:
