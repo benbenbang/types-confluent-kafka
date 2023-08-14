@@ -1,5 +1,5 @@
 {
-  "branches": "ci/sementic_release_workflow",
+  "branches": "main",
   "parserOpts": {
     "revertPattern": "^revert\\s.(\\w*\\([\\w\\$\\.\\-\\* ]*\\)\\: .*).\\s*This reverts commit (\\w*)?"
   },
