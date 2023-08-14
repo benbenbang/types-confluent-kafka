@@ -76,22 +76,22 @@
       },
       {
         "hidden": false,
-        "section": ":tools: Enhancement & Maintenance",
+        "section": ":hammer_and_pick: Enhancement & Maintenance",
         "type": "refactor"
       },
       {
         "hidden": false,
-        "section": ":hotsprings: CI & Dev & Infra",
+        "section": ":hotsprings: CI, Workflows & Configs",
         "type": "ci"
       },
       {
         "hidden": false,
-        "section": ":hotsprings: CI & Dev & Infra",
+        "section": ":hotsprings: CI, Workflows & Configs",
         "type": "ops"
       },
       {
         "hidden": false,
-        "section": ":hotsprings: CI & Dev & Infra",
+        "section": ":hotsprings: CI, Workflows & Configs",
         "type": "chore"
       },
       {
@@ -118,7 +118,7 @@
         "type": "wip"
       },
       {
-        "hidden": false,
+        "hidden": true,
         "type": "docs"
       },
       {
