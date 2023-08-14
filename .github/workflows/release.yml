@@ -32,7 +32,7 @@ jobs:
         run: |
           npm install -g @commitlint/config-conventional
           npm i conventional-changelog-conventionalcommits
-          npx semantic-release --debug --dry-run
+          npx semantic-release --debug
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_CI_TOKEN }}
