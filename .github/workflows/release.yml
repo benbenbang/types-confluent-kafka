@@ -10,16 +10,31 @@ permissions:
   contents: write
 
 jobs:
+  verify-condition:
+    name: verify-condition
+    runs-on: ubuntu-latest
+    steps:
+      - name: verify author/committer is a rm
+        id: fetch-release-manager
+        run: |
+          echo "IS_RELEASE_MANGER=${{ contains(fromJson(env.release_managers), github.event.head_commit.author.username) || contains(fromJson(env.release_managers), github.event.head_commit.committer.username) }}" >> "$GITHUB_OUTPUT"
+        env:
+          release_managers: ${{ secrets.RELEASE_MANAGERS }}
+      - name: verify execute release
+        id: check-condition
+        run: |
+          echo "will execute release: ${{ startsWith(github.event.head_commit.message , 'build(release-rc)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}"
+          echo "execute_release=${{ startsWith(github.event.head_commit.message , 'build(release-rc)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}" >> "$GITHUB_OUTPUT"
+    outputs:
+      execute_release: ${{ steps.check-condition.execute_release }}
   release:
     # prepare tag
+    if: ${{ needs.verify-condition.outputs.execute_release }}
     name: release
     strategy:
       matrix:
         python-version: ["3.10"]
         poetry-version: ["1.5.1"]
-    if: |
-      startsWith(github.event.head_commit.message , 'build(release)') &&
-      ( github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'CONTRIBUTOR' )
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -27,6 +42,19 @@ jobs:
       pull-requests: write # to be able to comment on released pull requests
       id-token: write # to enable use of OIDC for npm provenance
     steps:
+      - name: get release managers from secrets
+        id: fetch-release-manager
+        run: |
+          is_release_manager=${{ contains(fromJson(env.release_managers), github.event.head_commit.author.username) || contains(fromJson(env.release_managers), github.event.head_commit.committer.username) }}
+          echo "IS_RELEASE_MANGER=${is_release_manager}" >> "$GITHUB_OUTPUT"
+        env:
+          release_managers: ${{ secrets.RELEASE_MANAGERS }}
+      - name: verify author/committer is a RM
+        if: |
+          !(startsWith(github.event.head_commit.message , 'build(release)') && ${{ steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }})
+        run: |
+          echo "condition is not met"
+          exit 0
       - name: checkout
         uses: actions/checkout@v3
         with:

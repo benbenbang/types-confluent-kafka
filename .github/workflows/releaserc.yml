@@ -10,16 +10,31 @@ permissions:
   contents: write
 
 jobs:
+  verify-condition:
+    name: verify-condition
+    runs-on: ubuntu-latest
+    steps:
+      - name: verify author/committer is a rm
+        id: fetch-release-manager
+        run: |
+          echo "IS_RELEASE_MANGER=${{ contains(fromJson(env.release_managers), github.event.head_commit.author.username) || contains(fromJson(env.release_managers), github.event.head_commit.committer.username) }}" >> "$GITHUB_OUTPUT"
+        env:
+          release_managers: ${{ secrets.RELEASE_MANAGERS }}
+      - name: verify execute release
+        id: check-condition
+        run: |
+          echo "will execute release: ${{ startsWith(github.event.head_commit.message , 'build(release-rc)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}"
+          echo "execute_release=${{ startsWith(github.event.head_commit.message , 'build(release-rc)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}" >> "$GITHUB_OUTPUT"
+    outputs:
+      execute_release: ${{ steps.check-condition.execute_release }}
   release-rc:
     # prepare tag
+    if: ${{ needs.verify-condition.outputs.execute_release }}
     name: release-rc
     strategy:
       matrix:
         python-version: ["3.10"]
         poetry-version: ["1.5.1"]
-    if: |
-      startsWith(github.event.head_commit.message , 'build(release-rc)') &&
-      ( github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'CONTRIBUTOR' )
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
