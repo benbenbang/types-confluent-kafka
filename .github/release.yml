@@ -1,0 +1,48 @@
+# .github/release.yml
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release
+      - wip
+      - draft
+    authors:
+      - octocat
+      - ptah-lgtm
+  categories:
+    - title: ⚡️ Breaking Changes
+      labels:
+        - Semver-Major
+        - breaking-change
+    - title: 🎁 New Features
+      labels:
+        - Semver-Minor
+        - feat
+    - title: ⚒️ Enhancement & Maintenance
+      labels:
+        - Semver-Minor
+        - refactor
+        - enhancement
+    - title: ♨️ CI, Workflows & Some minor changes
+      labels:
+        - Semver-Patch
+        - ci
+        - ops
+        - chore
+        - style
+    - title: 🐛 Bug Fixes
+      labels:
+        - Semver-Patch
+        - fix
+    - title: 🥵 Hotfix
+      labels:
+        - Semver-Patch
+        - hotfix
+    - title: 📚 Docs
+      label:
+        - documentation
+    - title: Reverts
+      labels:
+        - revert
+    - title: Other Changes
+      labels:
+        - "*"
