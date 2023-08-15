@@ -34,8 +34,10 @@ jobs:
           npm i conventional-changelog-conventionalcommits
           npx semantic-release --debug
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           GH_TOKEN: ${{ secrets.GH_CI_TOKEN }}
+          GH_URL: ${{ secrets.GH_URL }}
+          GH_API_URL: ${{ secrets.GH_URL }}
+          GITHUB_API_URL: ${{ secrets.GH_URL }}
           GIT_AUTHOR_EMAIL: ${{ secrets.GH_GIT_AUTHOR_EMAIL }}
           GIT_AUTHOR_NAME: ${{ secrets.GH_GIT_AUTHOR_NAME }}
           GIT_COMMITTER_EMAIL: ${{ secrets.GH_GIT_COMMITTER_EMAIL }}

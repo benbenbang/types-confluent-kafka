@@ -58,7 +58,7 @@
     [
       "@semantic-release/github",
       {
-        "githubUrl": "https://github.com/benbenbang"
+        "githubUrl": "https://github.com/benbenbang/types-confluent-kafka.git"
       }
     ]
   ],
