@@ -1,0 +1,13 @@
+# This is the CODEOWNER FILES for types-confluent-kafka
+# Feel free to use it, if you want to use it in your repo
+# The documentation can be found here: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#example-of-a-codeowners-file
+# Notes:
+# - Order is important; the last matching pattern takes the most precedence.
+# - You can also use email addresses if you prefer. They'll be used to look up users just like we do for commit author emails.
+# - Teams can be specified as code owners as well. Teams should be identified in the format @org/team-name.
+
+# @benbenbang (me) will be requested for review when someone opens a pull request.
+.github/*           @benbenbang
+CODEOWNERS          @benbenbang
+.releaserc.json     @benbenbang
+LICENSE             @benbenbang
