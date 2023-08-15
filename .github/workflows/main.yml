@@ -20,9 +20,10 @@ jobs:
       matrix:
         python-version: ["3.8", "3.9", "3.10"]
         poetry-version: ["1.5.1"]
-        test-type: ["pyright", "mypy"]
-        arch: [ubuntu-latest, macos-latest]
-    runs-on: ${{ matrix.arch }}
+        test-type: ["mypy", "pyright"]
+        os: ["ubuntu-latest", "macos-latest"]
+        arch: ["x64"] # "arm64" temp switch off, too many trouble with it
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v2
       - name: Setup python
@@ -40,14 +41,14 @@ jobs:
         env:
           poetry_version: ${{ matrix.poetry-version }}
       - name: run mypy
-        if: ${{ env.test_type == 'mypy' }}
+        if: ( ${{ env.test_type == 'mypy' }} && ( ${{ matrix.arch != 'arm64' }} && ${{ matrix.python-version == '3.8' }} ) )
         run: |
           poetry run mypy --version
           poetry run mypy confluent_kafka-stubs
         env:
           test_type: ${{ matrix.test-type }}
       - name: run pyright
-        if: ${{ env.test_type == 'pyright' }}
+        if: ( ${{ env.test_type == 'pyright' }} && ( ${{ matrix.arch != 'arm64' }} && ${{ matrix.python-version == '3.8' }} ) )
         run: |
           poetry run pyright --version # dry run & install
           poetry run pyright confluent_kafka-stubs

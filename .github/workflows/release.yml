@@ -17,7 +17,9 @@ jobs:
       matrix:
         python-version: ["3.10"]
         poetry-version: ["1.5.1"]
-    if: startsWith(github.event.head_commit.message, 'build(release)') && contains(${{ ['OWNER', 'CONTRIBUTOR'], github.event.pull_request.author_association)
+    if: |
+      startsWith(github.event.head_commit.message , 'build(release)') &&
+      ( github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'CONTRIBUTOR' )
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -63,19 +65,19 @@ jobs:
           pipx install poetry=="${{ env.poetry_version }}"
           poetry install
           poetry show
-        with:
+        env:
           poetry_version: ${{ matrix.poetry-version }}
       - name: publish pypi
         run: |
           pipx run poetry version ${{ env.git_ref_name }}
           pipx run poetry build
           pipx run poetry run twine upload --repository pypi dist/*
-        with:
+        env:
           git_ref_name: ${{ steps.semantic-release.outputs.next_tag }}
       # publish release note
       - name: publish release note
         run: |
           pipx run poetry version ${{ env.git_ref_name }}
           gh release create ${{ env.git_ref_name }} dist/* -t ${{ env.git_ref_name }} --generate-notes
-        with:
+        env:
           git_ref_name: ${{ steps.semantic-release.outputs.next_tag }}

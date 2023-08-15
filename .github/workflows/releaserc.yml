@@ -1,4 +1,4 @@
-name: release
+name: release-rc
 
 on:
   push:
@@ -17,7 +17,9 @@ jobs:
       matrix:
         python-version: ["3.10"]
         poetry-version: ["1.5.1"]
-    if: startsWith(github.event.head_commit.message, 'build(release-rc)') && contains(${{ ['OWNER', 'CONTRIBUTOR'], github.event.pull_request.author_association)
+    if: |
+      startsWith(github.event.head_commit.message , 'build(release-rc)') &&
+      ( github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'CONTRIBUTOR' )
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
@@ -63,13 +65,13 @@ jobs:
           pipx install poetry=="${{ env.poetry_version }}"
           poetry install
           poetry show
-        with:
+        env:
           poetry_version: ${{ matrix.poetry-version }}
       - name: publish testpypi
         run: |
-          short_sha=$(git rev-parse --short "$GITHUB_SHA")
-          pipx run poetry version ${{ env.git_ref_name }}-${short_sha}
+          unique_counter=$(date +%s)
+          pipx run poetry version ${{ env.git_ref_name }}-rc${unique_counter}
           pipx run poetry build
           pipx run poetry run twine upload --repository testpypi dist/*
-        with:
+        env:
           git_ref_name: ${{ steps.semantic-release.outputs.next_tag }}
