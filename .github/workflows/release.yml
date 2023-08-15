@@ -78,6 +78,6 @@ jobs:
       - name: publish release note
         run: |
           pipx run poetry version ${{ env.git_ref_name }}
-          gh release create ${{ env.git_ref_name }} dist/* -t ${{ env.git_ref_name }} --generate-notes
+          gh release create ${{ env.git_ref_name }} dist/* -t "Types Confluent Kafka ${{ env.git_ref_name }}" --generate-notes
         env:
           git_ref_name: ${{ steps.semantic-release.outputs.next_tag }}
