@@ -19,7 +19,7 @@ jobs:
         poetry-version: ["1.5.1"]
     if: |
       startsWith(github.event.head_commit.message , 'build(release-rc)') &&
-      ( github.event.pull_request.author_association == 'OWNER' || github.event.pull_request.author_association == 'CONTRIBUTOR' )
+      contains(fromJson('["OWNER", "CONTRIBUTOR"]'), github.event.pull_request.author_association)
     runs-on: ubuntu-latest
     permissions:
       contents: write # to be able to publish a GitHub release
