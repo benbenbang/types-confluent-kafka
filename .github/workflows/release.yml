@@ -23,8 +23,8 @@ jobs:
       - name: verify execute release
         id: check-condition
         run: |
-          echo "will execute release: ${{ startsWith(github.event.head_commit.message , 'build(release-rc)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}"
-          echo "execute_release=${{ startsWith(github.event.head_commit.message , 'build(release-rc)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}" >> "$GITHUB_OUTPUT"
+          echo "will execute release: ${{ startsWith(github.event.head_commit.message , 'build(release)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}"
+          echo "execute_release=${{ startsWith(github.event.head_commit.message , 'build(release)') && steps.fetch-release.manager.outputs.IS_RELEASE_MANGER }}" >> "$GITHUB_OUTPUT"
     outputs:
       execute_release: ${{ steps.check-condition.execute_release }}
   release:
