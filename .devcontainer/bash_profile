@@ -1,0 +1,6 @@
+source <(starship init bash)
+
+if [[ ! -f .pyenv ]]; then
+    pip install --no-cache-dir -q -r /workspaces/types-confluent-kafka/dev/requirements.txt
+    touch /.pyenv
+fi

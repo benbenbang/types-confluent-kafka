@@ -1,0 +1,47 @@
+{
+  "customizations": {
+    "terminal.integrated.defaultProfile.linux": "zsh",
+    "terminal.integrated.profiles.linux": {
+      "zsh": {
+        "icon": "pencil",
+        "path": "/bin/zsh"
+      }
+    },
+    "vscode": {
+      "extensions": [
+        "redhat.vscode-yaml",
+        "ms-vscode.remote-explorer",
+        "GitHub.copilot"
+      ]
+    }
+  },
+  "features": {
+    "ghcr.io/devcontainers-contrib/features/poetry:2": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers-contrib/features/pre-commit:2": {
+      "version": "latest"
+    },
+    "ghcr.io/devcontainers/features/python:1": {
+      "version": "3.10"
+    }
+  },
+  "forwardPorts": [
+    3000
+  ],
+  "image": "mcr.microsoft.com/vscode/devcontainers/typescript-node",
+  "initializeCommand": "cd \"${localWorkspaceFolder}\" && git config --local user.email \"$(git config user.email)\" && git config --local user.name \"$(git config user.name)\"",
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/starship.toml,target=/root/.config/starship.toml,type=bind",
+    "source=${localEnv:HOME}/.gitconfig,target=/root/.gitconfig,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.gnupg,target=/root/.gnupg,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/.ssh,target=/root/.ssh,type=bind,consistency=cached"
+  ],
+  "name": "react ts devcontainer",
+  "onCreateCommand": "curl -sS https://starship.rs/install.sh | sh -s -- -y && echo 'source /workspaces/types-confluent-kafka/.devcontainer/bash_profile' >> /root/.bashrc",
+  "remoteEnv": {
+    "PATH": "${containerEnv:PATH}:/root/.cargo/bin"
+  },
+  "remoteUser": "root",
+  "shutdownAction": "stopContainer"
+}
