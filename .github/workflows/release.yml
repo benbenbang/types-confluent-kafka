@@ -1,0 +1,49 @@
+name: release
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - pyproject.toml
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release:
+    name: release
+    runs-on: ubuntu-latest
+    if: ${{ startsWith(github.event.head_commit.message, 'release(versioning)') }}
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+
+      - name: semantic release
+        run: |
+          # install deps
+          npm install -g @commitlint/config-conventional
+          npm i conventional-changelog-conventionalcommits
+
+          # for logging
+          next_tag=$(npx semantic-release --dry-run | grep -Poi "The next release version is \K\d+.\d+.\d+")
+          echo ">>>>>>>> next version is ${next_tag}"
+
+          # run semantic release
+          npx semantic-release --debug
+        env:
+          GH_TOKEN: ${{ secrets.PTAH_CI_TOKEN }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.GH_GIT_AUTHOR_EMAIL }}
+          GIT_AUTHOR_NAME: ${{ secrets.GH_GIT_AUTHOR_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.GH_GIT_COMMITTER_EMAIL }}
+          GIT_COMMITTER_NAME: ${{ secrets.GH_GIT_COMMITTER_NAME }}
