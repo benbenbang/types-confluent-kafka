@@ -11,3 +11,4 @@
 CODEOWNERS          @benbenbang
 .releaserc.json     @benbenbang
 LICENSE             @benbenbang
+pyproject.toml      @benbenbang @ptah-lgtm

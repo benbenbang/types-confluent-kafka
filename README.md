@@ -51,6 +51,12 @@ Please note that this project follows the Contributor Covenant Code of Conduct. 
 
 
 
+## Development
+
+please check the [development guide](./dev/README.md)
+
+
+
 ## License
 
 This project is licensed under the [Apache 2.0 License](https://chat.openai.com/c/LICENSE). You are free to use, modify, and distribute the code according to the terms of this license.

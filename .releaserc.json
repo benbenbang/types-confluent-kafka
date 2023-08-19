@@ -41,10 +41,6 @@
           },
           {
             "release": "patch",
-            "type": "ci"
-          },
-          {
-            "release": "patch",
             "type": "hotfix"
           },
           {
@@ -58,7 +54,7 @@
     [
       "@semantic-release/github",
       {
-        "githubUrl": "https://github.com/benbenbang/types-confluent-kafka.git"
+        "githubUrl": "https://api.github.com"
       }
     ]
   ],
@@ -131,43 +127,5 @@
       }
     ]
   },
-  "releaseRules": [
-    {
-      "release": "major",
-      "type": "feat"
-    },
-    {
-      "release": "patch",
-      "type": "perf"
-    },
-    {
-      "release": "patch",
-      "type": "build"
-    },
-    {
-      "release": "patch",
-      "type": "ops"
-    },
-    {
-      "release": "patch",
-      "type": "ci"
-    },
-    {
-      "release": "patch",
-      "type": "refactor"
-    },
-    {
-      "release": "patch",
-      "type": "chore"
-    },
-    {
-      "release": "patch",
-      "type": "hotfix"
-    },
-    {
-      "release": "patch",
-      "type": "fix"
-    }
-  ],
   "tagFormat": "${version}"
 }
