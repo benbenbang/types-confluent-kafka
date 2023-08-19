@@ -43,8 +43,7 @@ jobs:
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
-          pipx run poetry config repositories.testpypi https://test.pypi.org/legacy/
-          pipx run poetry publish --repository testpypi -u ${PYPI_USERNAME} -p $PYPI_TOKEN
+          pipx run poetry publish -u ${PYPI_USERNAME} -p $PYPI_TOKEN
 
       - name: Upload distribution to GitHub Release
         run: |
