@@ -82,7 +82,7 @@ jobs:
 
           if [[ -n $(git status --porcelain) ]]; then
             # preparing new branch
-            branch_name="chore/${next_tag}/$(date '+%Y%m%d_%H%M%S')/post_release_changes"
+            branch_name="chore/${next_tag}/$(date '+%Y%m%d_%H%M%S')/pre_release_changes"
             echo "new branch name is: ${branch_name}"
             git checkout -b "${branch_name}"
 
@@ -93,7 +93,7 @@ jobs:
             git push -f origin "${branch_name}"
             gh pr create --base main --head "${branch_name}" \
               --title "release(versioning): update version to $next_tag" \
-              --body "Automated PR to bump the version post-release." \
+              --body "Automated PR to bump the version pre-release." \
               --label "release" \
               --assignee "ptah-lgtm"
           else
