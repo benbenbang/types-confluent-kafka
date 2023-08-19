@@ -1,0 +1,103 @@
+name: pre-release
+
+on:
+  workflow_dispatch:
+    branches:
+      - main
+    inputs:
+      safelock:
+        description: "If you are sure to launch a new release, put the value to true."
+        default: "false"
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  pre-release:
+    if: github.event.inputs.safelock == 'true'
+    name: pre-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+
+      - name: semantic versioning
+        run: |
+          # install deps
+          npm install -g @commitlint/config-conventional
+          npm i conventional-changelog-conventionalcommits
+
+          # prepare next tag for env var
+          next_tag=$(npx semantic-release --dry-run | grep -Poi "The next release version is \K\d+.\d+.\d+")
+          echo "next_tag=${next_tag}" >> "$GITHUB_ENV"
+          echo ">>>>>>>> next version is ${next_tag}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.GH_GIT_AUTHOR_EMAIL }}
+          GIT_AUTHOR_NAME: ${{ secrets.GH_GIT_AUTHOR_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.GH_GIT_COMMITTER_EMAIL }}
+          GIT_COMMITTER_NAME: ${{ secrets.GH_GIT_COMMITTER_NAME }}
+
+      - name: set python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.10"
+
+      - name: install dependencies
+        run: |
+          python -m pip install --user pipx
+          python -m pipx ensurepath
+          pipx install poetry=="${poetry_version}"
+          poetry install
+          poetry show
+        env:
+          poetry_version: "1.5.1"
+
+      - name: update project version by git tag
+        run: |
+          # setup git
+          git config user.name "ptah-lgtm"
+          git config user.email "ptah@bitbrew.dev"
+
+          # clean up artifacts before update pyproject.toml
+          git clean -f -x || echo "nothing to remove"
+          git rm node_modules || echo "no node modules to remove"
+
+          # make sure up to date
+          git pull --rebase origin main
+
+          # update version
+          echo "next version is: ${next_tag}"
+          pipx run poetry version ${next_tag}
+
+          if [[ -n $(git status --porcelain) ]]; then
+            # preparing new branch
+            branch_name="chore/${next_tag}/$(date '+%Y%m%d_%H%M%S')/post_release_changes"
+            echo "new branch name is: ${branch_name}"
+            git checkout -b "${branch_name}"
+
+            # commit and create pr
+            git add pyproject.toml
+            git commit -m "chore(${next_tag_modified}): update version to $next_tag"
+            git remote set-url origin https://${{ secrets.PTAH_USERNAME }}:${{ secrets.PTAH_CI_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+            git push -f origin "${branch_name}"
+            gh pr create --base main --head "${branch_name}" \
+              --title "release(versioning): update version to $next_tag" \
+              --body "Automated PR to bump the version post-release." \
+              --label "release" \
+              --assignee "ptah-lgtm"
+          else
+            echo "nothing to commit!"
+          fi
+    env:
+      GH_TOKEN: ${{ secrets.PTAH_CI_TOKEN }}

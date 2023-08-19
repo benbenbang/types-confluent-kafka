@@ -144,3 +144,10 @@ _vendor*
 # Project Level 👇
 # Remove the existed one or use anti pattern ! to allow some patterns if needed
 confluent-kafka-python
+event.json
+inputs.json
+
+# Node related from semantic release
+node_modules/
+package-lock.json
+package.json
