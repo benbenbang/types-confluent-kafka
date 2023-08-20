@@ -45,8 +45,9 @@ jobs:
         run: |
           pipx run poetry publish -u ${PYPI_USERNAME} -p $PYPI_TOKEN
 
-      - name: Upload distribution to GitHub Release
+      - name: update title  && upload distribution to GitHub Release
         run: |
+          gh release edit "${TAG_NAME}" --title "Types Confluent Kafka ${TAG_NAME}"
           gh release upload ${TAG_NAME} dist/*
         env:
           GH_TOKEN: ${{ secrets.PTAH_CI_TOKEN }}
