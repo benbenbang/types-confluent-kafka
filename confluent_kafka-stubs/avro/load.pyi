@@ -14,15 +14,10 @@ if TYPE_CHECKING:
     """Helping users who installed avro package can get type hints"""
     try:
         # pypi/conda library
-        from avro.schema import Schema  # pyright: ignore # this cannot be resolved if avro isn't installed
+        from avro.schema import Schema  # type: ignore # this cannot be resolved if avro isn't installed
     except ImportError:
         # standard library
-        from typing import Any as Schema
+        from typing import Any as Schema  # type: ignore
 
-def loads(schema_str: str) -> "Schema":
-    """Parse a schema given a schema string"""
-    ...
-
-def load(fp: str | Path) -> "Schema":
-    """Parse a schema from a file path"""
-    ...
+def loads(schema_str: str) -> "Schema": ...
+def load(fp: str | Path) -> "Schema": ...

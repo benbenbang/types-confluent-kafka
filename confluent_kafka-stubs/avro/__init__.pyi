@@ -6,7 +6,7 @@ This package is licensed under the Apache 2.0 License.
 # This module is going to be deprecated
 
 # standard library
-from typing import Any
+from typing import Any, Callable, overload
 
 # pypi/conda library
 from confluent_kafka import Consumer as Consumer
@@ -30,7 +30,16 @@ class AvroProducer(Producer):
         schema_registry: Any = None,
         **kwargs
     ) -> None: ...
-    def produce(self, **kwargs) -> None: ...
+    def produce(
+        self,
+        topic: str,
+        value: str | bytes | None = None,
+        key: str | bytes | None = None,
+        partition: int | None = None,
+        on_delivery: Callable | None = None,
+        timestamp: int = 0,
+        headers: dict[str, str | bytes] | list[tuple[str, str | bytes]] | None = None,
+    ) -> None: ...
 
 class AvroConsumer(Consumer):
     def __init__(
@@ -41,4 +50,4 @@ class AvroConsumer(Consumer):
         reader_value_schema: Any = None,
         **kwargs
     ) -> None: ...
-    def poll(self, timeout: int | None = None) -> Message: ...
+    def poll(self, timeout: int | float | None = None) -> Message: ...
