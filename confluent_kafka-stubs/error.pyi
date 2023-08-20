@@ -68,53 +68,12 @@ class ConsumeError(_KafkaClientError):
     ) -> None: ...
 
 class KeyDeserializationError(ConsumeError, SerializationError):
-    """
-    Wraps all errors encountered during the deserialization of a Kafka
-    Message's key.
-
-    Args:
-        exception(Exception, optional): The original exception
-
-        kafka_message (Message, optional): The Kafka Message returned
-        by the broker.
-
-    """
-
-    def __init__(
-        self,
-        exception: Exception | None = None,
-        kafka_message: Message | None = None,
-    ) -> None: ...
+    def __init__(self, exception: Exception | None = None, kafka_message: Message | None = None) -> None: ...
 
 class ValueDeserializationError(ConsumeError, SerializationError):
-    """
-    Wraps all errors encountered during the deserialization of a Kafka
-    Message's value.
-
-    Args:
-        exception(Exception, optional): The original exception
-
-        kafka_message (Message, optional): The Kafka Message returned
-        by the broker.
-
-    """
-
-    def __init__(
-        self,
-        exception: Exception | None = None,
-        kafka_message: Message | None = None,
-    ) -> None: ...
+    def __init__(self, exception: Exception | None = None, kafka_message: Message | None = None) -> None: ...
 
 class ProduceError(_KafkaClientError):
-    """
-    Wraps all errors encountered when Producing messages.
-
-    Args:
-        kafka_error (KafkaError): KafkaError instance.
-
-        exception(Exception, optional): The original exception.
-    """
-
     def __init__(
         self,
         kafka_error: KafkaError,
@@ -122,21 +81,7 @@ class ProduceError(_KafkaClientError):
     ) -> None: ...
 
 class KeySerializationError(ProduceError, SerializationError):
-    """
-    Wraps all errors encountered during the serialization of a Message key.
-
-    Args:
-        exception (Exception): The exception that occurred during serialization.
-    """
-
     def __init__(self, exception: Exception | None = None) -> None: ...
 
 class ValueSerializationError(ProduceError, SerializationError):
-    """
-    Wraps all errors encountered during the serialization of a Message value.
-
-    Args:
-        exception (Exception): The exception that occurred during serialization.
-    """
-
     def __init__(self, exception: Exception | None = None) -> None: ...
