@@ -5,6 +5,7 @@ description = ""
 authors = ["benbenbang <bn@bitbrew.dev>"]
 license = "Apache-2.0 license"
 readme = "README.md"
+repository = "https://github.com/benbenbang/types-confluent-kafka"
 packages = [
     { include = "confluent_kafka-stubs" }
 ]

@@ -53,7 +53,7 @@ Please note that this project follows the Contributor Covenant Code of Conduct. 
 
 ## Development
 
-please check the [development guide](./dev/README.md)
+please check the [development guide](https://github.com/benbenbang/types-confluent-kafka/blob/main/.github/CONTRIBUTING.md)
 
 
 
