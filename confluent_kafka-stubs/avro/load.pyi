@@ -14,7 +14,7 @@ if TYPE_CHECKING:
     """Helping users who installed avro package can get type hints"""
     try:
         # pypi/conda library
-        from avro.schema import Schema
+        from avro.schema import Schema  # pyright: ignore # this cannot be resolved if avro isn't installed
     except ImportError:
         # standard library
         from typing import Any as Schema
