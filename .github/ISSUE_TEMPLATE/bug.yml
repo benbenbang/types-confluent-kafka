@@ -42,19 +42,23 @@ body:
   - type: textarea
     id: version
     attributes:
-      label: Python, Types-Confluent-Kafka & OS Version
+      label: Python, verion of Types-confluent-kafka. verion of Confluent-kafka-python, your applications settings & OS Version
       description: |
-        Which versions of Python, Types-Confluent-Kafka, and OS are you using?
+        Please provide the following infos
+        - Which versions of Python, Types-Confluent-Kafka, Confluent-kafka-python, and OS are you using?
+        - What is your application settings?
 
         Run the following command and copy the output:
 
         For `poetry` users:
           ```bash
+          poetry show confluent_kafka
           poetry show types-confluent-kafka
           ```
 
         For general users:
           ```bash
+          pip freeze | grep confluent_kafka
           pip freeze | grep types-confluent-kafka
           ```
 
@@ -63,7 +67,7 @@ body:
       required: true
 
   - type: checkboxes
-    id: type of issue
+    id: type_of_issue
     attributes:
       label: Affected Components
       description: "Please make sure you provided the following information"
@@ -73,5 +77,3 @@ body:
         - label: "Client configuration: `{...}` is provided"
         - label: "Operating system is provided"
         - label: Provide IDE screenshot if it's possible
-    validations:
-      required: true
