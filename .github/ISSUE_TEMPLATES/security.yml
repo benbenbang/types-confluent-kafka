@@ -1,0 +1,74 @@
+name: 🔐 Security Vulnerability Report
+description: Report a potential security vulnerability in Types-Confluent-Kafka
+labels: [security, unconfirmed]
+
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for taking the time to report a potential security vulnerability in types-confluent-kafka! Your diligence helps ensure the safety and reliability of the community. ✊
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Initial Checks
+      description: Just ensuring you're using the correct repository and tool.
+      options:
+        - label: I confirm that I'm referencing the correct repository (Types-Confluent-Kafka) for this vulnerability report.
+          required: true
+
+  - type: textarea
+    id: vulnerability_description
+    attributes:
+      label: Vulnerability Description
+      description: |
+        Please provide a detailed explanation of the potential vulnerability. The more specific and clear you can be, the faster we can work on addressing it. 🙏
+        Note: If you believe the disclosure of this vulnerability might endanger the community, please consider emailing the maintainers directly instead of using this public form.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to Reproduce
+      description: |
+        If possible, provide a list of steps to reproduce the vulnerability.
+      placeholder: |
+        1. Step one...
+        2. Step two...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: potential_impact
+    attributes:
+      label: Potential Impact
+      description: |
+        Describe what you believe could be the potential impact or risks if the vulnerability were to be exploited.
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: |
+        Please provide the versions of Python, Types-Confluent-Kafka, and the Operating System you encountered this vulnerability on.
+
+        Please run the following command and paste the output below:
+
+        For `poetry` users:
+
+          ```bash
+          poetry show types-conflent-kafka
+          ```
+
+        For general users:
+
+          ```bash
+          pip freeze | grep types-conflent-kafka
+          ```
+
+      render: Text
+    validations:
+      required: true

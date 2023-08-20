@@ -1,0 +1,77 @@
+name: 🐛 Types-Confluent-Kafka Bug
+description: Report a bug or unexpected behavior in Types-Confluent-Kafka
+labels: [bug, unconfirmed]
+
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for contributing to types-confluent-kafka! ✊
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Initial Checks
+      description: Just making sure you're really using Types-Confluent-Kafka
+      options:
+        - label: I confirm that I'm using Types-Confluent-Kafka
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Please explain what you're seeing and what you would expect to see.
+        Provide as much detail as possible for quicker problem understanding and resolution. 🙏
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Code
+      description: >
+        If applicable, please add a self-contained,
+        [minimal, reproducible example](https://stackoverflow.com/help/minimal-reproducible-example)
+        demonstrating the bug.
+      placeholder: |
+        import confluent_kafka as ck
+        ...
+      render: Python
+
+  - type: textarea
+    id: version
+    attributes:
+      label: Python, Types-Confluent-Kafka & OS Version
+      description: |
+        Which versions of Python, Types-Confluent-Kafka, and OS are you using?
+
+        Run the following command and copy the output:
+
+        For `poetry` users:
+          ```bash
+          poetry show types-confluent-kafka
+          ```
+
+        For general users:
+          ```bash
+          pip freeze | grep types-confluent-kafka
+          ```
+
+      render: Text
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: type of issue
+    attributes:
+      label: Affected Components
+      description: "Please make sure you provided the following information"
+      options:
+        - label: confluent-kafka-python and librdkafka version (`confluent_kafka.version()` and `confluent_kafka.libversion()`)
+        - label: Apache Kafka broker version
+        - label: "Client configuration: `{...}` is provided"
+        - label: "Operating system is provided"
+        - label: Provide IDE screenshot if it's possible
+    validations:
+      required: true
