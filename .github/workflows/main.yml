@@ -40,16 +40,12 @@ jobs:
         env:
           poetry_version: ${{ matrix.poetry-version }}
       - name: run mypy
-        if: ( ${{ env.test_type == 'mypy' }} && ( ${{ matrix.arch != 'arm64' }} && ${{ matrix.python-version == '3.8' }} ) )
+        if: matrix.test-type == 'mypy' && !(matrix.arch == 'arm64' && matrix.python-version == '3.8')
         run: |
           poetry run mypy --version
           poetry run mypy confluent_kafka-stubs
-        env:
-          test_type: ${{ matrix.test-type }}
       - name: run pyright
-        if: ( ${{ env.test_type == 'pyright' }} && ( ${{ matrix.arch != 'arm64' }} && ${{ matrix.python-version == '3.8' }} ) )
+        if: matrix.test-type == 'pyright' && !(matrix.arch == 'arm64' && matrix.python-version == '3.8')
         run: |
           poetry run pyright --version # dry run & install
           poetry run pyright confluent_kafka-stubs
-        env:
-          test_type: ${{ matrix.test-type }}
