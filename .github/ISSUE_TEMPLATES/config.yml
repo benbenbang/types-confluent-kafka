@@ -1,0 +1,18 @@
+---
+blank_issues_enabled: false
+contact_links:
+  - name: 🤔 Ask a Question
+    url: "https://github.com/benbenbang/types-confluent-kafka/discussions/new/choose"
+    about: "Ask a question about how to use types-confluent-kafka or any other topics that don't fit into issues."
+
+  - name: ⚒️ Feature request
+    url: "https://github.com/benbenbang/types-confluent-kafka/issues/new?assignees=&labels=feature_request&projects=&template=feature_request.yml"
+    about: "Suggest new features or improvements for types-confluent-kafka."
+
+  - name: 🐛 Bug Report
+    url: "https://github.com/benbenbang/types-confluent-kafka/issues/new?assignees=&labels=bug%2Cunconfirmed&projects=&template=bug.yml"
+    about: "Report any unexpected behavior or bugs in types-confluent-kafka."
+
+  - name: 👾 Report a security vulnerability
+    url: "https://github.com/benbenbang/types-confluent-kafka/issues/new?assignees=&labels=security&projects=&template=security.yml"
+    about: "Submit any security vulnerabilities found in types-confluent-kafka. Please follow the guidelines provided in the security policy."
