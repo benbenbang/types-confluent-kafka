@@ -2,3 +2,6 @@
 types-confluent-kafka: A package providing type hints for the confluent-kafka Python package.
 This package is licensed under the Apache 2.0 License.
 """
+
+# pypi/conda library
+from confluent_kafka.avro.error import ClientError as ClientError
