@@ -33,10 +33,10 @@ class ContextStringIO(BytesIO):
 
 class MessageSerializer:
     registry_client: SchemaRegistryClient
-    id_to_decoder_func: Callable
+    id_to_decoder_func: dict[int, Callable]
     id_to_writers: dict[int, bytes]
-    reader_key_schema: str | bytes
-    reader_value_schema: str | bytes
+    reader_key_schema: str | bytes | None = None
+    reader_value_schema: str | bytes | None = None
 
     def __init__(
         self, registry_client, reader_key_schema: Any | None = ..., reader_value_schema: Any | None = ...
