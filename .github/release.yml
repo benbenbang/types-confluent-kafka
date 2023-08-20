@@ -5,6 +5,7 @@ changelog:
       - ignore-for-release
       - wip
       - draft
+      - development
     authors:
       - octocat
       - ptah-lgtm
