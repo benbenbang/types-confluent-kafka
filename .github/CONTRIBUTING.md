@@ -82,7 +82,7 @@ Once inside VS Code, a notification may pop up suggesting reopening the project 
 
 - **Understanding Stubs**: Before diving into stub implementation, familiarize yourself with the purpose and structure of type stubs in Python.
 
-- **Confluent Kafka Docs**: Refer to the [Confluent Kafka documentation](<Link-to-Confluent-Kafka-Docs>) to understand the functionalities you're creating stubs for.
+- **Confluent Kafka Docs**: Refer to the [Confluent Kafka documentation](https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html) to understand the functionalities you're creating stubs for.
 
 - **Submit a PR**: Once you've made changes or added new stubs, submit a pull request. Ensure your changes don't break existing functionalities and adhere to the project's coding standards.
 
