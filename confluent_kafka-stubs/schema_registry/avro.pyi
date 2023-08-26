@@ -8,14 +8,13 @@ from __future__ import annotations
 from io import BytesIO
 from typing import Callable
 
-# pypi/conda library
-from confluent_kafka.schema_registry.schema_registry_client import SchemaRegistryClient
-from confluent_kafka.serialization import Deserializer as Deserializer
-from confluent_kafka.serialization import SerializationError as SerializationError
-from confluent_kafka.serialization import Serializer as Serializer
-
+from ..serialization import Deserializer as Deserializer
+from ..serialization import SerializationContext
+from ..serialization import SerializationError as SerializationError
+from ..serialization import Serializer as Serializer
 from . import Schema as Schema
 from . import topic_subject_name_strategy as topic_subject_name_strategy
+from .schema_registry_client import SchemaRegistryClient
 
 class _ContextStringIO(BytesIO):
     def __enter__(self) -> _ContextStringIO: ...
@@ -26,17 +25,17 @@ class AvroSerializer(Serializer):
         self,
         schema_registry_client: SchemaRegistryClient,
         schema_str: str | Schema,
-        to_dict: Callable[[object], "SerializationContext"] | None = None,  # type: ignore
+        to_dict: Callable[[object], SerializationContext] | None = None,
         conf: dict | None = None,
     ) -> None: ...
-    def __call__(self, obj: object, ctx: "SerializationContext"): ...  # type: ignore
+    def __call__(self, obj: object, ctx: SerializationContext): ...
 
 class AvroDeserializer(Deserializer):
     def __init__(
         self,
         schema_registry_client: SchemaRegistryClient,
         schema_str: str | Schema | None = None,
-        from_dict: Callable[[dict], "SerializationContext"] | None = None,  # type: ignore
+        from_dict: Callable[[dict], SerializationContext] | None = None,
         return_record_name: bool = False,
     ) -> None: ...
-    def __call__(self, data: bytes, ctx: "SerializationContext"): ...  # type: ignore
+    def __call__(self, data: bytes, ctx: SerializationContext): ...
