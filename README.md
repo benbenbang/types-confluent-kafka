@@ -10,6 +10,9 @@
 
 
 
+## Compatibility
+please check the [table](https://github.com/benbenbang/types-confluent-kafka/blob/main/compatibility.md)
+
 ## Installation
 
 The package can be installed from [PyPI](https://pypi.org/project/types-confluent-kafka/)
