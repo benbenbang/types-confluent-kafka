@@ -24,5 +24,5 @@ class SerializingProducer(_ProducerImpl):
         partition: int = -1,
         on_delivery: Callable[[KafkaError], Message] | None = None,
         timestamp: float = 0,
-        headers: dict[str, bytes | None] | None = None,
+        headers: dict[str, bytes | None] | None = None,  # type: ignore[override]
     ) -> None: ...
