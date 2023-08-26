@@ -25,7 +25,7 @@ class AvroSerializer(Serializer):
     def __init__(
         self,
         schema_registry_client: SchemaRegistryClient,
-        schema_str: str,
+        schema_str: str | Schema,
         to_dict: Callable[[object], "SerializationContext"] | None = None,  # type: ignore
         conf: dict | None = None,
     ) -> None: ...
@@ -35,7 +35,7 @@ class AvroDeserializer(Deserializer):
     def __init__(
         self,
         schema_registry_client: SchemaRegistryClient,
-        schema_str: str | None = None,
+        schema_str: str | Schema | None = None,
         from_dict: Callable[[dict], "SerializationContext"] | None = None,  # type: ignore
         return_record_name: bool = False,
     ) -> None: ...
