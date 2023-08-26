@@ -1,6 +1,6 @@
 # types-confluent-kafka
 
- [![PyPI version](https://badge.fury.io/py/types-confluent-kafka.svg)](https://badge.fury.io/py/types-confluent-kafka) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/types-confluent-kafka) ![GitHub issues](https://img.shields.io/github/issues/benbenbang/types-confluent-kafka) ![pre-commit enable](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white) [![main](https://github.com/benbenbang/types-confluent-kafka/actions/workflows/main.yml/badge.svg)](https://github.com/benbenbang/types-confluent-kafka/actions/workflows/main.yml) ![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)
+ [![PyPI version](https://badge.fury.io/py/types-confluent-kafka.svg)](https://badge.fury.io/py/types-confluent-kafka) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/types-confluent-kafka) [![GitHub issues](https://img.shields.io/github/issues/benbenbang/types-confluent-kafka)](https://github.com/benbenbang/types-confluent-kafka/issues) ![pre-commit enable](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white) [![main](https://github.com/benbenbang/types-confluent-kafka/actions/workflows/main.yml/badge.svg)](https://github.com/benbenbang/types-confluent-kafka/actions/workflows/main.yml) ![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)
 
 `types-confluent-kafka` is a package that provides type hints for the `confluent-kafka` Python package. It's designed to enhance your development experience by enabling type checking with tools like `mypy` and providing auto-completion support in your LSP (language server).
 
@@ -37,6 +37,8 @@ poetry add --group dev types-confluent-kafka
 - `PATCH` version for backward-compatible bug fixes.
 
 This package will be released as frequently as possible to iterate faster and provide you with the latest features and improvements. Frequent releases also allow us to quickly address and release bug fixes to ensure the stability of the package.
+
+The commit follows [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/), which is the driver of how the versioning works.
 
 
 
