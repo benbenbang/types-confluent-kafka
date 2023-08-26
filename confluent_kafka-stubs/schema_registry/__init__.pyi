@@ -9,6 +9,7 @@ from .schema_registry_client import SchemaReference as SchemaReference
 from .schema_registry_client import SchemaRegistryClient as SchemaRegistryClient
 from .schema_registry_client import SchemaRegistryError as SchemaRegistryError
 
-def topic_subject_name_strategy(ctx, record_name): ...
-def topic_record_subject_name_strategy(ctx, record_name): ...
-def record_subject_name_strategy(ctx, record_name): ...
+def topic_subject_name_strategy(ctx: "SerializationContext", record_name: str): ...  # type: ignore
+def topic_record_subject_name_strategy(ctx: "SerializationContext", record_name: str): ...  # type: ignore
+def record_subject_name_strategy(ctx: "SerializationContext", record_name: str): ...  # type: ignore
+def reference_subject_name_strategy(ctx: "SerializationContext", schema_ref: SchemaReference): ...  # type: ignore
