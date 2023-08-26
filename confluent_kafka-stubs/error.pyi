@@ -7,14 +7,10 @@ from __future__ import annotations
 # standard library
 from typing import ClassVar
 
-# pypi/conda library
-from confluent_kafka.cimpl import KafkaError as KafkaError
-from confluent_kafka.cimpl import KafkaException as KafkaException
-from confluent_kafka.serialization import SerializationError as SerializationError
-
 from .cimpl import KafkaError as KafkaError
 from .cimpl import KafkaException as KafkaException
 from .cimpl import Message
+from .serialization import SerializationError as SerializationError
 
 class _KafkaClientError(KafkaException):
     """

@@ -7,8 +7,7 @@ from __future__ import annotations
 # standard library
 from typing import ClassVar
 
-# pypi/conda library
-from confluent_kafka.cimpl import Message
+from ..cimpl import Message
 
 class ClientError(Exception):
     """Error thrown by Schema Registry clients"""
