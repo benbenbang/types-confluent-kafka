@@ -10,11 +10,6 @@ from typing import TYPE_CHECKING, DefaultDict, Literal
 from .error import ClientError as ClientError
 from .load import loads as loads
 
-try:
-    string_type = basestring  # type: ignore
-except:
-    string_type = str
-
 if TYPE_CHECKING:
     """Helping users who installed avro package can get type hints"""
     try:

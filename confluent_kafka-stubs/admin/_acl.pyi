@@ -13,11 +13,6 @@ from .._util import ValidationUtil as ValidationUtil
 from ._resource import ResourcePatternType as ResourcePatternType
 from ._resource import ResourceType as ResourceType
 
-try:
-    string_type = basestring  # type: ignore
-except NameError:
-    string_type = str
-
 class AclOperation(Enum):
     UNKNOWN: Literal["ACL_OPERATION_UNKNOWN"]
     ANY: Literal["ACL_OPERATION_ANY"]

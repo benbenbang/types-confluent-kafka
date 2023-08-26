@@ -55,11 +55,6 @@ from ._scram import UserScramCredentialDeletion as UserScramCredentialDeletion
 from ._scram import UserScramCredentialsDescription as UserScramCredentialsDescription
 from ._scram import UserScramCredentialUpsertion as UserScramCredentialUpsertion
 
-try:
-    string_type = basestring  # type: ignore
-except NameError:
-    string_type = str
-
 class AdminClient(_AdminClientImpl):
     def __init__(self, conf: dict[str, Any]) -> None: ...
     def create_topics(
