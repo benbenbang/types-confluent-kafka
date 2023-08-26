@@ -6,7 +6,6 @@ on:
       - main
     paths:
       - confluent_kafka-stubs/**/*
-      - tests/**/*
 
 jobs:
   typing-tests:
