@@ -4,6 +4,10 @@ on:
   push:
     branches:
       - main
+    paths:
+      - confluent_kafka-stubs/**/*
+      - poetry.lock
+      - .github/**.*
 
 jobs:
   pre-commit:

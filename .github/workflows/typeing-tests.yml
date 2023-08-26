@@ -6,7 +6,8 @@ on:
       - main
     paths:
       - confluent_kafka-stubs/**/*
-      - tests/**/*
+      - poetry.lock
+      - .github/**.*
 
 jobs:
   typing-tests:
