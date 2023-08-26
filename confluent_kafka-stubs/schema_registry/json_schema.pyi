@@ -28,7 +28,7 @@ class JSONSerializer(Serializer):
         to_dict: Callable[[object], SerializationContext] | None = None,
         conf: dict | None = None,
     ) -> None: ...
-    def __call__(self, obj: object, ctx: SerializationContext): ...
+    def __call__(self, obj: object, ctx: SerializationContext): ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
 
 class JSONDeserializer(Deserializer):
     def __init__(
@@ -37,4 +37,4 @@ class JSONDeserializer(Deserializer):
         from_dict: Callable[[dict], SerializationContext] | None = ...,
         schema_registry_client: SchemaRegistryClient | None = None,
     ) -> None: ...
-    def __call__(self, data: bytes, ctx: SerializationContext): ...
+    def __call__(self, data: bytes, ctx: SerializationContext): ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631

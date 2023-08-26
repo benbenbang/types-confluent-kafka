@@ -28,7 +28,7 @@ class AvroSerializer(Serializer):
         to_dict: Callable[[object], SerializationContext] | None = None,
         conf: dict | None = None,
     ) -> None: ...
-    def __call__(self, obj: object, ctx: SerializationContext) -> None: ...
+    def __call__(self, obj: object, ctx: SerializationContext) -> None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
 
 class AvroDeserializer(Deserializer):
     def __init__(
@@ -38,4 +38,4 @@ class AvroDeserializer(Deserializer):
         from_dict: Callable[[dict], SerializationContext] | None = None,
         return_record_name: bool = False,
     ) -> None: ...
-    def __call__(self, data: bytes, ctx: SerializationContext) -> None: ...
+    def __call__(self, data: bytes, ctx: SerializationContext) -> None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
