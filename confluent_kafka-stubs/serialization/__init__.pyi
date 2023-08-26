@@ -7,8 +7,7 @@ from __future__ import annotations
 # standard library
 from typing import ClassVar
 
-# pypi/conda library
-from confluent_kafka.error import KafkaException
+from ..error import KafkaException
 
 class MessageField:
     NONE: str

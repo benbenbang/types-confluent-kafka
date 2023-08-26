@@ -6,20 +6,19 @@ This package is licensed under the Apache 2.0 License.
 # This module is going to be deprecated
 
 # standard library
-from typing import Any, Callable, overload
+from typing import Any, Callable
 
-# pypi/conda library
-from confluent_kafka import Consumer as Consumer
-from confluent_kafka import Producer as Producer
-from confluent_kafka.avro.cached_schema_registry_client import CachedSchemaRegistryClient as CachedSchemaRegistryClient
-from confluent_kafka.avro.error import ClientError as ClientError
-from confluent_kafka.avro.load import load as load
-from confluent_kafka.avro.load import loads as loads
-from confluent_kafka.avro.serializer import KeySerializerError as KeySerializerError
-from confluent_kafka.avro.serializer import SerializerError as SerializerError
-from confluent_kafka.avro.serializer import ValueSerializerError as ValueSerializerError
-from confluent_kafka.avro.serializer.message_serializer import MessageSerializer as MessageSerializer
-from confluent_kafka.cimpl import Message
+from ..avro.cached_schema_registry_client import CachedSchemaRegistryClient as CachedSchemaRegistryClient
+from ..avro.error import ClientError as ClientError
+from ..avro.load import load as load
+from ..avro.load import loads as loads
+from ..avro.serializer import KeySerializerError as KeySerializerError
+from ..avro.serializer import SerializerError as SerializerError
+from ..avro.serializer import ValueSerializerError as ValueSerializerError
+from ..avro.serializer.message_serializer import MessageSerializer as MessageSerializer
+from ..cimpl import Consumer as Consumer
+from ..cimpl import Message
+from ..cimpl import Producer as Producer
 
 class AvroProducer(Producer):
     def __init__(

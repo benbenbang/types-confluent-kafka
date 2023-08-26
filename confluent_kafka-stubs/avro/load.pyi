@@ -8,8 +8,7 @@ from __future__ import annotations
 from pathlib import Path
 from typing import TYPE_CHECKING
 
-# pypi/conda library
-from confluent_kafka.avro.error import ClientError as ClientError
+from ..avro.error import ClientError as ClientError
 
 if TYPE_CHECKING:
     """Helping users who installed avro package can get type hints"""

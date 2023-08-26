@@ -8,10 +8,7 @@ from __future__ import annotations
 from asyncio import Future
 from typing import Any
 
-# pypi/conda library
-from confluent_kafka._model import ConsumerGroupTopicPartitions
-
-from .._model import ConsumerGroupState
+from .._model import ConsumerGroupState, ConsumerGroupTopicPartitions
 from ..cimpl import CONFIG_SOURCE_DEFAULT_CONFIG as CONFIG_SOURCE_DEFAULT_CONFIG
 from ..cimpl import CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG
 from ..cimpl import CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG

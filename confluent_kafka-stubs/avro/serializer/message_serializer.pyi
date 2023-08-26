@@ -9,12 +9,11 @@ from io import BytesIO
 from logging import Logger
 from typing import TYPE_CHECKING, Any, Callable
 
-# pypi/conda library
-from confluent_kafka.avro import ClientError as ClientError
-from confluent_kafka.avro.serializer import KeySerializerError as KeySerializerError
-from confluent_kafka.avro.serializer import SerializerError as SerializerError
-from confluent_kafka.avro.serializer import ValueSerializerError as ValueSerializerError
-from confluent_kafka.schema_registry.schema_registry_client import SchemaRegistryClient
+from ...schema_registry.schema_registry_client import SchemaRegistryClient
+from .. import ClientError as ClientError
+from . import KeySerializerError as KeySerializerError
+from . import SerializerError as SerializerError
+from . import ValueSerializerError as ValueSerializerError
 
 log: Logger
 MAGIC_BYTE: int
