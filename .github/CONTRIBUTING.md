@@ -18,7 +18,7 @@ Thank you for considering a contribution to `types-confluent-kafka`. This guide 
    ```bash
    $ cd types-confluent-kafka
    $ poetry shell
-   $ poetry install --with dev --with lint --with test
+   $ poetry install --with dev --with lint
    ```
 
 3. **Install Dependencies**: Navigate to the project's root directory and install the necessary dependencies.
