@@ -10,8 +10,6 @@ from typing import ClassVar
 from ..cimpl import Message
 
 class ClientError(Exception):
-    """Error thrown by Schema Registry clients"""
-
     message: ClassVar[Message]
     http_code: ClassVar[int]
 
