@@ -6,29 +6,50 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import Literal
+from typing import ClassVar
 
 from .. import cimpl as cimpl
 
 class ScramMechanism(Enum):
-    UNKNOWN: Literal["cimpl.SCRAM_MECHANISM_UNKNOWN"]
-    SCRAM_SHA_256: Literal["cimpl.SCRAM_MECHANISM_SHA_256"]
-    SCRAM_SHA_512: Literal["cimpl.SCRAM_MECHANISM_SHA_512"]
+    UNKNOWN: ClassVar[int]
+    SCRAM_SHA_256: ClassVar[int]
+    SCRAM_SHA_512: ClassVar[int]
+
     def __lt__(self, other: "ScramMechanism") -> bool: ...
 
 class ScramCredentialInfo:
-    def __init__(self, mechanism: "ScramMechanism", iterations: int) -> None: ...
+    mechanism: ClassVar[ScramMechanism]
+    iterations: int
+
+    def __init__(self, mechanism: ScramMechanism, iterations: int) -> None: ...
 
 class UserScramCredentialsDescription:
-    def __init__(self, user: str, scram_credential_infos: list["ScramCredentialInfo"]) -> None: ...
+    user: ClassVar[str]
+    scram_credential_info: ClassVar[ScramCredentialInfo]
+
+    def __init__(self, user: str, scram_credential_infos: list[ScramCredentialInfo]) -> None: ...
 
 class UserScramCredentialAlteration:
+    user: ClassVar[str]
+
     def __init__(self, user: str) -> None: ...
 
 class UserScramCredentialUpsertion(UserScramCredentialAlteration):
+    user: ClassVar[str]
+    scram_credential_info: ClassVar[ScramCredentialInfo]
+    password: ClassVar[bytes]
+    salt: ClassVar[bytes | None]
+
     def __init__(
-        self, user: str, scram_credential_info: "ScramCredentialInfo", password: bytes, salt: bytes | None = None
+        self,
+        user: str,
+        scram_credential_info: ScramCredentialInfo,
+        password: bytes,
+        salt: bytes | None = None,
     ) -> None: ...
 
 class UserScramCredentialDeletion(UserScramCredentialAlteration):
-    def __init__(self, user: str, mechanism: "ScramMechanism") -> None: ...
+    user: ClassVar[str]
+    mechanism: ClassVar[ScramMechanism]
+
+    def __init__(self, user: str, mechanism: ScramMechanism) -> None: ...
