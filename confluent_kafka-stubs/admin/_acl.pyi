@@ -6,7 +6,7 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum, EnumMeta
-from typing import Any, Literal
+from typing import Any, ClassVar, Literal
 
 from .._util import ConversionUtil as ConversionUtil
 from .._util import ValidationUtil as ValidationUtil
@@ -14,38 +14,52 @@ from ._resource import ResourcePatternType as ResourcePatternType
 from ._resource import ResourceType as ResourceType
 
 class AclOperation(Enum):
-    UNKNOWN: Literal["ACL_OPERATION_UNKNOWN"]
-    ANY: Literal["ACL_OPERATION_ANY"]
-    ALL: Literal["ACL_OPERATION_ALL"]
-    READ: Literal["ACL_OPERATION_READ"]
-    WRITE: Literal["ACL_OPERATION_WRITE"]
-    CREATE: Literal["ACL_OPERATION_CREATE"]
-    DELETE: Literal["ACL_OPERATION_DELETE"]
-    ALTER: Literal["ACL_OPERATION_ALTER"]
-    DESCRIBE: Literal["ACL_OPERATION_DESCRIBE"]
-    CLUSTER_ACTION: Literal["ACL_OPERATION_CLUSTER_ACTION"]
-    DESCRIBE_CONFIGS: Literal["ACL_OPERATION_DESCRIBE_CONFIGS"]
-    ALTER_CONFIGS: Literal["ACL_OPERATION_ALTER_CONFIGS"]
-    IDEMPOTENT_WRITE: Literal["ACL_OPERATION_IDEMPOTENT_WRITE"]
-    def __lt__(self, other: "AclOperation") -> bool: ...
+    UNKNOWN: int
+    ANY: int
+    ALL: int
+    READ: int
+    WRITE: int
+    CREATE: int
+    DELETE: int
+    ALTER: int
+    DESCRIBE: int
+    CLUSTER_ACTION: int
+    DESCRIBE_CONFIGS: int
+    ALTER_CONFIGS: int
+    IDEMPOTENT_WRITE: int
+
+    def __lt__(self, other: AclOperation) -> bool: ...
 
 class AclPermissionType(Enum):
-    UNKNOWN: Literal["ACL_PERMISSION_TYPE_UNKNOWN"]
-    ANY: Literal["ACL_PERMISSION_TYPE_ANY"]
-    DENY: Literal["ACL_PERMISSION_TYPE_DENY"]
-    ALLOW: Literal["ACL_PERMISSION_TYPE_ALLOW"]
-    def __lt__(self, other: "AclPermissionType") -> bool: ...
+    UNKNOWN: int
+    ANY: int
+    DENY: int
+    ALLOW: int
+
+    def __lt__(self, other: AclPermissionType) -> bool: ...
 
 class AclBinding:
+    restype: ClassVar[ResourceType]
+    name: ClassVar[str]
+    resource_pattern_type: ClassVar[ResourcePatternType]
+    principal: ClassVar[str]
+    host: ClassVar[str]
+    operation: ClassVar[AclOperation]
+    permission_type: ClassVar[AclPermissionType]
+    restype_int: ClassVar[int]
+    resource_pattern_type_int: ClassVar[int]
+    operation_int: ClassVar[int]
+    permission_type_int: ClassVar[int]
+
     def __init__(
         self,
-        restype: "ResourceType",
+        restype: ResourceType,
         name: str,
-        resource_pattern_type: "ResourcePatternType",
+        resource_pattern_type: ResourcePatternType,
         principal: str,
         host: str,
-        operation: "AclOperation",
-        permission_type: "AclPermissionType",
+        operation: AclOperation,
+        permission_type: AclPermissionType,
     ) -> None: ...
     def _convert_enums(self) -> None: ...
     def _check_forbidden_enums(self, forbidden_enums: "EnumMeta") -> None: ...
@@ -75,13 +89,13 @@ class AclBinding:
 class AclBindingFilter(AclBinding):
     def __init__(
         self,
-        restype: "ResourceType",
+        restype: ResourceType,
         name: str,
-        resource_pattern_type: "ResourcePatternType",
+        resource_pattern_type: ResourcePatternType,
         principal: str,
         host: str,
-        operation: "AclOperation",
-        permission_type: "AclPermissionType",
+        operation: AclOperation,
+        permission_type: AclPermissionType,
     ) -> None: ...
     def _not_none_args(self) -> Literal["restype", "resource_pattern_type", "operation", "permission_type"]: ...
     def _forbidden_enums(  # type: ignore[override]

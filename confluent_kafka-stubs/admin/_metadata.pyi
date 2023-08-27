@@ -17,18 +17,21 @@ class ClusterMetadata:
     topics: ClassVar[dict[int, "TopicMetadata"] | None] = None
     orig_broker_id: ClassVar[int] = -1
     orig_broker_name: ClassVar[str] = ""
+
     def __init__(self) -> None: ...
 
 class BrokerMetadata:
     id: ClassVar[int] = -1
     host: ClassVar[str | None] = None
     port: ClassVar[int] = -1
+
     def __init__(self) -> None: ...
 
 class TopicMetadata:
     topic: ClassVar[str | None] = None
     partitions: ClassVar[dict[int, "PartitionMetadata"] | None] = None
     error: ClassVar["KafkaError" | None] = None
+
     def __init__(self) -> None: ...
 
 class PartitionMetadata:
@@ -37,6 +40,7 @@ class PartitionMetadata:
     replicas: ClassVar[list[int] | None] = None
     isrs: ClassVar[list[int] | None] = None
     error: ClassVar["KafkaError" | None] = None
+
     def __init__(self) -> None: ...
 
 class GroupMember:
@@ -45,6 +49,7 @@ class GroupMember:
     client_host: ClassVar[str | None] = None
     metadata: ClassVar[Any | None] = None
     assignment: ClassVar[Any | None] = None
+
     def __init__(self) -> None: ...
 
 class GroupMetadata:
@@ -55,4 +60,5 @@ class GroupMetadata:
     protocol_type: ClassVar[Any | None] = None
     protocol: ClassVar[Any] = None
     members: ClassVar[list | None] = None
+
     def __init__(self) -> None: ...
