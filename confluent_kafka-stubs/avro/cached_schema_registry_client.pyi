@@ -21,9 +21,9 @@ if TYPE_CHECKING:
         # standard library
         from typing import Any as Schema  # type: ignore
 
-VALID_LEVELS = Literal["NONE"] | Literal["FULL"] | Literal["FORWARD"] | Literal["BACKWARD"]
-VALID_METHODS = Literal["GET"] | Literal["POST"] | Literal["PUT"] | Literal["DELETE"]
-VALID_AUTH_PROVIDERS = Literal["URL"] | Literal["USER_INFO"] | Literal["SASL_INHERIT"]
+VALID_LEVELS = Literal["NONE", "FULL", "FORWARD", "BACKWARD"]
+VALID_METHODS = Literal["GET", "POST", "PUT", "DELETE"]
+VALID_AUTH_PROVIDERS = Literal["URL", "USER_INFO", "SASL_INHERIT"]
 ACCEPT_HDR: str
 log: Logger
 
