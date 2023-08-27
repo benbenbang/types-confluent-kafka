@@ -6,7 +6,7 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import TYPE_CHECKING, ClassVar, Literal
+from typing import TYPE_CHECKING, ClassVar
 
 if TYPE_CHECKING:
     from ..cimpl import TopicPartition
@@ -20,11 +20,12 @@ class ConsumerGroupTopicPartitions:
     def __init__(self, group_id: str, topic_partitions: list["TopicPartition"] | None = None) -> None: ...
 
 class ConsumerGroupState(Enum):
-    UNKNOWN = Literal["CONSUMER_GROUP_STATE_UNKNOWN"]
-    UNKOWN = Literal["UNKNOWN"]
-    PREPARING_REBALANCING = Literal["CONSUMER_GROUP_STATE_PREPARING_REBALANCE"]
-    COMPLETING_REBALANCING = Literal["CONSUMER_GROUP_STATE_COMPLETING_REBALANCE"]
-    STABLE = Literal["CONSUMER_GROUP_STATE_STABLE"]
-    DEAD = Literal["CONSUMER_GROUP_STATE_DEAD"]
-    EMPTY = Literal["CONSUMER_GROUP_STATE_EMPTY"]
+    UNKNOWN: int
+    UNKOWN: int
+    PREPARING_REBALANCING: int
+    COMPLETING_REBALANCING: int
+    STABLE: int
+    DEAD: int
+    EMPTY: int
+
     def __lt__(self, other) -> bool: ...
