@@ -7,7 +7,7 @@ from __future__ import annotations
 # standard library
 from io import BytesIO
 from logging import Logger
-from typing import TYPE_CHECKING, Any, Callable
+from typing import TYPE_CHECKING, Any, Callable, ClassVar
 
 from ...schema_registry.schema_registry_client import SchemaRegistryClient
 from .. import ClientError as ClientError
@@ -33,11 +33,11 @@ class ContextStringIO(BytesIO):
     def __exit__(self, *args): ...
 
 class MessageSerializer:
-    registry_client: SchemaRegistryClient
-    id_to_decoder_func: dict[int, Callable]
-    id_to_writers: dict[int, bytes]
-    reader_key_schema: str | bytes | None = None
-    reader_value_schema: str | bytes | None = None
+    registry_client: ClassVar[SchemaRegistryClient]
+    id_to_decoder_func: ClassVar[dict[int, Callable]]
+    id_to_writers: ClassVar[dict[int, bytes]]
+    reader_key_schema: ClassVar[str | bytes | None]
+    reader_value_schema: ClassVar[str | bytes | None]
 
     def __init__(
         self,

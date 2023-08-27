@@ -7,7 +7,7 @@ from __future__ import annotations
 # standard library
 from logging import Logger
 from pathlib import Path
-from typing import TYPE_CHECKING, DefaultDict, Literal
+from typing import TYPE_CHECKING, ClassVar, DefaultDict, Literal
 
 from .error import ClientError as ClientError
 from .load import loads as loads
@@ -28,11 +28,11 @@ ACCEPT_HDR: str
 log: Logger
 
 class CachedSchemaRegistryClient:
-    url: str | dict
-    subject_to_schema_ids: DefaultDict[str, dict]
-    id_to_schema: DefaultDict[str, dict]
-    subject_to_schema_versions: DefaultDict[str, dict]
-    auto_register_schemas: bool
+    url: ClassVar[str | dict]
+    subject_to_schema_ids: ClassVar[DefaultDict[str, dict]]
+    id_to_schema: ClassVar[DefaultDict[str, dict]]
+    subject_to_schema_versions: ClassVar[DefaultDict[str, dict]]
+    auto_register_schemas: ClassVar[bool]
 
     def __init__(
         self,
