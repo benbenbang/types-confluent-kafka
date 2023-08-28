@@ -14,7 +14,7 @@ class ClusterMetadata:
     cluster_id: ClassVar[str]
     controller_id: ClassVar[int] = -1
     brokers: ClassVar[dict[int, "BrokerMetadata"] | None] = None
-    topics: ClassVar[dict[int, "TopicMetadata"] | None] = None
+    topics: ClassVar[dict[str, "TopicMetadata"] | None] = None
     orig_broker_id: ClassVar[int] = -1
     orig_broker_name: ClassVar[str] = ""
 
