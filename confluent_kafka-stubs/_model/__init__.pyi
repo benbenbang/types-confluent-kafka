@@ -6,17 +6,23 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import TYPE_CHECKING, ClassVar
+from typing import ClassVar
 
-if TYPE_CHECKING:
-    from ..cimpl import TopicPartition
+from ..cimpl import TopicPartition
 
 class Node:
+    id: ClassVar[int]
     id_string: ClassVar[str]
+    host: ClassVar[str]
+    port: ClassVar[int]
+    rack: ClassVar[str]
 
     def __init__(self, id: int, host: str, port: int, rack: str | None = None) -> None: ...
 
 class ConsumerGroupTopicPartitions:
+    group_id: ClassVar[str]
+    topic_partitions: ClassVar[list["TopicPartition"]]
+
     def __init__(self, group_id: str, topic_partitions: list["TopicPartition"] | None = None) -> None: ...
 
 class ConsumerGroupState(Enum):
