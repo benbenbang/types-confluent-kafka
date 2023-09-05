@@ -1,8 +1,7 @@
 {
-  "branches": "main",
-  "parserOpts": {
-    "revertPattern": "^revert\\s.(\\w*\\([\\w\\$\\.\\-\\* ]*\\)\\: .*).\\s*This reverts commit (\\w*)?"
-  },
+  "branches": [
+    "main"
+  ],
   "plugins": [
     [
       "@semantic-release/commit-analyzer",
@@ -16,8 +15,8 @@
         "preset": "conventionalcommits",
         "releaseRules": [
           {
-            "release": "major",
-            "type": "*!"
+            "breaking": true,
+            "release": "major"
           },
           {
             "release": "minor",
@@ -63,7 +62,7 @@
     "types": [
       {
         "section": ":zap: Breaking Changes",
-        "type": "*!"
+        "type": "*"
       },
       {
         "hidden": false,
