@@ -94,11 +94,7 @@ filterwarnings = []
 
 testpaths = []
 
-markers = [
-    "unittests: run unittests",
-    "integrationtests: run integrationtests",
-    "loadtests: run datapi loadtests",
-]
+markers = []
 
 [tool.mypy]
 ignore_missing_imports=true
