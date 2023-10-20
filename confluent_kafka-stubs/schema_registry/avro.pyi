@@ -6,7 +6,7 @@ from __future__ import annotations
 
 # standard library
 from io import BytesIO
-from typing import Callable
+from typing import Any, Callable
 
 from ..serialization import Deserializer as Deserializer
 from ..serialization import SerializationContext
@@ -25,7 +25,7 @@ class AvroSerializer(Serializer):
         self,
         schema_registry_client: SchemaRegistryClient,
         schema_str: str | Schema,
-        to_dict: Callable[[object], SerializationContext] | None = None,
+        to_dict: Callable[[object, SerializationContext], dict[Any, Any]] | None = None,
         conf: dict | None = None,
     ) -> None: ...
     def __call__(self, obj: object, ctx: SerializationContext) -> None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
@@ -35,7 +35,7 @@ class AvroDeserializer(Deserializer):
         self,
         schema_registry_client: SchemaRegistryClient,
         schema_str: str | Schema | None = None,
-        from_dict: Callable[[dict], SerializationContext] | None = None,
+        from_dict: Callable[[dict[Any, Any], SerializationContext], object] | None = None,
         return_record_name: bool = False,
     ) -> None: ...
     def __call__(self, data: bytes, ctx: SerializationContext) -> None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
