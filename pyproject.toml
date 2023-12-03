@@ -33,7 +33,7 @@ python = "^3.8"
 
 [tool.poetry.group.dev.dependencies]
 confluent-kafka = {extras = ["avro"], version = "^2.2.0"}
-pyright = "^1.1.321"
+pyright = "^1.1.338"
 mypy = "^1.5.0"
 types-requests = "^2.31.0.2"
 
