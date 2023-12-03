@@ -430,7 +430,7 @@ class Producer:
         value: str | bytes | None = None,
         key: str | bytes | None = None,
         partition: int | None = None,
-        on_delivery: Callable | None = None,
+        on_delivery: Callable[[KafkaError | None, Message], None] | None = None,
         timestamp: int = 0,
         headers: dict[str, str | bytes] | list[tuple[str, str | bytes]] | None = None,
     ) -> None: ...
@@ -482,9 +482,9 @@ class Consumer:
     def subscribe(
         self,
         topics: list[str],
-        on_assign: Callable | None = None,
-        on_revoke: Callable | None = None,
-        on_lost: Callable | None = None,
+        on_assign: Callable[[Consumer, list[TopicPartition]], None] | None = None,
+        on_revoke: Callable[[Consumer, list[TopicPartition]], None] | None = None,
+        on_lost: Callable[[Consumer, list[TopicPartition]], None] | None = None,
     ) -> None: ...
     def unassign(self) -> None: ...
     def unsubscribe(self) -> None: ...
