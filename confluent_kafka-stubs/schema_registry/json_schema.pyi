@@ -6,7 +6,7 @@ from __future__ import annotations
 
 # standard library
 from io import BytesIO
-from typing import Callable
+from typing import Any, Callable
 
 from ..schema_registry import Schema as Schema
 from ..schema_registry import topic_subject_name_strategy as topic_subject_name_strategy
@@ -25,7 +25,7 @@ class JSONSerializer(Serializer):
         self,
         schema_str: str | Schema,
         schema_registry_client: SchemaRegistryClient,
-        to_dict: Callable[[object], SerializationContext] | None = None,
+        to_dict: Callable[[dict[Any, Any], SerializationContext], object] | None = None,
         conf: dict | None = None,
     ) -> None: ...
     def __call__(self, obj: object, ctx: SerializationContext): ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
@@ -34,7 +34,7 @@ class JSONDeserializer(Deserializer):
     def __init__(
         self,
         schema_str: str | Schema,
-        from_dict: Callable[[dict], SerializationContext] | None = ...,
+        from_dict: Callable[[dict[Any, Any], SerializationContext], object] | None = None,
         schema_registry_client: SchemaRegistryClient | None = None,
     ) -> None: ...
     def __call__(self, data: bytes, ctx: SerializationContext): ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
