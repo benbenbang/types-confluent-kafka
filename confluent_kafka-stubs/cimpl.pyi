@@ -321,11 +321,11 @@ class Message:
     def __len__(self) -> int: ...
 
 class NewTopic:
-    topic: ClassVar[str]
-    num_partitions: ClassVar[int]
-    replication_factor: ClassVar[int]
-    replica_assignment: ClassVar[list[list[str]]]
-    config: ClassVar[dict[str, str] | None]
+    topic: str
+    num_partitions: int
+    replication_factor: int
+    replica_assignment: list[list[str]]
+    config: dict[str, str] | None
 
     def __init__(
         self,
@@ -363,11 +363,11 @@ class NewPartitions:
         def __ne__(self, other: "NewPartitions") -> bool: ...
 
 class TopicPartition:
-    topic: ClassVar[str]
-    partition: ClassVar[int]
-    offset: ClassVar[int]
-    metadata: ClassVar[str | None]
-    leader_epoch: ClassVar[int | None]
+    topic: str
+    partition: int
+    offset: int
+    metadata: str | None
+    leader_epoch: int | None
 
     def __init__(
         self,
