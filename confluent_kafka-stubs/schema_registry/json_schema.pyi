@@ -25,7 +25,7 @@ class JSONSerializer(Serializer):
         self,
         schema_str: str | Schema,
         schema_registry_client: SchemaRegistryClient,
-        to_dict: Callable[[dict[Any, Any], SerializationContext], object] | None = None,
+        to_dict: Callable[[object, SerializationContext], dict[Any, Any]] | None = None,
         conf: dict | None = None,
     ) -> None: ...
     def __call__(self, obj: object, ctx: SerializationContext): ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
