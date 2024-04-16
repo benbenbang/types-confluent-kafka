@@ -6,7 +6,7 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum, EnumMeta
-from typing import Any, ClassVar, Literal
+from typing import Any, Literal
 
 from .._util import ConversionUtil as ConversionUtil
 from .._util import ValidationUtil as ValidationUtil
@@ -39,17 +39,17 @@ class AclPermissionType(Enum):
     def __lt__(self, other: AclPermissionType) -> bool: ...
 
 class AclBinding:
-    restype: ClassVar[ResourceType]
-    name: ClassVar[str]
-    resource_pattern_type: ClassVar[ResourcePatternType]
-    principal: ClassVar[str]
-    host: ClassVar[str]
-    operation: ClassVar[AclOperation]
-    permission_type: ClassVar[AclPermissionType]
-    restype_int: ClassVar[int]
-    resource_pattern_type_int: ClassVar[int]
-    operation_int: ClassVar[int]
-    permission_type_int: ClassVar[int]
+    restype: ResourceType
+    name: str
+    resource_pattern_type: ResourcePatternType
+    principal: str
+    host: str
+    operation: AclOperation
+    permission_type: AclPermissionType
+    restype_int: int
+    resource_pattern_type_int: int
+    operation_int: int
+    permission_type_int: int
 
     def __init__(
         self,

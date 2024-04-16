@@ -6,22 +6,21 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import ClassVar
 
 from ..cimpl import TopicPartition
 
 class Node:
-    id: ClassVar[int]
-    id_string: ClassVar[str]
-    host: ClassVar[str]
-    port: ClassVar[int]
-    rack: ClassVar[str]
+    id: int
+    id_string: str
+    host: str
+    port: int
+    rack: str
 
     def __init__(self, id: int, host: str, port: int, rack: str | None = None) -> None: ...
 
 class ConsumerGroupTopicPartitions:
-    group_id: ClassVar[str]
-    topic_partitions: ClassVar[list["TopicPartition"]]
+    group_id: str
+    topic_partitions: list["TopicPartition"]
 
     def __init__(self, group_id: str, topic_partitions: list["TopicPartition"] | None = None) -> None: ...
 

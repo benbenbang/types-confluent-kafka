@@ -4,61 +4,58 @@ This package is licensed under the Apache 2.0 License.
 """
 from __future__ import annotations
 
-# standard library
-from typing import Any, ClassVar
-
 from .._model import ConsumerGroupState as ConsumerGroupState
 from ..error import KafkaError as KafkaError
 
 class ClusterMetadata:
-    cluster_id: ClassVar[str]
-    controller_id: ClassVar[int] = -1
-    brokers: ClassVar[dict[int, "BrokerMetadata"] | None] = None
-    topics: ClassVar[dict[str, "TopicMetadata"] | None] = None
-    orig_broker_id: ClassVar[int] = -1
-    orig_broker_name: ClassVar[str] = ""
+    cluster_id: str
+    controller_id: int
+    brokers: dict[int, "BrokerMetadata"]
+    topics: dict[str, "TopicMetadata"]
+    orig_broker_id: int
+    orig_broker_name: str | None
 
     def __init__(self) -> None: ...
 
 class BrokerMetadata:
-    id: ClassVar[int] = -1
-    host: ClassVar[str | None] = None
-    port: ClassVar[int] = -1
+    id: int = -1
+    host: str | None = None
+    port: int = -1
 
     def __init__(self) -> None: ...
 
 class TopicMetadata:
-    topic: ClassVar[str | None] = None
-    partitions: ClassVar[dict[int, "PartitionMetadata"] | None] = None
-    error: ClassVar["KafkaError" | None] = None
+    topic: str | None
+    partitions: dict[int, "PartitionMetadata"]
+    error: "KafkaError" | None
 
     def __init__(self) -> None: ...
 
 class PartitionMetadata:
-    id: ClassVar[int]
-    leader: ClassVar[int]
-    replicas: ClassVar[list[int] | None] = None
-    isrs: ClassVar[list[int] | None] = None
-    error: ClassVar["KafkaError" | None] = None
+    id: int
+    leader: int
+    replicas: list[int]
+    isrs: list[int]
+    error: "KafkaError" | None
 
     def __init__(self) -> None: ...
 
 class GroupMember:
-    id: ClassVar[int | None] = None
-    client_id: ClassVar[str | None] = None
-    client_host: ClassVar[str | None] = None
-    metadata: ClassVar[Any | None] = None
-    assignment: ClassVar[Any | None] = None
+    id: str
+    client_id: str | None
+    client_host: str | None
+    metadata: bytes | None
+    assignment: bytes | None
 
     def __init__(self) -> None: ...
 
 class GroupMetadata:
-    broker: ClassVar["BrokerMetadata" | None] = None
-    id: ClassVar[str | None] = None
-    error: ClassVar["KafkaError" | None] = None
-    state: ClassVar["ConsumerGroupState" | None] = None
-    protocol_type: ClassVar[Any | None] = None
-    protocol: ClassVar[Any] = None
-    members: ClassVar[list | None] = None
+    broker: "BrokerMetadata" | None
+    id: str | None
+    error: "KafkaError" | None
+    state: str | None
+    protocol_type: str | None
+    protocol: str | None
+    members: list[GroupMember] | None
 
     def __init__(self) -> None: ...

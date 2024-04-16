@@ -20,7 +20,12 @@ class _ContextStringIO(io.BytesIO):
     def __exit__(self, *args): ...
 
 class ProtobufSerializer:
-    def __init__(self, msg_type: "GeneratedProtocolMessageType", schema_registry_client: SchemaRegistryClient, conf: dict | None = None) -> None: ...  # type: ignore
+    def __init__(
+        self,
+        msg_type: "GeneratedProtocolMessageType",  # type: ignore
+        schema_registry_client: SchemaRegistryClient,
+        conf: dict | None = None,
+    ) -> None: ...
     def __call__(self, message: "Message", ctx: SerializationContext): ...  # type: ignore
 
 class ProtobufDeserializer:

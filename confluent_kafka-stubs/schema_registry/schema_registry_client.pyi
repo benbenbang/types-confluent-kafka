@@ -7,7 +7,7 @@ from __future__ import annotations
 # standard library
 from logging import Logger
 from threading import Lock
-from typing import ClassVar, DefaultDict, Literal
+from typing import DefaultDict, Literal
 
 # pypi/conda library
 from requests import Session
@@ -19,7 +19,7 @@ VALID_AUTH_PROVIDERS: Literal["URL", "USER_INFO"]
 
 class _RestClient:
     session: Session
-    base_url: ClassVar[str]
+    base_url: str
 
     def __init__(self, conf: dict) -> None: ...
     def get(self, url: str, query: dict | None = ...): ...
@@ -35,9 +35,9 @@ class _RestClient:
     ): ...
 
 class _SchemaCache:
-    lock: ClassVar[Lock]
-    schema_id_index: ClassVar[dict]
-    schema_index: ClassVar[dict]
+    lock: Lock
+    schema_id_index: dict
+    schema_index: dict
     subject_schemas: DefaultDict[str, set]
 
     def __init__(self) -> None: ...
@@ -68,25 +68,25 @@ class SchemaRegistryClient:
     ) -> bool: ...
 
 class Schema:
-    schema_str: ClassVar[str]
-    schema_type: ClassVar[str]
-    references: ClassVar[list[SchemaReference]]
+    schema_str: str
+    schema_type: str
+    references: list[SchemaReference]
 
-    def __init__(self, schema_str: str, schema_type: str, references: list[SchemaReference] | None = None) -> None: ...
+    def __init__(self, schema_str: str, schema_type: str, references: list[SchemaReference] = []) -> None: ...
     def __eq__(self, other) -> bool: ...
     def __hash__(self) -> int: ...
 
 class RegisteredSchema:
-    schema_id: ClassVar[int]
-    schema: ClassVar[Schema]
-    subject: ClassVar[str]
-    version: ClassVar[int]
+    schema_id: int
+    schema: Schema
+    subject: str
+    version: int
 
     def __init__(self, schema_id: int, schema: Schema, subject: str, version: int) -> None: ...
 
 class SchemaReference:
-    name: ClassVar[str]
-    subject: ClassVar[str]
-    version: ClassVar[str]
+    name: str
+    subject: str
+    version: str
 
     def __init__(self, name: str, subject: str, version: str) -> None: ...

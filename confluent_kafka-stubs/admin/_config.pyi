@@ -29,15 +29,15 @@ class ConfigSource(Enum):
     DEFAULT_CONFIG: int
 
 class ConfigEntry:
-    name: ClassVar[str]
-    value: ClassVar[str]
-    source: ClassVar[ConfigSource]
-    is_read_only: ClassVar[bool]
-    is_default: ClassVar[bool]
-    is_sensitive: ClassVar[bool]
-    is_synonym: ClassVar[bool]
-    synonyms: ClassVar[ConfigEntry]
-    incremental_operation: ClassVar[AlterConfigOpType]
+    name: str
+    value: str
+    source: ConfigSource
+    is_read_only: bool
+    is_default: bool
+    is_sensitive: bool
+    is_synonym: bool
+    synonyms: list[ConfigEntry]
+    incremental_operation: AlterConfigOpType | None
 
     def __init__(
         self,
@@ -48,20 +48,20 @@ class ConfigEntry:
         is_default: bool = False,
         is_sensitive: bool = False,
         is_synonym: bool = False,
-        synonyms: list[ConfigEntry] | None = None,
+        synonyms: list[ConfigEntry] = [],
         incremental_operation: AlterConfigOpType | None = None,
     ) -> None: ...
 
 class ConfigResource:
-    Type = _type[ResourceType]
+    Type: ClassVar[_type[ResourceType]] = ResourceType
 
-    restype: ClassVar[ConfigResource]
-    restype_int: ClassVar[int]
-    name: ClassVar[str]
-    set_config_dict: ClassVar[dict[str, str]]
-    incremental_configs: ClassVar[list[ConfigEntry]]
-    configs: ClassVar[dict]
-    error: ClassVar[KafkaError]
+    restype: ConfigResource
+    restype_int: int
+    name: str
+    set_config_dict: dict[str, str]
+    incremental_configs: list[ConfigEntry]
+    configs: dict | None
+    error: KafkaError
 
     def __init__(
         self,

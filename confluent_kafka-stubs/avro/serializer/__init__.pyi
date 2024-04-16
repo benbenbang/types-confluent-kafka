@@ -4,11 +4,8 @@ This package is licensed under the Apache 2.0 License.
 """
 from __future__ import annotations
 
-# standard library
-from typing import ClassVar
-
 class SerializerError(Exception):
-    message: ClassVar[str]
+    message: str
 
     def __init__(self, message: str) -> None: ...
 

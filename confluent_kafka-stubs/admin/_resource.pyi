@@ -6,22 +6,21 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import ClassVar
 
 class ResourceType(Enum):
-    UNKNOWN = ClassVar[int]
-    ANY = ClassVar[int]
-    TOPIC = ClassVar[int]
-    GROUP = ClassVar[int]
-    BROKER = ClassVar[int]
+    UNKNOWN: int
+    ANY: int
+    TOPIC: int
+    GROUP: int
+    BROKER: int
 
     def __lt__(self, other: ResourceType) -> bool: ...
 
 class ResourcePatternType(Enum):
-    UNKNOWN = ClassVar[int]
-    ANY = ClassVar[int]
-    MATCH = ClassVar[int]
-    LITERAL = ClassVar[int]
-    PREFIXED = ClassVar[int]
+    UNKNOWN: int
+    ANY: int
+    MATCH: int
+    LITERAL: int
+    PREFIXED: int
 
     def __lt__(self, other) -> bool: ...

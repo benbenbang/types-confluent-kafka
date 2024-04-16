@@ -27,9 +27,9 @@ class AvroProducer(Producer):
         default_key_schema: Any = None,
         default_value_schema: Any = None,
         schema_registry: Any = None,
-        **kwargs
+        **kwargs,
     ) -> None: ...
-    def produce(
+    def produce(  # type: ignore[override]
         self,
         topic: str,
         value: str | bytes | None = None,
@@ -47,6 +47,6 @@ class AvroConsumer(Consumer):
         schema_registry: Any = None,
         reader_key_schema: Any = None,
         reader_value_schema: Any = None,
-        **kwargs
+        **kwargs,
     ) -> None: ...
     def poll(self, timeout: int | float | None = None) -> Message: ...

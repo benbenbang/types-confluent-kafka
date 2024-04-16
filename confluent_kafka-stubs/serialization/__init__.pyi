@@ -10,16 +10,16 @@ from typing import ClassVar
 from ..error import KafkaException
 
 class MessageField:
-    NONE: str
-    KEY: str
-    VALUE: str
+    NONE: ClassVar[str]
+    KEY: ClassVar[str]
+    VALUE: ClassVar[str]
 
 class SerializationContext:
-    topic: ClassVar[str]
-    field: ClassVar[str]
-    headers: ClassVar[str]
+    topic: str
+    field: str
+    headers: list[tuple[str, ...]]
 
-    def __init__(self, topic: str, field: str, headers: list[tuple] | None = None) -> None: ...
+    def __init__(self, topic: str, field: str, headers: list[tuple[str, ...]] | None = None) -> None: ...
 
 class SerializationError(KafkaException): ...
 
@@ -42,13 +42,13 @@ class IntegerDeserializer(Deserializer):
     def __call__(self, value: bytes, ctx: SerializationContext | None = None) -> None: ...
 
 class StringSerializer(Serializer):
-    codec: ClassVar[str]
+    codec: str
 
     def __init__(self, codec: str = ...) -> None: ...
     def __call__(self, obj: object, ctx: SerializationContext | None = None) -> None: ...
 
 class StringDeserializer(Deserializer):
-    codec: ClassVar[str]
+    codec: str
 
     def __init__(self, codec: str = "utf_8") -> None: ...
     def __call__(self, value: bytes, ctx: SerializationContext | None = None) -> None: ...
