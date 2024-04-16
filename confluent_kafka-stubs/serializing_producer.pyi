@@ -16,13 +16,13 @@ from .serialization import SerializationContext as SerializationContext
 
 class SerializingProducer(_ProducerImpl):
     def __init__(self, conf: dict[str, Any]) -> None: ...
-    def produce(
+    def produce(  # type: ignore[override,reportIncompatibleMethodOverride]
         self,
         topic: str,
-        key: object | None = None,
-        value: object | None = None,
-        partition: int = -1,  # type: ignore[override]
+        value: str | bytes | None = None,
+        key: str | bytes | None = None,
+        partition: int = -1,
         on_delivery: Callable[[KafkaError | None, Message], None] | None = None,
         timestamp: float = 0,
-        headers: dict[str, bytes | None] | None = None,  # type: ignore[override]
+        headers: dict[str, str | bytes | None] | None = None,  # type: ignore[override]
     ) -> None: ...

@@ -17,9 +17,14 @@ class MessageField:
 class SerializationContext:
     topic: str
     field: str
-    headers: list[tuple[str, ...]]
+    headers: list[tuple[str, str | bytes | None]]
 
-    def __init__(self, topic: str, field: str, headers: list[tuple[str, ...]] | None = None) -> None: ...
+    def __init__(
+        self,
+        topic: str,
+        field: str,
+        headers: list[tuple[str, str | bytes | None]] | None = None,
+    ) -> None: ...
 
 class SerializationError(KafkaException): ...
 

@@ -41,7 +41,7 @@ class PartitionMetadata:
     def __init__(self) -> None: ...
 
 class GroupMember:
-    id: str
+    id: str | None
     client_id: str | None
     client_host: str | None
     metadata: bytes | None
