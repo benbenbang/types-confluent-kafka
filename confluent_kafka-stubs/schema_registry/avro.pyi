@@ -42,4 +42,4 @@ class AvroDeserializer(Deserializer):
         from_dict: Callable[[dict[Any, Any], SerializationContext], object] | None = None,
         return_record_name: bool = False,
     ) -> None: ...
-    def __call__(self, data: bytes, ctx: SerializationContext) -> AvroMessage | dict | None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
+    def __call__(self, data: bytes, ctx: SerializationContext) -> "AvroMessage | dict | None": ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
