@@ -4,9 +4,6 @@ This package is licensed under the Apache 2.0 License.
 """
 from __future__ import annotations
 
-# standard library
-from typing import ClassVar
-
 from .cimpl import KafkaError as KafkaError
 from .cimpl import KafkaException as KafkaException
 from .cimpl import Message
@@ -25,8 +22,8 @@ class _KafkaClientError(KafkaException):
         by the broker.
     """
 
-    exception: ClassVar[KafkaException]
-    kafka_message: ClassVar[Message]
+    exception: KafkaException
+    kafka_message: Message
 
     def __init__(
         self,
