@@ -2,6 +2,7 @@
 types-confluent-kafka: A package providing type hints for the confluent-kafka Python package.
 This package is licensed under the Apache 2.0 License.
 """
+
 from __future__ import annotations
 
 # standard library
@@ -54,67 +55,100 @@ from ._scram import UserScramCredentialUpsertion as UserScramCredentialUpsertion
 
 class AdminClient(_AdminClientImpl):
     def __init__(self, conf: dict[str, Any]) -> None: ...
-    def create_topics(
+    def create_topics(  # type: ignore[reportIncompatibleMethodOverride]
         self,
         new_topics: list["NewTopic"],
         operation_timeout: float = 0,
         request_timeout: float = 1000.0,
         validate_only: bool = False,
     ) -> dict[str, "Future[NewTopic | None]"]: ...
-    def delete_topics(
-        self, topics: list[str], operation_timeout: float = 0, request_timeout: float = 1000.0
+    def delete_topics(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        topics: list[str],
+        operation_timeout: float = 0,
+        request_timeout: float = 1000.0,
     ) -> dict[str, "Future[NewTopic | None]"]: ...
-    def list_topics(self, topic: str | None = None, timeout: float = -1) -> "ClusterMetadata": ...
+    def list_topics(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        topic: str | None = None,
+        timeout: float = -1,
+    ) -> "ClusterMetadata": ...
     def list_groups(self, *args, **kwargs) -> "ListConsumerGroupsResult | None": ...
-    def create_partitions(
-        self, new_partitions: list["NewPartitions"], operation_timeout: float = 0, request_timeout: float = 1000.0
+    def create_partitions(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        new_partitions: list["NewPartitions"],
+        operation_timeout: float = 0,
+        request_timeout: float = 1000.0,
+        validate_only: bool = False,
     ) -> dict[str, "Future[NewTopic | None]"]: ...
-    def describe_configs(
-        self, resources: list["ConfigResource"], request_timeout: float = 1000.0
+    def describe_configs(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        resources: list["ConfigResource"],
+        request_timeout: float = 1000.0,
     ) -> dict["ConfigResource", "Future[dict[str, ConfigEntry]]"]: ...
-    def alter_configs(
-        self, resources: list["ConfigResource"], request_timeout: float = 1000.0, validate_only: bool = False
+    def alter_configs(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        resources: list["ConfigResource"],
+        request_timeout: float = 1000.0,
+        validate_only: bool = False,
     ) -> dict["ConfigResource", "Future[None | KafkaException]"]: ...
-    def incremental_alter_configs(
+    def incremental_alter_configs(  # type: ignore[reportIncompatibleMethodOverride]
         self,
         resources: list["ConfigResource"],
         request_timeout: float = 1000.0,
         validate_only: bool = False,
         broker: int = 0,
     ) -> dict["ConfigResource", "Future[None | KafkaException]"]: ...
-    def create_acls(
-        self, acls: list["AclBinding"], request_timeout: float = 1000.0, **kwargs
+    def create_acls(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        acls: list["AclBinding"],
+        request_timeout: float = 1000.0,
     ) -> dict["AclBinding", "Future[None | KafkaException]"]: ...
-    def describe_acls(
-        self, acl_binding_filter: "AclBindingFilter", request_timeout: float = 1000.0
+    def describe_acls(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        acl_binding_filter: "AclBindingFilter",
+        request_timeout: float = 1000.0,
     ) -> "Future[list[AclBinding]]": ...
-    def delete_acls(
-        self, acl_binding_filters: list["AclBindingFilter"], request_timeout: float = 1000.0
+    def delete_acls(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        acl_binding_filters: list["AclBindingFilter"],
+        request_timeout: float = 1000.0,
     ) -> dict["AclBindingFilter", "Future[dict[AclBindingFilter, list[AclBinding]]]"]: ...
-    def list_consumer_groups(
-        self, request_timeout: float = 1000.0, states: set["ConsumerGroupState"] | None = None
+    def list_consumer_groups(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        request_timeout: float = 1000.0,
+        states: set["ConsumerGroupState"] | None = None,
     ) -> "Future[ListConsumerGroupsResult]": ...
-    def describe_consumer_groups(
-        self, group_ids: list[str], request_timeout: float = 1000.0
-    ) -> dict[str, "Future[dict[str, ConsumerGroupDescription]]"]: ...
-    def delete_consumer_groups(
-        self, group_ids: list[str], request_timeout: float = 1000.0
+    def describe_consumer_groups(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        group_ids: list[str],
+        request_timeout: float = 1000.0,
+        include_authorized_operations: bool = False,
+    ) -> dict[str, "Future[ConsumerGroupDescription]"]: ...
+    def delete_consumer_groups(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        group_ids: list[str],
+        request_timeout: float = 1000.0,
     ) -> dict[str, "Future[None]"]: ...
-    def list_consumer_group_offsets(
+    def list_consumer_group_offsets(  # type: ignore[reportIncompatibleMethodOverride]
         self,
         list_consumer_group_offsets_request: list["ConsumerGroupTopicPartitions"],
         require_stable: bool = False,
         request_timeout: float = 1000.0,
     ) -> dict[str, "Future[ConsumerGroupTopicPartitions]"]: ...
-    def alter_consumer_group_offsets(
+    def alter_consumer_group_offsets(  # type: ignore[reportIncompatibleMethodOverride]
         self,
         alter_consumer_group_offsets_request: list["ConsumerGroupTopicPartitions"],
         request_timeout: float = 1000.0,
     ) -> dict[str, "Future[ConsumerGroupTopicPartitions]"]: ...
     def set_sasl_credentials(self, username: str, password: str) -> None: ...
-    def describe_user_scram_credentials(
-        self, users: list[str], request_timeout: float = 1000.0
+    def describe_user_scram_credentials(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        users: list[str],
+        request_timeout: float = 1000.0,
     ) -> dict[str, "Future[UserScramCredentialsDescription | KafkaException]"]: ...
-    def alter_user_scram_credentials(
-        self, alterations: list["UserScramCredentialAlteration"], request_timeout: float = 1000.0
-    ) -> dict[str, "Future[None | KafkaException]"]: ...
+    def alter_user_scram_credentials(  # type: ignore[reportIncompatibleMethodOverride]
+        self,
+        alterations: list["UserScramCredentialAlteration"],
+        request_timeout: float = 1000.0,
+    ) -> dict[str, "Future[None]"]: ...

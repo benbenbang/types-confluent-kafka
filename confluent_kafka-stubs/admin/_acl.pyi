@@ -2,6 +2,7 @@
 types-confluent-kafka: A package providing type hints for the confluent-kafka Python package.
 This package is licensed under the Apache 2.0 License.
 """
+
 from __future__ import annotations
 
 # standard library
@@ -53,13 +54,13 @@ class AclBinding:
 
     def __init__(
         self,
-        restype: ResourceType,
+        restype: int | str | ResourceType,
         name: str,
-        resource_pattern_type: ResourcePatternType,
+        resource_pattern_type: int | str | ResourcePatternType,
         principal: str,
         host: str,
-        operation: AclOperation,
-        permission_type: AclPermissionType,
+        operation: int | str | AclOperation,
+        permission_type: int | str | AclPermissionType,
     ) -> None: ...
     def _convert_enums(self) -> None: ...
     def _check_forbidden_enums(self, forbidden_enums: "EnumMeta") -> None: ...
