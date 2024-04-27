@@ -24,7 +24,7 @@ jobs:
         python-version: ["3.8", "3.9", "3.10"]
         poetry-version: ["1.5.1"]
         test-type: ["mypy", "pyright"]
-        os: ["ubuntu-latest", "macos-latest"]
+        os: ["ubuntu-latest", "macos-13"]
         arch: ["x64"] # "arm64" temp switch off, too many trouble with it
     runs-on: ${{ matrix.os }}
     steps:
