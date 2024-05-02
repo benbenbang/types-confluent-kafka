@@ -1,3 +1,8 @@
+⚠️ Noted that the latest version of Confluent Kafka Python is `2.3.x` now.
+
+- For introducing new signatures, please use `feat`
+- For fixing compatible signature in `2.2.x`, please use `fix`
+
 ### **Description:**
 
 Please provide a brief description of the changes made in this pull request.
