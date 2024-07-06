@@ -436,7 +436,7 @@ class Producer:
         headers: dict[str, str | bytes] | list[tuple[str, str | bytes]] | None = None,
     ) -> None: ...
     def purge(self, in_queue: bool = True, in_flight: bool = True, blocking: bool = True) -> None: ...
-    def send_offsets_to_transactions(
+    def send_offsets_to_transaction(
         self, positions: list[TopicPartition], group_metadata: object, timeout: float | None = None
     ) -> None:
         """
