@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "types-confluent-kafka"
-version = "1.2.1"
+version = "1.2.2"
 description = ""
 authors = ["benbenbang <bn@bitbrew.dev>"]
 license = "Apache-2.0 license"
