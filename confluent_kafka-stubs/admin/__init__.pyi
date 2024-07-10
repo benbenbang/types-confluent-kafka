@@ -67,7 +67,8 @@ class AdminClient(_AdminClientImpl):
     def list_topics(self, topic: str | None = None, timeout: float = -1) -> "ClusterMetadata": ...
     def list_groups(self, *args, **kwargs) -> "ListConsumerGroupsResult | None": ...
     def create_partitions(
-        self, new_partitions: list["NewPartitions"], operation_timeout: float = 0, request_timeout: float = 1000.0
+        self, new_partitions: list["NewPartitions"], operation_timeout: float = 0, request_timeout: float = 1000.0,
+        validate_only: bool = False,
     ) -> dict[str, "Future[NewTopic | None]"]: ...
     def describe_configs(
         self, resources: list["ConfigResource"], request_timeout: float = 1000.0
