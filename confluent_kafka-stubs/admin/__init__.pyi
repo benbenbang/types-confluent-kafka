@@ -5,7 +5,7 @@ This package is licensed under the Apache 2.0 License.
 from __future__ import annotations
 
 # standard library
-from asyncio import Future
+from concurrent.futures import Future
 from typing import Any
 
 from .._model import ConsumerGroupState, ConsumerGroupTopicPartitions
