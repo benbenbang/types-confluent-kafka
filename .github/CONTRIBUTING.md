@@ -8,32 +8,32 @@ Thank you for considering a contribution to `types-confluent-kafka`. This guide 
 
 ### Local Development
 
-1. **Fork and Clone**: Start by forking this repository and then cloning your fork to your local machine.
+1. **Fork and Clone**: Start by **forking** this repository and then cloning your fork to your local machine.
 
    ```bash
-   git clone https://github.com/benbenbang/types-confluent-kafka.git
-
-2. **Install Dependencies with Poetry**: This is recommended; if not, please jump to 3.
-
-   ```bash
-   $ cd types-confluent-kafka
-   $ poetry shell
-   $ poetry install --with dev --with lint
+   git clone https://github.com/<your-user-name>/types-confluent-kafka.git
+   cd types-confluent-kafka
    ```
 
-3. **Install Dependencies**: Navigate to the project's root directory and install the necessary dependencies.
+2. **Install Poetry** `[Optional]`: If you have installed poetry globally, you can skip this step and continue with step 3.
 
    ```bash
-   $ cd types-confluent-kafka
-   $ python -m venv .venv
-   $ pip install -r dev/requirements.txt
+   python -m venv .venv
+   pip install poetry
+   ```
+
+3. **Install Dependencies with Poetry**: Install development tools.
+
+   ```bash
+   poetry shell
+   poetry install --with dev --with lint
    ```
 
 4. **Clone the Confluent Kafka Python repository** `[Optional]`: This can also help you easily navigate between the source code.
 
    ```bash
    # After `cd types-confluent-kafka`
-   $ git clone https://github.com/confluentinc/confluent-kafka-python
+   git clone https://github.com/confluentinc/confluent-kafka-python
    ```
 
 
@@ -54,9 +54,9 @@ We've set up a `devcontainer` configuration. This ensures everyone has a consist
    After cloning the repository, open the project in VS Code.
 
    ```bash
-   $ git clone https://github.com/<your-username>/types-confluent-kafka.git
-   $ cd types-confluent-kafka
-   $ code .
+   git clone https://github.com/<your-username>/types-confluent-kafka.git
+   cd types-confluent-kafka
+   code .
 
 
 
