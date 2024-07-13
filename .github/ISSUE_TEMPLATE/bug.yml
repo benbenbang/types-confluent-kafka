@@ -52,13 +52,13 @@ body:
 
         For `poetry` users:
           ```bash
-          poetry show confluent_kafka
+          poetry show confluent-kafka
           poetry show types-confluent-kafka
           ```
 
         For general users:
           ```bash
-          pip freeze | grep confluent_kafka
+          pip freeze | grep confluent-kafka
           pip freeze | grep types-confluent-kafka
           ```
 
