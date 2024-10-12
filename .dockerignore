@@ -1,0 +1,5 @@
+.github
+.venv
+.env*
+*.md
+LICENSE

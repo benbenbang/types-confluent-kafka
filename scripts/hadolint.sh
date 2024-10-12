@@ -18,10 +18,13 @@
 
 # Script has been modified by
 # - @benbenbang
+#
+
+set -u  # Ensure the script fails on undefined variables
 
 export REMEMBER_LAST_ANSWER="true"
 
-. "$( dirname "${BASH_SOURCE[0]}" )/init_script.sh"
+. "$( dirname "${BASH_SOURCE[0]}" )/init.sh"
 
 function hadolint_runner(){
     hadolint=$(which hadolint)
@@ -31,32 +34,52 @@ function hadolint_runner(){
             -v "$(pwd):/root" \
             -w /root \
             --rm \
-            hadolint/hadolint /bin/hadolint --config ./.plugins/hadolint/hadolint.yml "$@"
+            hadolint/hadolint /bin/hadolint --config ./scripts/hadolint.yml "$@" || return 1
     else
-        $hadolint --config ./.plugins/hadolint/hadolint.yml "$@"
+        $hadolint --config ./scripts/hadolint.yml "$@" || return 1
     fi
 }
 
 function lint_wrapper() {
-    FILES=("$@")
+    local lint_failed=0
 
-    if [[ "${#FILES[@]}" == "0" ]]; then
+    FILES=($(git diff --diff-filter=D --name-only main...HEAD | grep Dockerfile))
+    PROMPT=${1:-""}
+
+    if [[ ${#FILES[@]} -eq 0 ]]; then
+        echo -e "${GREY}No Dockerfiles changed${NC}"
+        return 0
+    fi
+
+    if [[ "${PROMPT}" == "all" ]]; then
         echo
         echo -e "${GREY}Running docker lint for all Dockerfiles${NC}"
-        hadolint_runner Dockerfile*
-        echo -e "✅ ${GREEN}Dockerlint completed with no errors${NC}"
+        if ! hadolint_runner Dockerfile*; then
+            lint_failed=1
+        fi
+        echo -e "✅ ${GREEN}Dockerlint completed${NC}"
         echo
     else
         echo
-        echo -e "${GREY}Running docker lint for $*${NC}"
-        hadolint_runner "$@"
-        echo -e "✅ ${GREEN}Dockerlint completed with no errors${NC}"
+        echo -e "${GREY}Running docker lint for ${FILES[@]}${NC}"
+        for file in "${FILES[@]}"; do
+            echo "Linting $file"
+            if ! hadolint_runner "$file"; then
+                lint_failed=1
+            fi
+        done
+        echo -e "✅ ${GREEN}Dockerlint completed${NC}"
         echo
     fi
+
+    return $lint_failed
 }
 
 function run_docker_lint(){
-    lint_wrapper "$@"
+    if ! lint_wrapper ; then
+        echo -e "❌ ${RED}Dockerlint failed${NC}"
+        exit 1
+    fi
 }
 
 run_docker_lint "$@"

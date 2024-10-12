@@ -2,6 +2,7 @@
 types-confluent-kafka: A package providing type hints for the confluent-kafka Python package.
 This package is licensed under the Apache 2.0 License.
 """
+
 from __future__ import annotations
 
 # standard library
@@ -9,24 +10,34 @@ from enum import Enum
 from typing import ClassVar
 from typing import Type as _type
 
+from ..cimpl import (
+    ALTER_CONFIG_OP_TYPE_APPEND,
+    ALTER_CONFIG_OP_TYPE_DELETE,
+    ALTER_CONFIG_OP_TYPE_SET,
+    ALTER_CONFIG_OP_TYPE_SUBTRACT,
+    CONFIG_SOURCE_DEFAULT_CONFIG,
+    CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG,
+    CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG,
+    CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG,
+    CONFIG_SOURCE_STATIC_BROKER_CONFIG,
+    CONFIG_SOURCE_UNKNOWN_CONFIG,
+)
 from ..cimpl import KafkaError as KafkaError
 from ._resource import ResourceType as ResourceType
 
 class AlterConfigOpType(Enum):
-    SET: int
-    DELETE: int
-    APPEND: int
-    SUBTRACT: int
-
-AlterConfigOpType.APPEND
+    SET = ALTER_CONFIG_OP_TYPE_SET
+    DELETE = ALTER_CONFIG_OP_TYPE_DELETE
+    APPEND = ALTER_CONFIG_OP_TYPE_APPEND
+    SUBTRACT = ALTER_CONFIG_OP_TYPE_SUBTRACT
 
 class ConfigSource(Enum):
-    UNKNOWN_CONFIG: int
-    DYNAMIC_TOPIC_CONFIG: int
-    DYNAMIC_BROKER_CONFIG: int
-    DYNAMIC_DEFAULT_BROKER_CONFIG: int
-    STATIC_BROKER_CONFIG: int
-    DEFAULT_CONFIG: int
+    UNKNOWN_CONFIG = CONFIG_SOURCE_UNKNOWN_CONFIG  #: Unknown
+    DYNAMIC_TOPIC_CONFIG = CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG  #: Dynamic Topic
+    DYNAMIC_BROKER_CONFIG = CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG  #: Dynamic Broker
+    DYNAMIC_DEFAULT_BROKER_CONFIG = CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG  #: Dynamic Default Broker
+    STATIC_BROKER_CONFIG = CONFIG_SOURCE_STATIC_BROKER_CONFIG  #: Static Broker
+    DEFAULT_CONFIG = CONFIG_SOURCE_DEFAULT_CONFIG  #: Default
 
 class ConfigEntry:
     name: str
@@ -43,7 +54,7 @@ class ConfigEntry:
         self,
         name: str,
         value,
-        source: ConfigSource = ConfigSource.UNKNOWN_CONFIG,
+        source: ConfigSource | int = ConfigSource.DEFAULT_CONFIG.value,
         is_read_only: bool = False,
         is_default: bool = False,
         is_sensitive: bool = False,

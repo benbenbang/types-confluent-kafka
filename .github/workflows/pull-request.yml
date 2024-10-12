@@ -1,0 +1,134 @@
+name: pull-request-workflows
+
+on:
+  pull_request:
+    branches:
+      - main
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/pre-commit:py3.11
+      options: -w ${{ github.workspace }}
+      volumes:
+        - ${{ github.workspace }}:${{ github.workspace }}
+    permissions:
+      contents: read
+      pull-requests: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: configure git
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config --global credential.helper store
+      - name: cache pre-commit hooks
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - run: |
+          # fetch origin default branch
+          git fetch origin --depth 10 ${{ github.event.repository.default_branch }}:${{ github.event.repository.default_branch }} || true
+
+          #  install pre-commit hooks and run tests
+          pre-commit install && pre-commit install --hook commit-msg
+          pre-commit run --files $(git diff --name-only ${{ github.event.repository.default_branch }}..HEAD)
+
+  pr-title-check:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/${{ github.repository }}/pre-commit:py3.11
+      options: -w ${{ github.workspace }}
+      volumes:
+        - ${{ github.workspace }}:${{ github.workspace }}
+    permissions:
+      contents: read
+      pull-requests: read
+      packages: read
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Prepare testing environment
+        run: |
+          # configure git
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config --global credential.helper store
+          git config --global user.email "ptah@github.com"
+          git config --global user.name "ptah-lgtm"
+
+          # install pre-commit hooks
+          pre-commit install && pre-commit install --hook commit-msg
+      - name: Check title with dummy commit message
+        run: |
+          echo "checking PR title: '${{ github.event.pull_request.title }}'"
+          git commit --allow-empty -m "${{ github.event.pull_request.title }}"
+
+  pr-labeler:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+      contents: read
+    steps:
+      - uses: actions/labeler@v5
+
+  pr-check-change-files:
+    runs-on: ubuntu-latest
+    outputs:
+      pkg-test: ${{ steps.changed_files.outputs.package_any_changed }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: tj-actions/changed-files@v44
+        id: changed_files
+        with:
+          files_yaml: |
+            package:
+              - confluent_kafka-stubs/*
+              - .github/*
+              - poetry.lock
+
+  typing-tests:
+    name: "run: mypy | pyright"
+    needs: pr-check-change-files
+    if: ${{ needs.pr-check-change-files.outputs.pkg-test == 'true' }}
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.9", "3.10", "3.11"]
+        test-type: ["mypy", "pyright"]
+        os: ["ubuntu-latest"]
+        arch: ["x64", "arm64"] # "arm64" temp switch off, too many trouble with it
+    container:
+      image: ghcr.io/${{ github.repository }}/pre-commit:py${{ matrix.python-version }}
+      options: -w ${{ github.workspace }}
+      volumes:
+        - ${{ github.workspace }}:${{ github.workspace }}
+    permissions:
+      contents: read
+      pull-requests: read
+      packages: read
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: show dependencies
+        run: |
+          # poetry install --all-extras --with dev --with lint
+          poetry show
+      - name: run mypy
+        if: matrix.test-type == 'mypy'
+        run: |
+          poetry run mypy --version
+          poetry run mypy confluent_kafka-stubs
+      - name: run pyright
+        if: matrix.test-type == 'pyright'
+        run: |
+          poetry run pyright --version # dry run & install
+          poetry run pyright confluent_kafka-stubs
