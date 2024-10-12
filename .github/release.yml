@@ -18,7 +18,28 @@ changelog:
       labels:
         - Semver-Minor
         - feat
-    - title: ⚒️ Enhancement & Maintenance
+        - feature
+    - title: ☁️ Confluent Kafka v2.3
+      labels:
+        - Semver-Minor
+        - confluent-kafka-v2.3
+
+    - title: ☁️ Confluent Kafka v2.4
+      labels:
+        - Semver-Minor
+        - confluent-kafka-v2.4
+
+    - title: ☁️ Confluent Kafka v2.5
+      labels:
+        - Semver-Minor
+        - confluent-kafka-v2.5
+
+    - title: ☁️ Confluent Kafka v2.6
+      labels:
+        - Semver-Minor
+        - confluent-kafka-v2.6
+
+    - title: ⚒️ Enhancement
       labels:
         - Semver-Minor
         - refactor
@@ -39,7 +60,7 @@ changelog:
         - Semver-Patch
         - hotfix
     - title: 📚 Docs
-      label:
+      labels:
         - documentation
     - title: Reverts
       labels:
