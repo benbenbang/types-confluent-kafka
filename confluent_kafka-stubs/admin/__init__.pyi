@@ -9,7 +9,8 @@ from __future__ import annotations
 from concurrent.futures import Future
 from typing import Any
 
-from .._model import ConsumerGroupState, ConsumerGroupTopicPartitions
+from .._model import ConsumerGroupState, ConsumerGroupTopicPartitions, IsolationLevel
+from .._model import TopicCollection as TopicCollection
 from ..cimpl import CONFIG_SOURCE_DEFAULT_CONFIG as CONFIG_SOURCE_DEFAULT_CONFIG
 from ..cimpl import CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG
 from ..cimpl import CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG
@@ -24,11 +25,13 @@ from ..cimpl import RESOURCE_UNKNOWN as RESOURCE_UNKNOWN
 from ..cimpl import KafkaException as KafkaException
 from ..cimpl import NewPartitions as NewPartitions
 from ..cimpl import NewTopic as NewTopic
+from ..cimpl import TopicPartition as TopicPartition
 from ..cimpl import _AdminClientImpl as _AdminClientImpl
 from ._acl import AclBinding as AclBinding
 from ._acl import AclBindingFilter as AclBindingFilter
 from ._acl import AclOperation as AclOperation
 from ._acl import AclPermissionType as AclPermissionType
+from ._cluster import DescribeClusterResult as DescribeClusterResult
 from ._config import AlterConfigOpType as AlterConfigOpType
 from ._config import ConfigEntry as ConfigEntry
 from ._config import ConfigResource as ConfigResource
@@ -38,12 +41,15 @@ from ._group import ConsumerGroupListing as ConsumerGroupListing
 from ._group import ListConsumerGroupsResult as ListConsumerGroupsResult
 from ._group import MemberAssignment as MemberAssignment
 from ._group import MemberDescription as MemberDescription
+from ._listoffsets import ListOffsetsResultInfo as ListOffsetsResultInfo
+from ._listoffsets import OffsetSpec as OffsetSpec
 from ._metadata import BrokerMetadata as BrokerMetadata
 from ._metadata import ClusterMetadata as ClusterMetadata
 from ._metadata import GroupMember as GroupMember
 from ._metadata import GroupMetadata as GroupMetadata
 from ._metadata import PartitionMetadata as PartitionMetadata
 from ._metadata import TopicMetadata as TopicMetadata
+from ._records import DeletedRecords as DeletedRecords
 from ._resource import ResourcePatternType as ResourcePatternType
 from ._resource import ResourceType as ResourceType
 from ._scram import ScramCredentialInfo as ScramCredentialInfo
@@ -52,9 +58,10 @@ from ._scram import UserScramCredentialAlteration as UserScramCredentialAlterati
 from ._scram import UserScramCredentialDeletion as UserScramCredentialDeletion
 from ._scram import UserScramCredentialsDescription as UserScramCredentialsDescription
 from ._scram import UserScramCredentialUpsertion as UserScramCredentialUpsertion
+from ._topic import TopicDescription as TopicDescription
 
 class AdminClient(_AdminClientImpl):
-    def __init__(self, conf: dict[str, Any]) -> None: ...
+    def __init__(self, conf: dict[str, Any], **kwargs) -> None: ...
     def create_topics(
         self,
         new_topics: list["NewTopic"],
@@ -66,6 +73,9 @@ class AdminClient(_AdminClientImpl):
         self, topics: list[str], operation_timeout: float = 0, request_timeout: float = 1000.0
     ) -> dict[str, "Future[None]"]: ...
     def list_topics(self, topic: str | None = None, timeout: float = -1) -> "ClusterMetadata": ...
+    def describe_topics(
+        self, topis: TopicCollection, include_authorized_operations: bool = False, request_timeout: float = 1000.0
+    ) -> dict[str, Future[TopicDescription]]: ...
     def list_groups(self, *args, **kwargs) -> "ListConsumerGroupsResult | None": ...
     def create_partitions(
         self,
@@ -123,3 +133,18 @@ class AdminClient(_AdminClientImpl):
     def alter_user_scram_credentials(
         self, alterations: list["UserScramCredentialAlteration"], request_timeout: float = 1000.0
     ) -> dict[str, "Future[None]"]: ...
+    def describe_cluster(
+        self, include_authorized_operations: bool = False, request_timeout: float = 1000.0
+    ) -> dict[str, Future[DescribeClusterResult]]: ...
+    def list_offsets(
+        self,
+        topic_partition_offsets: dict[TopicPartition, OffsetSpec],
+        isolation_level: IsolationLevel,
+        request_timeout: float = 1000.0,
+    ) -> dict[TopicPartition, Future[ListOffsetsResultInfo]]: ...
+    def delete_records(
+        self,
+        topic_partition_offsets: list[TopicPartition],
+        request_timeout: float = 1000.0,
+        operation_timeout: float = 1000.0,
+    ) -> dict[TopicPartition, Future[DeletedRecords]]: ...

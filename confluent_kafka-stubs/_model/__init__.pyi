@@ -7,6 +7,7 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
+from typing import ClassVar
 
 from ..cimpl import TopicPartition
 
@@ -18,6 +19,7 @@ class Node:
     rack: str
 
     def __init__(self, id: int, host: str, port: int, rack: str | None = None) -> None: ...
+    def __str__(self) -> str: ...
 
 class ConsumerGroupTopicPartitions:
     group_id: str
@@ -33,5 +35,24 @@ class ConsumerGroupState(Enum):
     STABLE: int
     DEAD: int
     EMPTY: int
+
+    def __lt__(self, other) -> bool: ...
+
+class TopicCollection:
+    topic_names: list[str]
+
+    def __init__(self, topic_names: list[str]): ...
+
+class TopicPartitionInfo:
+    id: int
+    leader: Node
+    replicas: list[Node]
+    isr: list[Node]
+
+    def __init__(self, id: int, leader: Node, replicas: list[Node], isr: list[Node]): ...
+
+class IsolationLevel(Enum):
+    READ_UNCOMMITTED: ClassVar[int]
+    READ_COMMITTED: ClassVar[int]
 
     def __lt__(self, other) -> bool: ...
