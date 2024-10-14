@@ -13,6 +13,8 @@ Please make sure to fill in the details, check the boxes and select the correspo
   - [ ] Type prefix - For introducing **A NEW SIGNATURE**, please use `refactor` or `enhancement` or `enh`
   - [ ] Type prefix - For fixing compatible signature in `2.2.x`, please use `fix`
   - [ ] If it's backporting, please manually add the confluent-kafka version labels.
+  - [ ] If it's a workflow change, please use `workflow` or `ci` as the type prefix.
+  - [ ] If it's a documentation change, please use `docs` as the type prefix.
 
 ---
 
