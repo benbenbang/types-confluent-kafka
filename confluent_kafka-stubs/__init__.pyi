@@ -7,7 +7,10 @@ from __future__ import annotations
 
 from ._model import ConsumerGroupState as ConsumerGroupState
 from ._model import ConsumerGroupTopicPartitions as ConsumerGroupTopicPartitions
+from ._model import IsolationLevel as IsolationLevel
 from ._model import Node as Node
+from ._model import TopicCollection as TopicCollection
+from ._model import TopicPartitionInfo as TopicPartitionInfo
 from .cimpl import OFFSET_BEGINNING as OFFSET_BEGINNING
 from .cimpl import OFFSET_END as OFFSET_END
 from .cimpl import OFFSET_INVALID as OFFSET_INVALID
@@ -43,10 +46,13 @@ __all__ = [
     "TIMESTAMP_CREATE_TIME",
     "TIMESTAMP_LOG_APPEND_TIME",
     "TIMESTAMP_NOT_AVAILABLE",
-    "TopicPartition",
     "Node",
     "ConsumerGroupTopicPartitions",
     "ConsumerGroupState",
+    "TopicPartition",
+    "TopicCollection",
+    "TopicPartitionInfo",
+    "IsolationLevel",
 ]
 
 __version__: str

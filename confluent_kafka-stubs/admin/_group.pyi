@@ -10,6 +10,7 @@ from .._model import Node as Node
 from .._util import ConversionUtil as ConversionUtil
 from ..cimpl import TopicPartition as TopicPartition
 from ..error import KafkaException as KafkaException
+from ._acl import AclOperation as AclOperation
 
 class ConsumerGroupListing:
     group_id: str
@@ -61,6 +62,7 @@ class ConsumerGroupDescription:
     partition_assignor: str
     state: ConsumerGroupState
     coordinator: Node
+    authorized_operations: list[AclOperation] | None
 
     def __init__(
         self,
@@ -70,4 +72,5 @@ class ConsumerGroupDescription:
         partition_assignor: str,
         state: ConsumerGroupState,
         coordinator: Node,
+        authorized_operations: list[AclOperation] | None = None,
     ) -> None: ...
