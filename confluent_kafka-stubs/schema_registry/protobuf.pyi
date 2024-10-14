@@ -23,7 +23,7 @@ class _ContextStringIO(io.BytesIO):
 class ProtobufSerializer:
     def __init__(
         self,
-        msg_type: "GeneratedProtocolMessageType",
+        msg_type: "GeneratedProtocolMessageType",  # type: ignore
         schema_registry_client: SchemaRegistryClient,
         conf: dict | None = None,
     ) -> None: ...  # type: ignore
