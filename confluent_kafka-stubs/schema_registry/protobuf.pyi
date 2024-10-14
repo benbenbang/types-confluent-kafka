@@ -2,6 +2,7 @@
 types-confluent-kafka: A package providing type hints for the confluent-kafka Python package.
 This package is licensed under the Apache 2.0 License.
 """
+
 from __future__ import annotations
 
 # standard library
@@ -20,7 +21,12 @@ class _ContextStringIO(io.BytesIO):
     def __exit__(self, *args): ...
 
 class ProtobufSerializer:
-    def __init__(self, msg_type: "GeneratedProtocolMessageType", schema_registry_client: SchemaRegistryClient, conf: dict | None = None) -> None: ...  # type: ignore
+    def __init__(
+        self,
+        msg_type: "GeneratedProtocolMessageType",
+        schema_registry_client: SchemaRegistryClient,
+        conf: dict | None = None,
+    ) -> None: ...  # type: ignore
     def __call__(self, message: "Message", ctx: SerializationContext): ...  # type: ignore
 
 class ProtobufDeserializer:

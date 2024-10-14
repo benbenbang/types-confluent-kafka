@@ -128,10 +128,10 @@ enable_incomplete_feature = "Unpack"
 disable_error_code = ["attr-defined"]
 
 [tool.pyright]
-include = ["confluent-kafka-stubs"]
+include = ["confluent_kafka-stubs"]
 exclude = ["**/__pycache__", "tests/**"]
 defineConstant = { DEBUG = true }
-stubPath = "confluent-kafka-stubs"
+stubPath = "confluent_kafka-stubs"
 
 reportMissingImports = "warning"
 reportIncompatibleMethodOverride = "none"
