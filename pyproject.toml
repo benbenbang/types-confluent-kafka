@@ -72,6 +72,9 @@ exclude = [
     "tests",
 ]
 
+[tool.ruff.lint]
+ignore = ["F821", "F822"]
+
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
