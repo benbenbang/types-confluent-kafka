@@ -50,7 +50,7 @@ pylint = "^2.17.5"
 pre-commit = "^3.3.3"
 
 [tool.poetry.group.publish.dependencies]
-twine = "^4.0.2"
+twine = "4.0.2"
 
 [build-system]
 requires = ["poetry-core"]
