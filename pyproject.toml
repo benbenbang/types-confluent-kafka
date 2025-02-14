@@ -36,7 +36,7 @@ classifiers = [
 ]
 
 [tool.poetry.dependencies]
-python = ">= 3.9,<= 3.13"
+python = ">= 3.9,<= 3.14"
 
 [tool.poetry.group.dev.dependencies]
 confluent-kafka = { extras = ["avro"], version = "^2.5.0" }
