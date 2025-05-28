@@ -369,6 +369,7 @@ class TopicPartition:
     offset: ClassVar[int]
     metadata: ClassVar[str | None]
     leader_epoch: ClassVar[int | None]
+    error: ClassVar[KafkaError | None]
 
     def __init__(
         self,
