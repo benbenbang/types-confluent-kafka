@@ -23,7 +23,8 @@ class SerializingProducer(_ProducerImpl):
         key: object | None = None,
         value: object | None = None,
         partition: int = -1,  # type: ignore[override]
-        on_delivery: Callable[[KafkaError | None, Message], None] | None = None,
+        callback: Callable[[KafkaError | None, Message], None] | None = None,
+        on_delivery: Callable[[KafkaError | None, Message], None] | None = None, # Alias
         timestamp: float = 0,
         headers: dict[str, bytes | None] | None = None,  # type: ignore[override]
     ) -> None: ...
