@@ -40,6 +40,10 @@ dev = [
     "pyright>=1.1.402",
     "types-requests>=2.32.4.20250611",
 ]
+lint = [
+    "pre-commit>=4.2.0",
+    "ruff>=0.12.2",
+]
 publish = ["twine>=6.1.0"]
 
 [tool.ruff]
@@ -64,37 +68,6 @@ ignore = ["F821", "F822"]
 [tool.ruff.format]
 quote-style = "double"
 indent-style = "space"
-
-[tool.pylint.messages_control]
-disable = ["all"]
-enable = [
-    "consider-using-f-string",
-    "cyclic-import",
-    "deprecated-module",
-    "f-string-without-interpolation",
-    "import-error",
-    "import-self",
-    "undefined-variable",
-    "undefined-all-variable",
-    "unused-format-string-argument",
-    "unused-format-string-key",
-    "unused-import",
-    #   This might be unused but a mandatory signature in airflow runtime
-    #   "unused-argument",
-    "unused-wildcard-import",
-    "unused-variable",
-    "used-before-assignment",
-    "use-list-literal",
-    "raise-missing-from",
-    "simplifiable-condition",
-    "simplify-boolean-expression",
-    "super-with-arguments",
-    "wrong-spelling-in-comment",
-    "wrong-spelling-in-docstring",
-]
-
-[tool.pylint.format]
-max-line-length = 120
 
 [tool.pytest.ini_options]
 addopts = '--basetemp=/tmp/pytest'
