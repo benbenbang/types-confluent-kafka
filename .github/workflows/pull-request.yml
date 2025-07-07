@@ -1,14 +1,14 @@
 name: pull-request-workflows
 
 on:
-  pull_request_target:
-    branches:
-      - main
-    types:
-      - opened
-      - edited
-      - reopened
-      - synchronize
+  # pull_request_target:
+  #   branches:
+  #     - main
+  #   types:
+  #     - opened
+  #     - edited
+  #     - reopened
+  #     - synchronize
   pull_request:
     branches:
       - main
