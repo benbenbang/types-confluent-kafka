@@ -16,11 +16,12 @@ concurrency:
 
 jobs:
   pre-commit:
-    uses: benbenbang/r-workflows/.github/workflows/pre-commit.yml@main
+    uses: ./.github/r-workflows/pre-commit.yml@main
     permissions:
       packages: read
       contents: read
       pull-requests: read
+      actions: write
     secrets: inherit
 
   pr-labeler:
