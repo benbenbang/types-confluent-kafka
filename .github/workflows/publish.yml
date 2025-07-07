@@ -36,7 +36,7 @@ jobs:
         run: |
           echo "build with release version: ${TAG_NAME}"
           pipx run uv version ${TAG_NAME} || echo "toml is already up to date."
-          pipx run uv build
+          pipx run uv build --no-sources
 
       - name: publish to pypi
         env:
