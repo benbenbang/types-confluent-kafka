@@ -1,7 +1,7 @@
 name: pull-request-workflows
 
 on:
-  pull_request:
+  pull_request_target:
     branches:
       - main
     types:
@@ -9,6 +9,11 @@ on:
       - edited
       - reopened
       - synchronize
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/**.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
