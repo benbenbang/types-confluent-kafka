@@ -70,7 +70,7 @@ jobs:
         run: |
           echo "build with release version: ${TAG_NAME}"
           uv version ${TAG_NAME} || echo "toml is already up to date."
-          uv build
+          uv build --no-sources
       - name: publish to pypi
         env:
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
