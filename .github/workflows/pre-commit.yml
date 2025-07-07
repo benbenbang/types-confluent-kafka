@@ -1,0 +1,73 @@
+name: pre-commit
+
+on:
+  workflow_call:
+    inputs:
+      history_depth:
+        description: "0 means fetch the full history"
+        required: false
+        default: 0
+        type: number
+      run_all_files:
+        description: "run all files or specific files"
+        required: false
+        default: "false"
+        type: string
+      check_pr_title:
+        description: "check pr title"
+        required: false
+        default: true
+        type: boolean
+      run_on_merge:
+        description: "run on merge"
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: ${{ inputs.history_depth }}
+      - name: prepare test environment
+        run: |
+          pipx install pre-commit
+          pre-commit install && pre-commit install --hook commit-msg
+
+          git config --global user.email "pr-title-check@github.com"
+          git config --global user.name "pr-title-validator"
+      - name: cache pre-commit hooks
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: fetch origin
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          # fetch origin default branch
+          git fetch --all || echo "unable to fetch all"
+          git fetch origin ${{ github.event.repository.default_branch }} || echo "unable to fetch origin"
+          git fetch origin --depth 10 ${{ github.event.repository.default_branch }}:${{ github.event.repository.default_branch }} || true
+
+      - name: run pre-commit on pull request (changed files)
+        if: ${{ github.ref != 'refs/heads/main' }}
+        run: |
+          # run pre-commit on all files or specific files
+          if [[ "${RUN_ALL_FILES}" == "true" ]]; then
+            pre-commit run --all-files
+          else
+            pre-commit run --files $(git diff --name-only origin/${{ github.event.repository.default_branch }}..HEAD)
+          fi
+        env:
+          RUN_ALL_FILES: ${{ inputs.run_all_files }}
+      - name: run pre-commit on main branch (all files)
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main' && inputs.run_on_merge
+        run: |
+          pre-commit run --all-files
+      - name: check pr title
+        if: ${{ github.ref != 'refs/heads/main' && inputs.check_pr_title }}
+        run: |
+          echo "checking PR title: '${{ github.event.pull_request.title }}'"
+          git commit --allow-empty -m "${{ github.event.pull_request.title }}"
