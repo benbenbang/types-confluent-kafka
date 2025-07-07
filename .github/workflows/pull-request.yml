@@ -82,7 +82,7 @@ jobs:
       pkg-test: ${{ steps.changed_files.outputs.package_any_changed }}
     steps:
       - uses: actions/checkout@v4
-      - uses: tj-actions/changed-files@v44
+      - uses: tj-actions/changed-files@v46.0.5
         id: changed_files
         with:
           files_yaml: |
