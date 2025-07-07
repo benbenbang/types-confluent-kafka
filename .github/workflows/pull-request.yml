@@ -44,7 +44,6 @@ jobs:
           path: ~/.cache/pre-commit
           key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
       - name: fetch origin
-        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           # fetch origin default branch
           git fetch --all || echo "unable to fetch all"
