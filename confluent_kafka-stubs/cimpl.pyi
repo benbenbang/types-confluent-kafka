@@ -434,7 +434,7 @@ class Producer:
         key: str | bytes | None = None,
         partition: int | None = None,
         callback: Callable[[KafkaError | None, Message], None] | None = None,
-        on_delivery: Callable[[KafkaError | None, Message], None] | None = None, # Alias
+        on_delivery: Callable[[KafkaError | None, Message], None] | None = None,  # Alias
         timestamp: int = 0,
         headers: dict[str, str | bytes] | list[tuple[str, str | bytes]] | None = None,
     ) -> None: ...
