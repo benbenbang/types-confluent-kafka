@@ -35,7 +35,8 @@ class AvroProducer(Producer):
         value: str | bytes | None = None,
         key: str | bytes | None = None,
         partition: int | None = None,
-        on_delivery: Callable | None = None,
+        callback: Callable | None = None,
+        on_delivery: Callable | None = None, # Alias
         timestamp: int = 0,
         headers: dict[str, str | bytes] | list[tuple[str, str | bytes]] | None = None,
     ) -> None: ...
