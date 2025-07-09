@@ -49,7 +49,7 @@ jobs:
     name: publish
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.repository }}/pre-commit:py3.11
+      image: ghcr.io/${{ github.repository }}/pre-commit:py3.12
       options: -w ${{ github.workspace }}
       volumes:
         - ${{ github.workspace }}:${{ github.workspace }}
@@ -60,7 +60,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
       - name: show dependencies
         run: |
           pip list
@@ -70,7 +70,7 @@ jobs:
         run: |
           echo "build with release version: ${TAG_NAME}"
           uv version ${TAG_NAME} || echo "toml is already up to date."
-          uv build
+          uv build --no-sources
       - name: publish to pypi
         env:
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
