@@ -6,5 +6,5 @@ bash .github/docker/build.sh
 
 # Packages to be installed
 - pipx
-- poetry
+- uv
 - gh

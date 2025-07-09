@@ -55,21 +55,21 @@ jobs:
         run: |
           python -m pip install --user pipx
           python -m pipx ensurepath
-          pipx install poetry=="${poetry_version}"
-          poetry install
-          poetry show
+          pipx install uv=="${uv_version}"
+          pipx run uv sync --group publish
+          pip list
         env:
-          poetry_version: "1.5.1"
+          uv_version: "0.7.19"
 
-      - name: build with poetry
+      - name: build with uv
         run: |
           if [[ ! -z ${COMMIT_SHA} ]]; then
             echo "using ${COMMIT_SHA} to build the package..."
             git checkout ${COMMIT_SHA}
           fi
           echo "build with release candidate version: ${TAG_NAME}"
-          poetry version ${TAG_NAME}
-          poetry build
+          uv version ${TAG_NAME}
+          uv build
         env:
           TAG_NAME: ${{ github.event.inputs.tagName }}
           COMMIT_SHA: ${{ github.event.inputs.commitSha }}
@@ -79,5 +79,4 @@ jobs:
           TEST_PYPI_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
           TEST_PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
         run: |
-          poetry config repositories.testpypi https://test.pypi.org/legacy/
-          poetry publish --repository testpypi -u ${TEST_PYPI_USERNAME} -p ${TEST_PYPI_TOKEN}
+          uv publish --index https://test.pypi.org/legacy/ -u ${TEST_PYPI_USERNAME} -p ${TEST_PYPI_TOKEN}

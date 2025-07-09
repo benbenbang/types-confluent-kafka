@@ -12,9 +12,9 @@ from typing import ClassVar
 from .. import cimpl as cimpl
 
 class ScramMechanism(Enum):
-    UNKNOWN: ClassVar[int]
-    SCRAM_SHA_256: ClassVar[int]
-    SCRAM_SHA_512: ClassVar[int]
+    UNKNOWN = 0
+    SCRAM_SHA_256 = 1
+    SCRAM_SHA_512 = 2
 
     def __lt__(self, other: "ScramMechanism") -> bool: ...
 

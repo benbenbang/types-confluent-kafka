@@ -21,10 +21,10 @@ The package can be installed from [PyPI](https://pypi.org/project/types-confluen
 pip install --no-cache-dir types-confluent-kafka
 ```
 
-alternatively, if you use `poetry`, for example,
+alternatively, if you use `uv`, for example,
 
 ```bash
-poetry add --group dev types-confluent-kafka
+uv add --group dev types-confluent-kafka
 ```
 
 

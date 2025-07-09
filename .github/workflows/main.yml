@@ -6,7 +6,7 @@ on:
       - main
     paths:
       - confluent_kafka-stubs/**/*
-      - poetry.lock
+      - uv.lock
       - .github/**.*
 
 jobs:
@@ -63,15 +63,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: show dependencies
         run: |
-          # poetry install --all-extras --with dev --with lint
-          poetry show
+          pip freeze
       - name: run mypy
         if: matrix.test-type == 'mypy'
         run: |
-          poetry run mypy --version
-          poetry run mypy confluent_kafka-stubs
+          uv run mypy --version
+          uv run mypy confluent_kafka-stubs
       - name: run pyright
         if: matrix.test-type == 'pyright'
         run: |
-          poetry run pyright --version # dry run & install
-          poetry run pyright confluent_kafka-stubs
+          uv run pyright --version # dry run & install
+          uv run pyright confluent_kafka-stubs

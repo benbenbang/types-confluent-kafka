@@ -1,13 +1,9 @@
-[tool.poetry]
+[project]
 name = "types-confluent-kafka"
 version = "1.3.3"
-description = ""
-authors = ["benbenbang <bn@bitbrew.dev>"]
-license = "Apache-2.0 license"
+description = "Types for Confluent Kafka"
 readme = "README.md"
-repository = "https://github.com/benbenbang/types-confluent-kafka"
-packages = [{ include = "confluent_kafka-stubs" }]
-exclude = ["confluent_kafka-stubs/__init__.py"]
+license-files = ["LICENSE"]
 keywords = [
     "types",
     "typings",
@@ -34,27 +30,17 @@ classifiers = [
     "Topic :: Software Development :: Libraries",
     "Topic :: Software Development :: Libraries :: Python Modules",
 ]
+requires-python = ">=3.9,<=3.13"
+dependencies = []
 
-[tool.poetry.dependencies]
-python = ">= 3.9,<= 3.13"
-
-[tool.poetry.group.dev.dependencies]
-confluent-kafka = { extras = ["avro"], version = "^2.5.0" }
-types-requests = "^2.31.0.2"
-pyright = "^1.1.384"
-mypy = "^1.11.2"
-
-[tool.poetry.group.lint.dependencies]
-ruff = "^0.6.9"
-pylint = "^2.17.5"
-pre-commit = "^3.3.3"
-
-[tool.poetry.group.publish.dependencies]
-twine = "4.0.2"
-
-[build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+[dependency-groups]
+dev = [
+    "confluent-kafka[avro]>=2.5.0",
+    "mypy>=1.16.1",
+    "pyright>=1.1.402",
+    "types-requests>=2.32.4.20250611",
+]
+publish = ["twine>=6.1.0"]
 
 [tool.ruff]
 line-length = 120

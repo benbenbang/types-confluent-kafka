@@ -1,19 +1,20 @@
 name: pull-request-workflows
 
 on:
-  # pull_request_target:
-  #   branches:
-  #     - main
-  #   types:
-  #     - opened
-  #     - edited
-  #     - reopened
-  #     - synchronize
-  pull_request:
+  pull_request_target:
     branches:
       - main
-    paths:
-      - ".github/workflows/**.yml"
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  # The following trigger is for repo contributor (added to this repo) to test on PR stage
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - ".github/workflows/**.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -94,7 +95,7 @@ jobs:
             package:
               - confluent_kafka-stubs/*
               - .github/*
-              - poetry.lock
+              - uv.lock
 
   typing-tests:
     name: "run: mypy | pyright"
@@ -103,10 +104,10 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.9", "3.10", "3.11"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         test-type: ["mypy", "pyright"]
         os: ["ubuntu-latest"]
-        arch: ["x64", "arm64"] # "arm64" temp switch off, too many trouble with it
+        arch: ["x64", "arm64"]
     container:
       image: ghcr.io/${{ github.repository }}/pre-commit:py${{ matrix.python-version }}
       options: -w ${{ github.workspace }}
@@ -121,15 +122,14 @@ jobs:
       - uses: actions/checkout@v4
       - name: show dependencies
         run: |
-          # poetry install --all-extras --with dev --with lint
-          poetry show
+          pip list
       - name: run mypy
         if: matrix.test-type == 'mypy'
         run: |
-          poetry run mypy --version
-          poetry run mypy confluent_kafka-stubs
+          uv run mypy --version
+          uv run mypy confluent_kafka-stubs
       - name: run pyright
         if: matrix.test-type == 'pyright'
         run: |
-          poetry run pyright --version # dry run & install
-          poetry run pyright confluent_kafka-stubs
+          uv run pyright --version
+          uv run pyright confluent_kafka-stubs

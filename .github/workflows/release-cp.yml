@@ -63,21 +63,20 @@ jobs:
           python-version: "3.10"
       - name: show dependencies
         run: |
-          # poetry install --all-extras --with dev --with lint
-          poetry show
+          pip list
       - name: extract tag name
         run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
-      - name: build with poetry
+      - name: build with uv
         run: |
           echo "build with release version: ${TAG_NAME}"
-          poetry version ${TAG_NAME} || echo "toml is already up to date."
-          poetry build
+          uv version ${TAG_NAME} || echo "toml is already up to date."
+          uv build
       - name: publish to pypi
         env:
           PYPI_USERNAME: ${{ secrets.PYPI_USERNAME }}
           PYPI_TOKEN: ${{ secrets.PYPI_TOKEN }}
         run: |
-          poetry publish -u ${PYPI_USERNAME} -p $PYPI_TOKEN
+          uv publish -u ${PYPI_USERNAME} -p $PYPI_TOKEN
       - name: update title  && upload distribution to GitHub Release
         run: |
           gh release upload ${TAG_NAME} dist/*
