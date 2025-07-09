@@ -12,15 +12,17 @@ on:
 jobs:
   pre-commit:
     runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      actions: write
+      contents: read
+      statuses: read
+      packages: read
     container:
       image: ghcr.io/${{ github.repository }}/pre-commit:py3.12
       options: -w ${{ github.workspace }}
       volumes:
         - ${{ github.workspace }}:${{ github.workspace }}
-    permissions:
-      contents: read
-      pull-requests: read
-      packages: read
     steps:
       - uses: actions/checkout@v4
         with:
@@ -50,7 +52,7 @@ jobs:
         os: ["ubuntu-latest"]
         arch: ["x64", "arm64"] # "arm64" temp switch off, too many trouble with it
     container:
-      image: ghcr.io/${{ github.repository }}/pre-commit:py3.11
+      image: ghcr.io/${{ github.repository }}/pre-commit:py3.12
       options: -w ${{ github.workspace }}
       volumes:
         - ${{ github.workspace }}:${{ github.workspace }}
