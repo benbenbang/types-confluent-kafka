@@ -1,20 +1,20 @@
 name: pull-request-workflows
 
 on:
-  # pull_request_target:
-  #   branches:
-  #     - main
-  #   types:
-  #     - opened
-  #     - edited
-  #     - reopened
-  #     - synchronize
-  # The following trigger is for repo contributor (added to this repo) to test on PR stage
-  pull_request:
+  pull_request_target:
     branches:
       - main
-    paths:
-      - ".github/workflows/**.yml"
+    types:
+      - opened
+      - edited
+      - reopened
+      - synchronize
+  # The following trigger is for repo contributor (added to this repo) to test on PR stage
+  # pull_request:
+  #   branches:
+  #     - main
+  #   paths:
+  #     - ".github/workflows/**.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
