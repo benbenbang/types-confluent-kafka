@@ -15,17 +15,17 @@ Thank you for considering a contribution to `types-confluent-kafka`. This guide 
    cd types-confluent-kafka
    ```
 
-2. **Install Poetry** `[Optional]`: If you have installed poetry globally, you can skip this step and continue with step 3.
+2. **Install uv** `[Optional]`: If you have installed uv globally, you can skip this step and continue with step 3.
 
    ```bash
    python -m venv .venv
-   pip install poetry
+   pip install uv
    ```
 
-3. **Install Dependencies with Poetry**: Install development tools.
+3. **Install Dependencies with uv or poertry**: Install development tools.
 
    ```bash
-   poetry shell
+   uv sync --group dev --group lint
    poetry install --with dev --with lint
    ```
 

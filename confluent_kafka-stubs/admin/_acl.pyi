@@ -15,27 +15,27 @@ from ._resource import ResourcePatternType as ResourcePatternType
 from ._resource import ResourceType as ResourceType
 
 class AclOperation(Enum):
-    UNKNOWN: int
-    ANY: int
-    ALL: int
-    READ: int
-    WRITE: int
-    CREATE: int
-    DELETE: int
-    ALTER: int
-    DESCRIBE: int
-    CLUSTER_ACTION: int
-    DESCRIBE_CONFIGS: int
-    ALTER_CONFIGS: int
-    IDEMPOTENT_WRITE: int
+    UNKNOWN = 0
+    ANY = 1
+    ALL = 2
+    READ = 3
+    WRITE = 4
+    CREATE = 5
+    DELETE = 6
+    ALTER = 7
+    DESCRIBE = 8
+    CLUSTER_ACTION = 9
+    DESCRIBE_CONFIGS = 10
+    ALTER_CONFIGS = 11
+    IDEMPOTENT_WRITE = 12
 
     def __lt__(self, other: AclOperation) -> bool: ...
 
 class AclPermissionType(Enum):
-    UNKNOWN: int
-    ANY: int
-    DENY: int
-    ALLOW: int
+    UNKNOWN = 0
+    ANY = 1
+    DENY = 2
+    ALLOW = 3
 
     def __lt__(self, other: AclPermissionType) -> bool: ...
 

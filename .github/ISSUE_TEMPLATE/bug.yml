@@ -56,10 +56,22 @@ body:
           poetry show types-confluent-kafka
           ```
 
-        For general users:
+        For `uv`/general users:
           ```bash
-          pip freeze | grep confluent-kafka
-          pip freeze | grep types-confluent-kafka
+          pip show confluent-kafka
+          pip show types-confluent-kafka
+
+          # example output
+          Name: types-confluent-kafka
+          Version: 1.3.3
+          Summary:
+          Home-page:
+          Author: benbenbang
+          Author-email: bn@bitbrew.dev
+          License: Apache-2.0 license
+          Location: /Users/bn/.dotfiles/.venv/lib/python3.12/site-packages
+          Requires:
+          Required-by:
           ```
 
       render: Text

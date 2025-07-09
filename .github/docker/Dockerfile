@@ -1,8 +1,8 @@
-ARG PYTHON_VERSION
-FROM python:${PYTHON_VERSION}-slim-buster
+ARG PYTHON_VERSION=3.12-slim-bookworm
+FROM python:${PYTHON_VERSION}
 
-ARG POETRY_VERSION
-ENV POETRY_VERSION=${POETRY_VERSION}
+ARG UV_VERSION
+ENV UV_VERSION=${UV_VERSION}
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH=/root/.local/bin:/build/.venv/bin:${PATH}
@@ -16,9 +16,7 @@ ENV LC_MESSAGES=en_US.UTF-8
 WORKDIR /build
 
 COPY pyproject.toml /build/pyproject.toml
-COPY poetry.toml /build/poetry.toml
-COPY poetry.lock /build/poetry.lock
-
+COPY uv.lock /build/uv.lock
 COPY pyproject.toml /workspace/pyproject.toml
 
 RUN apt-get update && \
@@ -33,10 +31,10 @@ RUN apt-get update && \
     # install pipx
     python -m pip install pipx && \
     python -m pipx ensurepath && \
-    # install poetry
-    python -m pipx install poetry==${POETRY_VERSION} && \
+    # install uv
+    python -m pipx install uv==${UV_VERSION} && \
     # install dependencies
-    poetry install --all-extras --with lint --with dev --with publish --no-root && \
+    uv sync --all-groups --all-extras && \
     # set git config
     git config --global user.email "ptah@github.com" && \
     git config --global user.name "ptah-lgtm" && \

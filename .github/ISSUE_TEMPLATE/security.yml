@@ -63,7 +63,7 @@ body:
           poetry show types-conflent-kafka
           ```
 
-        For general users:
+        For uv/general users:
 
           ```bash
           pip freeze | grep types-conflent-kafka

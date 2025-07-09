@@ -59,11 +59,11 @@ jobs:
         run: |
           python -m pip install --user pipx
           python -m pipx ensurepath
-          pipx install poetry=="${poetry_version}"
-          poetry install
-          poetry show
+          pipx install uv=="${uv_version}"
+          uv sync --all-groups
+          pip list
         env:
-          poetry_version: "1.5.1"
+          uv_version: "0.7.19"
 
       - name: update project version by git tag
         run: |
@@ -80,7 +80,7 @@ jobs:
 
           # update version
           echo "next version is: ${next_tag}"
-          pipx run poetry version ${next_tag}
+          pipx run uv version ${next_tag}
 
           if [[ -n $(git status --porcelain) ]]; then
             # preparing new branch
