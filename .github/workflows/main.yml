@@ -13,7 +13,7 @@ jobs:
   pre-commit:
     runs-on: ubuntu-latest
     container:
-      image: ghcr.io/${{ github.repository }}/pre-commit:py3.11
+      image: ghcr.io/${{ github.repository }}/pre-commit:py3.12
       options: -w ${{ github.workspace }}
       volumes:
         - ${{ github.workspace }}:${{ github.workspace }}
