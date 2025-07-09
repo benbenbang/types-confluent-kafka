@@ -27,7 +27,7 @@ jobs:
           pipx run uv sync --all-groups
           pip freeze
         env:
-          poetry_version: "1.5.1"
+          uv_version: "0.7.19"
 
       - name: extract tag name
         run: echo "TAG_NAME=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV

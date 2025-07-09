@@ -45,7 +45,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        python-version: ["3.9", "3.10", "3.11"]
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
         test-type: ["mypy", "pyright"]
         os: ["ubuntu-latest"]
         arch: ["x64", "arm64"] # "arm64" temp switch off, too many trouble with it
