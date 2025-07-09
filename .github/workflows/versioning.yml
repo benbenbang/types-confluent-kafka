@@ -51,9 +51,9 @@ jobs:
           GIT_COMMITTER_NAME: ${{ secrets.GH_GIT_COMMITTER_NAME }}
 
       - name: set python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v5
         with:
-          python-version: "3.10"
+          python-version: "3.12"
 
       - name: install dependencies
         run: |

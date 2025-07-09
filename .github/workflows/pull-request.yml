@@ -1,20 +1,20 @@
 name: pull-request-workflows
 
 on:
-  pull_request_target:
-    branches:
-      - main
-    types:
-      - opened
-      - edited
-      - reopened
-      - synchronize
-  # The following trigger is for repo contributor (added to this repo) to test on PR stage
-  # pull_request:
+  # pull_request_target:
   #   branches:
   #     - main
-  #   paths:
-  #     - ".github/workflows/**.yml"
+  #   types:
+  #     - opened
+  #     - edited
+  #     - reopened
+  #     - synchronize
+  # The following trigger is for repo contributor (added to this repo) to test on PR stage
+  pull_request:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/**.yml"
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
@@ -36,7 +36,6 @@ jobs:
         run: |
           pipx install pre-commit
           pre-commit install && pre-commit install --hook commit-msg
-
           git config --global user.email "pr-title-check@github.com"
           git config --global user.name "pr-title-validator"
       - name: cache pre-commit hooks
@@ -52,7 +51,6 @@ jobs:
           git fetch origin ${{ github.event.repository.default_branch }} || echo "unable to fetch origin"
           git fetch origin --depth 10 ${{ github.event.repository.default_branch }}:${{ github.event.repository.default_branch }} || true
       - name: run pre-commit on pull request (changed files)
-        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           # run pre-commit on all files or specific files
           if [[ "${RUN_ALL_FILES}" == "true" ]]; then
@@ -60,12 +58,7 @@ jobs:
           else
             pre-commit run --files $(git diff --name-only origin/${{ github.event.repository.default_branch }}..HEAD)
           fi
-      - name: run pre-commit on main branch (all files)
-        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
-        run: |
-          pre-commit run --all-files
       - name: check pr title
-        if: ${{ github.ref != 'refs/heads/main' }}
         run: |
           echo "checking PR title: '${{ github.event.pull_request.title }}'"
           git commit --allow-empty -m "${{ github.event.pull_request.title }}"
