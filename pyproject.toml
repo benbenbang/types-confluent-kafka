@@ -1,6 +1,6 @@
 [project]
 name = "types-confluent-kafka"
-version = "1.3.3"
+version = "1.3.4"
 description = "Types for Confluent Kafka"
 readme = "README.md"
 license-files = ["LICENSE"]
