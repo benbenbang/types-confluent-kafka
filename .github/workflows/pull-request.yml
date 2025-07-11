@@ -85,7 +85,7 @@ jobs:
         with:
           files_yaml: |
             package:
-              - confluent_kafka-stubs/*
+              - confluent_kafka-stubs/**/*.pyi
               - .github/*
               - uv.lock
 
