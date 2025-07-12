@@ -38,7 +38,7 @@ class CachedSchemaRegistryClient:
     def __init__(
         self,
         url: str | dict,
-        max_schemas_per_subject: int,
+        max_schemas_per_subject: int = 1000,
         ca_location: str | Path | None = None,
         cert_location: str | Path | None = None,
         key_location: str | Path | None = None,
