@@ -20,13 +20,6 @@ permissions:
 jobs:
   pre-release:
     if: github.event.inputs.prompt == 'true'
-    uses: benbenbang/r-workflows/.github/workflows/semantic-release.yml@main
-    secrets: inherit
-    with:
-      dry_run: true
-
-  semantic-versioning-pr:
-    if: ${{ needs.pre-release.outputs.new_release != null }}
     name: pre-release
     runs-on: ubuntu-latest
     steps:
@@ -34,6 +27,28 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
+      - name: setup node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "lts/*"
+
+      - name: semantic versioning
+        run: |
+          # install deps
+          npm install -g @commitlint/config-conventional
+          npm i conventional-changelog-conventionalcommits
+
+          # prepare next tag for env var
+          next_tag=$(npx semantic-release --dry-run | grep -Poi "The next release version is \K\d+.\d+.\d+")
+          echo "next_tag=${next_tag}" >> "$GITHUB_ENV"
+          echo ">>>>>>>> next version is ${next_tag}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_AUTHOR_EMAIL: ${{ secrets.GH_GIT_AUTHOR_EMAIL }}
+          GIT_AUTHOR_NAME: ${{ secrets.GH_GIT_AUTHOR_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.GH_GIT_COMMITTER_EMAIL }}
+          GIT_COMMITTER_NAME: ${{ secrets.GH_GIT_COMMITTER_NAME }}
 
       - name: set python
         uses: actions/setup-python@v5
@@ -64,7 +79,6 @@ jobs:
           git pull --rebase origin main
 
           # update version
-          export next_tag=${{ needs.pre-release.outputs.new_release_tag }}
           echo "next version is: ${next_tag}"
           pipx run uv version ${next_tag}
 
