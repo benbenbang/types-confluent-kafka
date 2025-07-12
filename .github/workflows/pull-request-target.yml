@@ -11,7 +11,7 @@ on:
       - synchronize
 
 concurrency:
-  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}-labeler
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}-target
   cancel-in-progress: true
 
 jobs:
