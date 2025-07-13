@@ -1,0 +1,91 @@
+name: 🐛 Types-Confluent-Kafka Bug
+description: Report a bug or unexpected behavior in Types-Confluent-Kafka
+labels: [bug, unconfirmed]
+
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for contributing to types-confluent-kafka! ✊
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Initial Checks
+      description: Just making sure you're really using Types-Confluent-Kafka
+      options:
+        - label: I confirm that I'm using Types-Confluent-Kafka
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: |
+        Please explain what you're seeing and what you would expect to see.
+        Provide as much detail as possible for quicker problem understanding and resolution. 🙏
+    validations:
+      required: true
+
+  - type: textarea
+    id: example
+    attributes:
+      label: Example Code
+      description: >
+        If applicable, please add a self-contained,
+        [minimal, reproducible example](https://stackoverflow.com/help/minimal-reproducible-example)
+        demonstrating the bug.
+      placeholder: |
+        import confluent_kafka as ck
+        ...
+      render: Python
+
+  - type: textarea
+    id: version
+    attributes:
+      label: Python, verion of Types-confluent-kafka. verion of Confluent-kafka-python, your applications settings & OS Version
+      description: |
+        Please provide the following infos
+        - Which versions of Python, Types-Confluent-Kafka, Confluent-kafka-python, and OS are you using?
+        - What is your application settings?
+
+        Run the following command and copy the output:
+
+        For `poetry` users:
+          ```bash
+          poetry show confluent-kafka
+          poetry show types-confluent-kafka
+          ```
+
+        For `uv`/general users:
+          ```bash
+          pip show confluent-kafka
+          pip show types-confluent-kafka
+
+          # example output
+          Name: types-confluent-kafka
+          Version: 1.3.3
+          Summary:
+          Home-page:
+          Author: benbenbang
+          Author-email: bn@bitbrew.dev
+          License: Apache-2.0 license
+          Location: /Users/bn/.dotfiles/.venv/lib/python3.12/site-packages
+          Requires:
+          Required-by:
+          ```
+
+      render: Text
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: type_of_issue
+    attributes:
+      label: Affected Components
+      description: "Please make sure you provided the following information"
+      options:
+        - label: confluent-kafka-python and librdkafka version (`confluent_kafka.version()` and `confluent_kafka.libversion()`)
+        - label: Apache Kafka broker version
+        - label: "Client configuration: `{...}` is provided"
+        - label: "Operating system is provided"
+        - label: Provide IDE screenshot if it's possible

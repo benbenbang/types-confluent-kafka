@@ -1,0 +1,78 @@
+name: main
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - confluent_kafka-stubs/**/*
+      - uv.lock
+      - .github/**.*
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+      actions: write
+      contents: read
+      statuses: read
+      packages: read
+    container:
+      image: ghcr.io/${{ github.repository }}/pre-commit:py3.12
+      options: -w ${{ github.workspace }}
+      volumes:
+        - ${{ github.workspace }}:${{ github.workspace }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: configure git
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config --global credential.helper store
+      - name: cache pre-commit hooks
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pre-commit
+          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
+      - name: run pre-commit
+        run: |
+          #  install pre-commit hooks and run tests
+          pre-commit install && pre-commit install --hook commit-msg
+          pre-commit run --all-files
+
+  typing-tests:
+    name: "run: mypy | pyright"
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12", "3.13"]
+        test-type: ["mypy", "pyright"]
+        os: ["ubuntu-latest"]
+        arch: ["x64", "arm64"] # "arm64" temp switch off, too many trouble with it
+    container:
+      image: ghcr.io/${{ github.repository }}/pre-commit:py3.12
+      options: -w ${{ github.workspace }}
+      volumes:
+        - ${{ github.workspace }}:${{ github.workspace }}
+    permissions:
+      contents: read
+      pull-requests: read
+      packages: read
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: show dependencies
+        run: |
+          pip freeze
+      - name: run mypy
+        if: matrix.test-type == 'mypy'
+        run: |
+          uv run mypy --version
+          uv run mypy confluent_kafka-stubs
+      - name: run pyright
+        if: matrix.test-type == 'pyright'
+        run: |
+          uv run pyright --version # dry run & install
+          uv run pyright confluent_kafka-stubs

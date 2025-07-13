@@ -1,0 +1,82 @@
+name: publish rc version
+
+on:
+  workflow_dispatch:
+    inputs:
+      tagName:
+        description: "Tag Name (e.g., 1.0.0-rc1)"
+        required: true
+      commitSha:
+        description: "Commit Sha to build the package (e.g. 32a0afd7)"
+        required: false
+        default: ""
+
+jobs:
+  publish-rc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: tag validation
+        run: |
+          # strip the whitespaces
+          TAG_NAME=$(echo "${TAG_NAME}" | tr -d ' ')
+
+          if [[ ! "${TAG_NAME}" =~ ^[0-9]{1,2}\.[0-9]{1,2}\.[0-9]{1,2}-rc[0-9]{1,2}$ ]]; then
+            echo "Error: Tag name ${TAG_NAME} is an invalid format."
+            exit 1
+          fi
+
+          if git rev-parse "${TAG_NAME}" >/dev/null 2>&1; then
+            echo "Error: Tag ${TAG_NAME} already exists."
+            exit 1
+          fi
+        env:
+          TAG_NAME: ${{ github.event.inputs.tagName }}
+
+      - name: commit sha validation
+        run: |
+          if [[ ! -z ${COMMIT_SHA} ]]; then
+            echo "validating given SHA exists"
+            git cat-file -e "${COMMIT_SHA}^{commit}"
+          fi
+        env:
+          COMMIT_SHA: ${{ github.event.inputs.commitSha }}
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: install dependencies
+        run: |
+          python -m pip install --user pipx
+          python -m pipx ensurepath
+          pipx install uv=="${uv_version}"
+          pipx run uv sync --group publish
+          pip list
+        env:
+          uv_version: "0.7.19"
+
+      - name: build with uv
+        run: |
+          if [[ ! -z ${COMMIT_SHA} ]]; then
+            echo "using ${COMMIT_SHA} to build the package..."
+            git checkout ${COMMIT_SHA}
+          fi
+          echo "build with release candidate version: ${TAG_NAME}"
+          uv version ${TAG_NAME}
+          uv build --no-sources
+        env:
+          TAG_NAME: ${{ github.event.inputs.tagName }}
+          COMMIT_SHA: ${{ github.event.inputs.commitSha }}
+
+      - name: publish to testpypi
+        env:
+          TEST_PYPI_USERNAME: ${{ secrets.TEST_PYPI_USERNAME }}
+          TEST_PYPI_TOKEN: ${{ secrets.TEST_PYPI_TOKEN }}
+        run: |
+          uv publish --index https://test.pypi.org/legacy/ -u ${TEST_PYPI_USERNAME} -p ${TEST_PYPI_TOKEN}

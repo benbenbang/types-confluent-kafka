@@ -1,0 +1,50 @@
+default_language_version:
+  python: python3
+
+default_stages: [pre-commit]
+
+repos:
+  - repo: https://github.com/timothycrosley/isort
+    rev: 6.0.1
+    hooks:
+      - id: isort
+        name: isort
+        files: ".*.py"
+        args:
+          - "--settings-path=.isort.cfg"
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.12.3
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+        args: ["--allow-multiple-documents"]
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+      - id: requirements-txt-fixer
+      - id: check-merge-conflict
+      - id: debug-statements
+      - id: pretty-format-json
+        args:
+          - "--autofix"
+          - "--indent=2"
+  - repo: local
+    hooks:
+      - id: dockerfile-lint
+        name: Lint Dockerfile
+        entry: ./scripts/hadolint.sh
+        language: system
+        files: .*Dockerfile.*$
+        pass_filenames: true
+      - id: validate-commit-msg
+        name: Commit Message is Valid
+        language: pygrep
+        entry: ^(build|ci|docs|feat|feature|fix|perf|refactor|enhancement|style|test|revert|hotfix|ops|chore|release)\(?[\w,\.,\-,\(,\),\/]*\)?(!?)(:)\s{1}([\w,\W,:]+)$
+        stages: [commit-msg]
+        args: [--negate]

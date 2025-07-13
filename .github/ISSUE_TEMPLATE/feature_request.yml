@@ -1,0 +1,36 @@
+name: ⚒️ Types-Confluent-Kafka Feature Request
+description: "Suggest a new feature or enhancement for Types-Confluent-Kafka typings"
+labels: [feature_request]
+
+body:
+  - type: markdown
+    attributes:
+      value: Thank you for considering a feature request for types-confluent-kafka! Your insights help improve the typing experience for the Kafka client. ✊
+
+  - type: checkboxes
+    id: searched
+    attributes:
+      label: Preliminary Checks
+      description: |
+        Before suggesting a new feature or enhancement for typings, ensure it's related to type annotations or type-related functionalities.
+      options:
+        - label: I've searched Google & GitHub for similar requests and found none.
+          required: true
+        - label: I've reviewed the [confluent intro page](https://docs.confluent.io/kafka-clients/python/current/overview.html) and [the confluent kafka python docs](https://docs.confluent.io/platform/current/clients/confluent-kafka-python/html/index.html) and believe this feature is missing from the typings.
+          required: true
+        - label: I understand that this repository is specifically for type annotations of the Kafka client. If my request is about Kafka client features or functionalities, I need to raise it in the [Confluent Kafka Python repo](https://github.com/confluentinc/confluent-kafka-python).
+          required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Feature Details
+      description: |
+        Provide a comprehensive description of the typing feature or enhancement you're suggesting. 🙏
+
+        Consider including:
+        * An example showcasing how code might appear when leveraging the new typings.
+        * Specific use cases that would benefit from this typing feature or enhancement.
+        * Justification for adding this to the Types-Confluent-Kafka package, especially if similar typings exist elsewhere.
+    validations:
+      required: true
