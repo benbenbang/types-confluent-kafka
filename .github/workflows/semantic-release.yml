@@ -1,0 +1,112 @@
+name: release
+
+on:
+  workflow_call:
+    inputs:
+      semantic_release_image_tag:
+        description: "semantic release image version tag (vx.x.x - default: latest)"
+        default: latest
+        required: false
+        type: string
+      semantic_release_config_file:
+        description: "semantic release config file path (default: .releaserc.json)"
+        required: false
+        type: string
+        default: .releaserc.json
+      new_version_title:
+        description: "title of the new version"
+        required: false
+        type: string
+        default: ""
+      dry_run:
+        description: "run semantic release in dry-run mode"
+        default: false
+        required: false
+        type: boolean
+      environment:
+        type: string
+        description: environment to deploy to
+        required: false
+        default: ""
+      history_depth:
+        description: "0 means fetch the full history"
+        required: false
+        default: 0
+        type: number
+      pull_request:
+        description: "run in the pull request mode. for r-workflow pr"
+        required: false
+        default: false
+        type: boolean
+    outputs:
+      new_release:
+        description: "the new release version created by semantic release"
+        value: ${{ jobs.semantic-release.outputs.new_release }}
+      new_release_tag:
+        description: "the new release tag created by semantic release"
+        value: ${{ jobs.semantic-release.outputs.new_release_tag }}
+
+jobs:
+  semantic-release:
+    name: creating semantic release
+    environment: ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/benbenbang/semantic-release:${{ inputs.semantic_release_image_tag }}
+    outputs:
+      new_release: ${{ steps.get-next-version.outputs.new_release }}
+      new_release_tag: ${{ steps.get-next-version.outputs.new_release_tag }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: ${{ inputs.history_depth }}
+          persist-credentials: false # https://github.com/semantic-release/semantic-release/blob/v19.0.5/docs/recipes/ci-configurations/github-actions.md#pushing-packagejson-changes-to-a-master-branch
+      - name: generate a token # https://github.com/semantic-release/semantic-release/discussions/1906
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.TECHNICAL_APP_APP_ID  }}
+          private-key: ${{ secrets.TECHNICAL_APP_PEM }}
+      - name: configure Git with token # Use generated token for git authentication
+        run: |
+          git config --global --add safe.directory $GITHUB_WORKSPACE
+          git config --global credential.helper store
+          echo "https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com" > ~/.git-credentials
+      - name: pull request debug
+        if: ${{ inputs.pull_request == true }}
+        run: |
+          semantic-release --dry-run --branch ${GITHUB_HEAD_REF} || true
+      - name: process release output
+        id: get-next-version
+        if: ${{ inputs.pull_request == false }}
+        run: |
+          next_tag=$(semantic-release --dry-run | grep -Poi "The next release version is \K\d+.\d+.\d+")
+          echo ">>>>>>>> next version is ${next_tag}"
+          if [ -z "${next_tag}" ]; then
+            echo ">>>>>>>> no new release"
+            echo "new_release=false" >> $GITHUB_OUTPUT
+            echo "new_release=false" >> $GITHUB_ENV
+            echo "new_release=${next_tag}" >> $GITHUB_OUTPUT
+            echo "RELEASE_VERSION=${next_tag}" >> $GITHUB_ENV
+          else
+            echo "new_release=true" >> $GITHUB_OUTPUT
+            echo "new_release=true" >> $GITHUB_ENV
+            echo "new_release_tag=${next_tag}" >> $GITHUB_OUTPUT
+            echo "RELEASE_VERSION=${next_tag}" >> $GITHUB_ENV
+          fi
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+      - name: create release
+        id: create-semantic-release
+        if: ${{ inputs.dry_run == false && inputs.pull_request == false }}
+        run: |
+          semantic-release --debug
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+      - name: update title
+        if: ${{ steps.get-next-version.outputs.new_release == 'true' && inputs.new_version_title != '' }}
+        run: |
+          gh release edit ${{ steps.get-next-version.outputs.new_release_tag }} --title "${{ inputs.new_version_title }} ${{ steps.get-next-version.outputs.new_release_tag }}"
+        env:
+          GH_TOKEN: ${{ steps.generate_token.outputs.token }}

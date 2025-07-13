@@ -1,15 +1,27 @@
 name: publish rc version
 
 on:
-  workflow_dispatch:
+  workflow_call:
     inputs:
       tagName:
         description: "Tag Name (e.g., 1.0.0-rc1)"
         required: true
+        type: string
       commitSha:
         description: "Commit Sha to build the package (e.g. 32a0afd7)"
         required: false
         default: ""
+        type: string
+      python_version:
+        description: "Python version to use"
+        required: false
+        default: "3.13"
+        type: string
+      uv_version:
+        description: "uv version to use"
+        required: false
+        default: "0.7.19"
+        type: string
 
 jobs:
   publish-rc:
@@ -44,12 +56,12 @@ jobs:
             git cat-file -e "${COMMIT_SHA}^{commit}"
           fi
         env:
-          COMMIT_SHA: ${{ github.event.inputs.commitSha }}
+          COMMIT_SHA: ${{ inputs.commitSha }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.13"
+          python-version: "${{ inputs.python_version }}"
 
       - name: install dependencies
         run: |
@@ -59,7 +71,7 @@ jobs:
           pipx run uv sync --group publish
           pip list
         env:
-          uv_version: "0.7.19"
+          uv_version: ${{ inputs.uv_version }}
 
       - name: build with uv
         run: |
