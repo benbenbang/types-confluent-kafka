@@ -152,3 +152,7 @@ inputs.json
 node_modules/
 package-lock.json
 package.json
+
+confluent_kafka-stubs
+tests
+.devcontainer
