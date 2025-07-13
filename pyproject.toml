@@ -40,6 +40,14 @@ dev = [
     "pyright>=1.1.402",
     "types-requests>=2.32.4.20250611",
 ]
+docs = [
+    "mkdocs>=1.6.1",
+    "mkdocs-embed-external-markdown>=3.0.2",
+    "mkdocs-material>=9.6.15",
+    "mkdocs-redirects>=1.2.2",
+    "mkdocs-simple-hooks>=0.1.5",
+    "mkdocstrings-python>=1.16.12",
+]
 lint = [
     "pre-commit>=4.2.0",
     "ruff>=0.12.2",
