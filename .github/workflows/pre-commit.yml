@@ -11,7 +11,7 @@ on:
       pre_commit_version:
         description: "pre-commit version to use"
         required: false
-        default: "4.3.0"
+        default: "4.2.0"
         type: string
       run_all_files:
         description: "run all files or specific files"
