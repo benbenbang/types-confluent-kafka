@@ -56,7 +56,7 @@ publish = ["twine>=6.1.0"]
 
 [project.urls]
 Homepage = "https://github.com/benbenbang/types-confluent-kafka"
-Documentation = "https://readthedocs.org"
+Documentation = "https://benbenbang.github.io/types-confluent-kafka/"
 Repository = "https://github.com/benbenbang/types-confluent-kafka.git"
 Issues = "https://github.com/benbenbang/types-confluent-kafka/issues"
 Changelog = "https://github.com/benbenbang/types-confluent-kafka/releases"
