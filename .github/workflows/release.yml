@@ -20,6 +20,4 @@ jobs:
     uses: benbenbang/types-confluent-kafka/.github/workflows/semantic-release.yml@workflows
     secrets: inherit
     with:
-      python_version: "3.12"
-      uv_version: "0.7.19"
       dry_run: false
