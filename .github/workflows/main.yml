@@ -11,36 +11,12 @@ on:
 
 jobs:
   pre-commit:
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: read
-      actions: write
-      contents: read
-      statuses: read
-      packages: read
-    container:
-      image: ghcr.io/${{ github.repository }}/pre-commit:py3.12
-      options: -w ${{ github.workspace }}
-      volumes:
-        - ${{ github.workspace }}:${{ github.workspace }}
-    steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - name: configure git
-        run: |
-          git config --global --add safe.directory $GITHUB_WORKSPACE
-          git config --global credential.helper store
-      - name: cache pre-commit hooks
-        uses: actions/cache@v4
-        with:
-          path: ~/.cache/pre-commit
-          key: ${{ runner.os }}-precommit-${{ hashFiles('.pre-commit-config.yaml') }}
-      - name: run pre-commit
-        run: |
-          #  install pre-commit hooks and run tests
-          pre-commit install && pre-commit install --hook commit-msg
-          pre-commit run --all-files
+    name: pre-commit checks
+    uses: benbenbang/types-confluent-kafka/.github/workflows/pre-commit.yml@workflows
+    secrets: inherit
+    with:
+      run_all_files: true
+      check_pr_title: false
 
   typing-tests:
     name: "run: mypy | pyright"
