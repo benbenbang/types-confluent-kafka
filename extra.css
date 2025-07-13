@@ -1,0 +1,91 @@
+@font-face {
+    font-family: "MesloLGLNerdFont";
+    src: url("../theme/MesloLGLNerdFont-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "MesloLGLNerdFont";
+    src: url("../theme/MesloLGLNerdFont-Italic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "MesloLGLNerdFont";
+    src: url("../theme/MesloLGLNerdFont-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "MesloLGLNerdFont";
+    src: url("../theme/MesloLGLNerdFont-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+}
+
+body {
+    font-family: "MesloLGLNerdFont", sans-serif;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("./jetbrains/JetBrainsMonoNLNerdFont-Regular.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("./jetbrains/JetBrainsMonoNLNerdFont-Italic.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("./jetbrains/JetBrainsMonoNLNerdFont-Bold.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("../theme/jetbrains/JetBrainsMonoNLNerdFont-BoldItalic.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("../theme/jetbrains/JetBrainsMonoNLNerdFont-ExtraBold.ttf") format("truetype");
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("../theme/jetbrains/JetBrainsMonoNLNerdFont-ExtraBoldItalic.ttf") format("truetype");
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("../theme/jetbrains/JetBrainsMonoNLNerdFont-Light.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "JetBrainsMonoNLNerdFont";
+    src: url("../theme/jetbrains/JetBrainsMonoNLNerdFont-LightItalic.ttf") format("truetype");
+    font-weight: 300;
+    font-style: italic;
+}
+
+body {
+    font-family: "JetBrainsMonoNLNerdFont", sans-serif;
+}
