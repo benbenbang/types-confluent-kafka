@@ -24,6 +24,7 @@ permissions:
   issues: write
   pull-requests: write
   id-token: write
+  packages: read
 
 jobs:
   pre-release:
@@ -32,8 +33,6 @@ jobs:
     uses: benbenbang/types-confluent-kafka/.github/workflows/semantic-release.yml@workflows
     secrets: inherit
     with:
-      python_version: ${{ github.event.inputs.python_version }}
-      uv_version: ${{ github.event.inputs.uv_version }}
       dry_run: true
 
   create-version-pr:
@@ -42,10 +41,13 @@ jobs:
     needs: pre-release
     if: ${{ needs.pre-release.outputs.new_release != null }}
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+
       - name: set python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python_version: ${{ github.event.inputs.python_version }}
 
       - name: install dependencies
         run: |
@@ -55,7 +57,7 @@ jobs:
           uv sync --all-groups
           pip list
         env:
-          uv_version: "0.7.19"
+          uv_version: ${{ github.event.inputs.uv_version }}
 
       - name: update project version by git tag
         run: |
