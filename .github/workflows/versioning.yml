@@ -45,7 +45,7 @@ jobs:
       - name: set python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python_version: ${{ github.event.inputs.python_version }}
 
       - name: install dependencies
         run: |
@@ -55,7 +55,7 @@ jobs:
           uv sync --all-groups
           pip list
         env:
-          uv_version: "0.7.19"
+          uv_version: ${{ github.event.inputs.uv_version }}
 
       - name: update project version by git tag
         run: |
