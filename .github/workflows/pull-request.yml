@@ -71,3 +71,19 @@ jobs:
         run: |
           uv run pyright --version
           uv run pyright confluent_kafka-stubs
+
+  workflow-success:
+    needs: [pre-commit, pr-check-change-files, typing-tests]
+    if: |
+      always() && ${{ needs.pre-commit.result == 'success' }} &&
+      ${{ needs.pr-check-change-files.result == 'success' }} &&
+      (
+        ${{ needs.typing-tests.result == 'success' }} ||
+        ${{ needs.typing-tests.result == 'skipped' }}
+      )
+    name: workflow success
+    runs-on: ubuntu-latest
+    steps:
+      - name: success
+        run: |
+          echo "🎉 all tests passed"
