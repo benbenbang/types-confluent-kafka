@@ -24,6 +24,7 @@ permissions:
   issues: write
   pull-requests: write
   id-token: write
+  packages: read
 
 jobs:
   pre-release:
@@ -32,8 +33,6 @@ jobs:
     uses: benbenbang/types-confluent-kafka/.github/workflows/semantic-release.yml@workflows
     secrets: inherit
     with:
-      python_version: ${{ github.event.inputs.python_version }}
-      uv_version: ${{ github.event.inputs.uv_version }}
       dry_run: true
 
   create-version-pr:
@@ -42,10 +41,15 @@ jobs:
     needs: pre-release
     if: ${{ needs.pre-release.outputs.new_release != null }}
     steps:
+      - name: checkout
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false # https://github.com/semantic-release/semantic-release/blob/v19.0.5/docs/recipes/ci-configurations/github-actions.md#pushing-packagejson-changes-to-a-master-branch
+
       - name: set python
         uses: actions/setup-python@v5
         with:
-          python-version: "3.12"
+          python_version: ${{ github.event.inputs.python_version }}
 
       - name: install dependencies
         run: |
@@ -55,13 +59,20 @@ jobs:
           uv sync --all-groups
           pip list
         env:
-          uv_version: "0.7.19"
+          uv_version: ${{ github.event.inputs.uv_version }}
+
+      - name: generate a token # https://github.com/semantic-release/semantic-release/discussions/1906
+        id: generate_token
+        uses: actions/create-github-app-token@v1
+        with:
+          app-id: ${{ secrets.TECHNICAL_APP_APP_ID  }}
+          private-key: ${{ secrets.TECHNICAL_APP_PEM }}
 
       - name: update project version by git tag
         run: |
           # setup git
-          git config user.name "ptah-lgtm"
-          git config user.email "ptah@bitbrew.dev"
+          git config user.name "${{ secrets.TECHNICAL_APP_APP_NAME }}"
+          git config user.email "${{ secrets.TECHNICAL_APP_APP_ID }}+${{ secrets.TECHNICAL_APP_APP_NAME }}[bot]@users.noreply.github.com"
 
           # clean up artifacts before update pyproject.toml
           git clean -f -x || echo "nothing to remove"
@@ -83,16 +94,17 @@ jobs:
             # commit and create pr
             git add pyproject.toml
             git commit -m "chore(${next_tag_modified}): update version to $next_tag"
-            git remote set-url origin https://${{ secrets.PTAH_USERNAME }}:${{ secrets.PTAH_CI_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git
+            git remote set-url origin https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${GITHUB_REPOSITORY}.git
             git push -f origin "${branch_name}"
             gh pr create --base main --head "${branch_name}" \
               --title "release(versioning): update version to $next_tag" \
               --body "Automated PR to bump the version pre-release." \
               --label "release" \
-              --assignee "benbenbang"
+              --reviewer "benbenbang"
+
           else
             echo "nothing to commit!"
           fi
-    env:
-      GH_TOKEN: ${{ secrets.PTAH_CI_TOKEN }}
-      next_tag: ${{ needs.pre-release.outputs.new_release_tag }}
+        env:
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+          next_tag: ${{ needs.pre-release.outputs.new_release_tag }}
