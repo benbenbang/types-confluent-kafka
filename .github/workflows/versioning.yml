@@ -76,7 +76,8 @@ jobs:
 
           # clean up artifacts before update pyproject.toml
           git clean -f -x || echo "nothing to remove"
-          git rm node_modules || echo "no node modules to remove"
+          git reset --hard HEAD || true
+          echo "all cleaned up"
 
           # make sure up to date
           git pull --rebase origin main
@@ -92,7 +93,7 @@ jobs:
             git checkout -b "${branch_name}"
 
             # commit and create pr
-            git add pyproject.toml
+            git add pyproject.toml uv.lock
             git commit -m "chore(${next_tag_modified}): update version to $next_tag"
             git remote set-url origin https://x-access-token:${{ steps.generate_token.outputs.token }}@github.com/${GITHUB_REPOSITORY}.git
             git push -f origin "${branch_name}"
@@ -100,7 +101,8 @@ jobs:
               --title "release(versioning): update version to $next_tag" \
               --body "Automated PR to bump the version pre-release." \
               --label "release" \
-              --reviewer "benbenbang"
+              --reviewer "benbenbang" \
+              --reviewer "ptah-lgtm"
 
           else
             echo "nothing to commit!"
