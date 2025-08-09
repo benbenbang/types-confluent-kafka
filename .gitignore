@@ -156,3 +156,4 @@ package.json
 confluent_kafka-stubs
 tests
 .devcontainer
+docs
