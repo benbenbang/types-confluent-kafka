@@ -64,7 +64,7 @@ class ConfigEntry:
     ) -> None: ...
 
 class ConfigResource:
-    Type = ClassVar[_type[ResourceType]]
+    Type: ClassVar[_type[ResourceType]] = ResourceType
 
     restype: ConfigResource
     restype_int: int
@@ -76,7 +76,7 @@ class ConfigResource:
 
     def __init__(
         self,
-        restype: ConfigResource,
+        restype: ConfigResource.Type | str | int,
         name: str,
         set_config: dict[str, str] | None = None,
         described_configs: dict | None = ...,
