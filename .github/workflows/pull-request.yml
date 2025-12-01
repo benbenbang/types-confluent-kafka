@@ -17,7 +17,7 @@ concurrency:
 jobs:
   pre-commit:
     name: pre-commit checks
-    uses: benbenbang/types-confluent-kafka/.github/workflows/pre-commit.yml@workflows
+    uses: m11n/r-workflows/.github/workflows/prek.yml@workflows
     secrets: inherit
 
   pr-check-change-files:
