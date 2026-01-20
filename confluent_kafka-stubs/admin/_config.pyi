@@ -64,7 +64,7 @@ class ConfigEntry:
     ) -> None: ...
 
 class ConfigResource:
-    Type: _type[ResourceType]
+    Type: ClassVar[_type[ResourceType]]
 
     restype: ResourceType
     restype_int: int
