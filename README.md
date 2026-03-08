@@ -1,5 +1,11 @@
 # types-confluent-kafka
 
+> [!IMPORTANT]
+> Please make sure you have read this note before using this package or contributing to this project.
+> As of **v2.13.0+**, `confluent-kafka-python` includes official type hints support.
+> Users on **v2.13.0 or above** should prefer the official type hints over this package.
+> This package is intended for users on versions **below v2.13.0**.
+
  [![PyPI version](https://badge.fury.io/py/types-confluent-kafka.svg)](https://badge.fury.io/py/types-confluent-kafka) ![PyPI - Python Version](https://img.shields.io/pypi/pyversions/types-confluent-kafka) [![GitHub issues](https://img.shields.io/github/issues/benbenbang/types-confluent-kafka)](https://github.com/benbenbang/types-confluent-kafka/issues) ![pre-commit enable](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white) [![main](https://github.com/benbenbang/types-confluent-kafka/actions/workflows/main.yml/badge.svg)](https://github.com/benbenbang/types-confluent-kafka/actions/workflows/main.yml) [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://semver.org/)
 
 `types-confluent-kafka` is a package that provides type hints for the `confluent-kafka` Python package. It's designed to enhance your development experience by enabling type checking with tools like `mypy` and providing auto-completion support in your LSP (language server).
