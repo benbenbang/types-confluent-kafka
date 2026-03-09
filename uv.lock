@@ -352,6 +352,7 @@ wheels = [
 name = "confluent-kafka"
 version = "2.12.1"
 source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/d5/d6/10799cbc9ad757170eb466eaadfaf2abde1d832b6d67d7ff040179888272/confluent_kafka-2.12.1.tar.gz", hash = "sha256:cfc4ceeb3071a678f7c93cfe1e76216442e1621ee6192584cdf704db1d619894", size = 250074, upload-time = "2025-11-04T19:03:31.969Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/c9/ad/0d2b906aece9069fc0bead3bd7907a440442209ee3795954359555a51b91/confluent_kafka-2.12.1-cp310-cp310-macosx_10_9_x86_64.whl", hash = "sha256:418f52c52c3833a2481cb4f576f4bee5183776dd9411f5288286117d794d858c", size = 3593667, upload-time = "2025-10-21T20:49:58.317Z" },
     { url = "https://files.pythonhosted.org/packages/c4/ae/27220c24f96b5cb7d69b01035e3ebe1fc6d6cde54e8d9e6e69a6fd8fcd69/confluent_kafka-2.12.1-cp310-cp310-macosx_11_0_arm64.whl", hash = "sha256:6308da6a1feddfc8a5ab757982ab546c4482e33c056e7b4f379deeddfd821c0c", size = 3153382, upload-time = "2025-10-21T20:50:01.627Z" },
@@ -1605,7 +1606,7 @@ wheels = [
 
 [[package]]
 name = "types-confluent-kafka"
-version = "1.4.0"
+version = "1.4.1"
 source = { virtual = "." }
 
 [package.dev-dependencies]
