@@ -45,4 +45,7 @@ class EarliestSpec(OffsetSpec):
     def _value(self) -> int: ...
 
 class ListOffsetsResultInfo:
+    offset: int
+    timestamp: int
+    leader_epoch: int | None
     def __init__(self, offset: int, timestamp: int, leader_epoch: int | None): ...
