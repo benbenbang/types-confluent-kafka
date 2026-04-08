@@ -38,10 +38,14 @@ class AIOProducer:
     ) -> asyncio.Future[Message]:
         """
         Note:
-            - Headers are not supported in AIOProducer batch mode.
-              Use the synchronous Producer.produce() if headers are required.
-            - Returns a Future that resolves to the delivered Message on success,
-              or raises KafkaException on delivery failure.
+            - This is a double-await pattern: ``await produce(...)`` enqueues the message
+              and returns an ``asyncio.Future``; awaiting that Future waits for delivery::
+
+                  future = await producer.produce("topic", b"value")
+                  message = await future  # blocks until broker confirms delivery
+
+            - Headers are not supported in batch mode; use the synchronous
+              ``Producer.produce()`` if headers are required.
         """
         ...
     async def flush(self) -> int: ...

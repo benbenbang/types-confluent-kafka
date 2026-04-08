@@ -9,10 +9,12 @@ from __future__ import annotations
 import asyncio
 from typing import Any, Dict, NamedTuple, Optional, Sequence
 
+from ...cimpl import Message
+
 class MessageBatch(NamedTuple):
     topic: str
     messages: Sequence[Dict[str, Any]]
-    futures: Sequence[asyncio.Future[Any]]
+    futures: Sequence[asyncio.Future[Message]]
     partition: int = -1
 
     @property
@@ -23,7 +25,7 @@ class MessageBatch(NamedTuple):
 def create_message_batch(
     topic: str,
     messages: Sequence[Dict[str, Any]],
-    futures: Sequence[asyncio.Future[Any]],
+    futures: Sequence[asyncio.Future[Message]],
     callbacks: Optional[Any] = None,
     partition: int = -1,
 ) -> MessageBatch: ...
