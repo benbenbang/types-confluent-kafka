@@ -364,12 +364,12 @@ class NewPartitions:
         def __ne__(self, other: "NewPartitions") -> bool: ...
 
 class TopicPartition:
-    topic: ClassVar[str]
-    partition: ClassVar[int]
-    offset: ClassVar[int]
-    metadata: ClassVar[str | None]
+    topic: str
+    partition: int
+    offset: int
+    metadata: str | None
     leader_epoch: ClassVar[int | None]
-    error: ClassVar[KafkaError | None]
+    error: KafkaError | None
 
     def __init__(
         self,
