@@ -155,3 +155,6 @@ package.json
 
 # mkdocs
 docs/site
+
+# dev
+local

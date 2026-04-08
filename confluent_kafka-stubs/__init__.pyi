@@ -7,6 +7,8 @@ from __future__ import annotations
 
 from ._model import ConsumerGroupState as ConsumerGroupState
 from ._model import ConsumerGroupTopicPartitions as ConsumerGroupTopicPartitions
+from ._model import ConsumerGroupType as ConsumerGroupType
+from ._model import ElectionType as ElectionType
 from ._model import IsolationLevel as IsolationLevel
 from ._model import Node as Node
 from ._model import TopicCollection as TopicCollection
@@ -49,6 +51,8 @@ __all__ = [
     "Node",
     "ConsumerGroupTopicPartitions",
     "ConsumerGroupState",
+    "ConsumerGroupType",
+    "ElectionType",
     "TopicPartition",
     "TopicCollection",
     "TopicPartitionInfo",
