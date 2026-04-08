@@ -55,3 +55,16 @@ class IsolationLevel(Enum):
     READ_COMMITTED = 1
 
     def __lt__(self, other) -> bool: ...
+
+class ConsumerGroupType(Enum):
+    UNKNOWN = 0
+    CONSUMER = 1
+    CLASSIC = 2
+
+    def __lt__(self, other) -> bool: ...
+
+class ElectionType(Enum):
+    PREFERRED = 0
+    UNCLEAN = 1
+
+    def __lt__(self, other) -> bool: ...
