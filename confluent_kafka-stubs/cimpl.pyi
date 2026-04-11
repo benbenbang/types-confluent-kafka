@@ -33,10 +33,15 @@ ACL_PERMISSION_TYPE_ALLOW: int
 ACL_PERMISSION_TYPE_ANY: int
 ACL_PERMISSION_TYPE_DENY: int
 ACL_PERMISSION_TYPE_UNKNOWN: int
+ALTER_CONFIG_OP_TYPE_APPEND: int
+ALTER_CONFIG_OP_TYPE_DELETE: int
+ALTER_CONFIG_OP_TYPE_SET: int
+ALTER_CONFIG_OP_TYPE_SUBTRACT: int
 CONFIG_SOURCE_DEFAULT_CONFIG: int
 CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG: int
 CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG: int
 CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG: int
+CONFIG_SOURCE_GROUP_CONFIG: int
 CONFIG_SOURCE_STATIC_BROKER_CONFIG: int
 CONFIG_SOURCE_UNKNOWN_CONFIG: int
 CONSUMER_GROUP_STATE_COMPLETING_REBALANCE: int
@@ -45,9 +50,19 @@ CONSUMER_GROUP_STATE_EMPTY: int
 CONSUMER_GROUP_STATE_PREPARING_REBALANCE: int
 CONSUMER_GROUP_STATE_STABLE: int
 CONSUMER_GROUP_STATE_UNKNOWN: int
+CONSUMER_GROUP_TYPE_CLASSIC: int
+CONSUMER_GROUP_TYPE_CONSUMER: int
+CONSUMER_GROUP_TYPE_UNKNOWN: int
+ELECTION_TYPE_PREFERRED: int
+ELECTION_TYPE_UNCLEAN: int
+ISOLATION_LEVEL_READ_COMMITTED: int
+ISOLATION_LEVEL_READ_UNCOMMITTED: int
 OFFSET_BEGINNING: int
 OFFSET_END: int
 OFFSET_INVALID: int
+OFFSET_SPEC_EARLIEST: int
+OFFSET_SPEC_LATEST: int
+OFFSET_SPEC_MAX_TIMESTAMP: int
 OFFSET_STORED: int
 RESOURCE_ANY: int
 RESOURCE_BROKER: int
@@ -58,7 +73,11 @@ RESOURCE_PATTERN_MATCH: int
 RESOURCE_PATTERN_PREFIXED: int
 RESOURCE_PATTERN_UNKNOWN: int
 RESOURCE_TOPIC: int
+RESOURCE_TRANSACTIONAL_ID: int
 RESOURCE_UNKNOWN: int
+SCRAM_MECHANISM_UNKNOWN: int
+SCRAM_MECHANISM_SHA_256: int
+SCRAM_MECHANISM_SHA_512: int
 TIMESTAMP_CREATE_TIME: int
 TIMESTAMP_LOG_APPEND_TIME: int
 TIMESTAMP_NOT_AVAILABLE: int
@@ -322,11 +341,11 @@ class Message:
     def __len__(self) -> int: ...
 
 class NewTopic:
-    topic: ClassVar[str]
-    num_partitions: ClassVar[int]
-    replication_factor: ClassVar[int]
-    replica_assignment: ClassVar[list[list[str]]]
-    config: ClassVar[dict[str, str] | None]
+    topic: str
+    num_partitions: int
+    replication_factor: int
+    replica_assignment: list[list[str]]
+    config: dict[str, str] | None
 
     def __init__(
         self,
@@ -364,12 +383,12 @@ class NewPartitions:
         def __ne__(self, other: "NewPartitions") -> bool: ...
 
 class TopicPartition:
-    topic: ClassVar[str]
-    partition: ClassVar[int]
-    offset: ClassVar[int]
-    metadata: ClassVar[str | None]
-    leader_epoch: ClassVar[int | None]
-    error: ClassVar[KafkaError | None]
+    topic: str
+    partition: int
+    offset: int
+    metadata: str | None
+    leader_epoch: int | None
+    error: KafkaError | None
 
     def __init__(
         self,

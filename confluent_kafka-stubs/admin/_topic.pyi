@@ -14,7 +14,7 @@ class TopicDescription:
     topic_id: Uuid
     is_internal: bool
     partitions: list[TopicPartitionInfo]
-    authorized_operations = list[AclOperation] | None
+    authorized_operations: list[AclOperation] | None
 
     def __init__(
         self,

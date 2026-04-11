@@ -6,41 +6,38 @@ This package is licensed under the Apache 2.0 License.
 from __future__ import annotations
 
 # standard library
-from io import BytesIO
-from typing import TYPE_CHECKING, Any, Callable
+from typing import Callable, Optional, Union
 
-from ..serialization import Deserializer as Deserializer
 from ..serialization import SerializationContext
-from ..serialization import SerializationError as SerializationError
-from ..serialization import Serializer as Serializer
-from . import Schema as Schema
-from . import topic_subject_name_strategy as topic_subject_name_strategy
-from .schema_registry_client import SchemaRegistryClient
+from .schema_registry_client import Schema, SchemaRegistryClient
 
-if TYPE_CHECKING:
-    # pypi/conda library
-    from fastavro.types import AvroMessage as AvroMessage
-
-class _ContextStringIO(BytesIO):
-    def __enter__(self) -> _ContextStringIO: ...
-    def __exit__(self, *args): ...
-
-class AvroSerializer(Serializer):
+class AvroSerializer:
     def __init__(
         self,
         schema_registry_client: SchemaRegistryClient,
-        schema_str: str | Schema,
-        to_dict: Callable[[object, SerializationContext], dict[Any, Any]] | None = None,
-        conf: dict | None = None,
+        schema_str: Union[str, Schema, None] = None,
+        to_dict: Optional[Callable[[object, SerializationContext], dict]] = None,
+        conf: Optional[dict] = None,
+        rule_conf: Optional[dict] = None,
     ) -> None: ...
-    def __call__(self, obj: object, ctx: SerializationContext) -> bytes | None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
+    def __call__(
+        self,
+        obj: object,
+        ctx: Optional[SerializationContext] = None,
+    ) -> Optional[bytes]: ...
 
-class AvroDeserializer(Deserializer):
+class AvroDeserializer:
     def __init__(
         self,
         schema_registry_client: SchemaRegistryClient,
-        schema_str: str | Schema | None = None,
-        from_dict: Callable[[dict[Any, Any], SerializationContext], object] | None = None,
+        schema_str: Union[str, Schema, None] = None,
+        from_dict: Optional[Callable[[dict, SerializationContext], object]] = None,
         return_record_name: bool = False,
+        conf: Optional[dict] = None,
+        rule_conf: Optional[dict] = None,
     ) -> None: ...
-    def __call__(self, data: bytes, ctx: SerializationContext) -> "AvroMessage | dict | None": ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
+    def __call__(
+        self,
+        data: Optional[bytes],
+        ctx: Optional[SerializationContext] = None,
+    ) -> Union[dict, object, None]: ...
