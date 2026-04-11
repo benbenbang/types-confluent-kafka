@@ -25,6 +25,7 @@ from .cimpl import Message as Message
 from .cimpl import Producer as Producer
 from .cimpl import TopicPartition as TopicPartition
 from .cimpl import libversion as libversion
+from .cimpl import version as version
 from .deserializing_consumer import DeserializingConsumer as DeserializingConsumer
 from .error import KafkaError as KafkaError
 from .error import KafkaException as KafkaException
@@ -37,6 +38,7 @@ __all__ = [
     "KafkaException",
     "kafkatest",  # type: ignore
     "libversion",
+    "version",
     "Message",
     "OFFSET_BEGINNING",
     "OFFSET_END",

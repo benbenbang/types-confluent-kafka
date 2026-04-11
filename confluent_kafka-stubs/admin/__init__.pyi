@@ -15,12 +15,14 @@ from ..cimpl import CONFIG_SOURCE_DEFAULT_CONFIG as CONFIG_SOURCE_DEFAULT_CONFIG
 from ..cimpl import CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_BROKER_CONFIG
 from ..cimpl import CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG as CONFIG_SOURCE_DYNAMIC_DEFAULT_BROKER_CONFIG
 from ..cimpl import CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG as CONFIG_SOURCE_DYNAMIC_TOPIC_CONFIG
+from ..cimpl import CONFIG_SOURCE_GROUP_CONFIG as CONFIG_SOURCE_GROUP_CONFIG
 from ..cimpl import CONFIG_SOURCE_STATIC_BROKER_CONFIG as CONFIG_SOURCE_STATIC_BROKER_CONFIG
 from ..cimpl import CONFIG_SOURCE_UNKNOWN_CONFIG as CONFIG_SOURCE_UNKNOWN_CONFIG
 from ..cimpl import RESOURCE_ANY as RESOURCE_ANY
 from ..cimpl import RESOURCE_BROKER as RESOURCE_BROKER
 from ..cimpl import RESOURCE_GROUP as RESOURCE_GROUP
 from ..cimpl import RESOURCE_TOPIC as RESOURCE_TOPIC
+from ..cimpl import RESOURCE_TRANSACTIONAL_ID as RESOURCE_TRANSACTIONAL_ID
 from ..cimpl import RESOURCE_UNKNOWN as RESOURCE_UNKNOWN
 from ..cimpl import KafkaException as KafkaException
 from ..cimpl import NewPartitions as NewPartitions
@@ -111,7 +113,7 @@ class AdminClient(_AdminClientImpl):
     ) -> "Future[ListConsumerGroupsResult]": ...
     def describe_consumer_groups(
         self, group_ids: list[str], request_timeout: float = 1000.0
-    ) -> dict[str, "Future[dict[str, ConsumerGroupDescription]]"]: ...
+    ) -> dict[str, "Future[ConsumerGroupDescription]"]: ...
     def delete_consumer_groups(
         self, group_ids: list[str], request_timeout: float = 1000.0
     ) -> dict[str, "Future[None]"]: ...

@@ -6,36 +6,37 @@ This package is licensed under the Apache 2.0 License.
 from __future__ import annotations
 
 # standard library
-from io import BytesIO
-from typing import Any, Callable
+from typing import Callable, Optional, Union
 
-from ..schema_registry import Schema as Schema
-from ..schema_registry import topic_subject_name_strategy as topic_subject_name_strategy
-from ..schema_registry.schema_registry_client import SchemaRegistryClient
-from ..serialization import Deserializer as Deserializer
 from ..serialization import SerializationContext
-from ..serialization import SerializationError as SerializationError
-from ..serialization import Serializer as Serializer
+from .schema_registry_client import Schema, SchemaRegistryClient
 
-class _ContextStringIO(BytesIO):
-    def __enter__(self) -> _ContextStringIO: ...
-    def __exit__(self, *args): ...
-
-class JSONSerializer(Serializer):
+class JSONSerializer:
     def __init__(
         self,
-        schema_str: str | Schema,
+        schema_str: Union[str, Schema, None],
         schema_registry_client: SchemaRegistryClient,
-        to_dict: Callable[[object, SerializationContext], dict[Any, Any]] | None = None,
-        conf: dict | None = None,
+        to_dict: Optional[Callable[[object, SerializationContext], dict]] = None,
+        conf: Optional[dict] = None,
+        rule_conf: Optional[dict] = None,
     ) -> None: ...
-    def __call__(self, obj: object, ctx: SerializationContext) -> bytes | None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
+    def __call__(
+        self,
+        obj: object,
+        ctx: Optional[SerializationContext] = None,
+    ) -> Optional[bytes]: ...
 
-class JSONDeserializer(Deserializer):
+class JSONDeserializer:
     def __init__(
         self,
-        schema_str: str | Schema,
-        from_dict: Callable[[dict[Any, Any], SerializationContext], object] | None = None,
-        schema_registry_client: SchemaRegistryClient | None = None,
+        schema_str: Union[str, Schema, None],
+        from_dict: Optional[Callable[[dict, SerializationContext], object]] = None,
+        schema_registry_client: Optional[SchemaRegistryClient] = None,
+        conf: Optional[dict] = None,
+        rule_conf: Optional[dict] = None,
     ) -> None: ...
-    def __call__(self, data: bytes, ctx: SerializationContext) -> object | dict | None: ...  # type: ignore # issue: https://github.com/confluentinc/confluent-kafka-python/issues/1631
+    def __call__(
+        self,
+        data: Optional[bytes],
+        ctx: Optional[SerializationContext] = None,
+    ) -> Optional[bytes]: ...

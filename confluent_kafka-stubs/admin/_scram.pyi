@@ -7,7 +7,6 @@ from __future__ import annotations
 
 # standard library
 from enum import Enum
-from typing import ClassVar
 
 from .. import cimpl as cimpl
 
@@ -25,8 +24,8 @@ class ScramCredentialInfo:
     def __init__(self, mechanism: ScramMechanism, iterations: int) -> None: ...
 
 class UserScramCredentialsDescription:
-    user: ClassVar[str]
-    scram_credential_info: ClassVar[ScramCredentialInfo]
+    user: str
+    scram_credential_infos: list[ScramCredentialInfo]
 
     def __init__(self, user: str, scram_credential_infos: list[ScramCredentialInfo]) -> None: ...
 
